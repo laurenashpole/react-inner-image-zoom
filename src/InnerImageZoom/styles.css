@@ -1,0 +1,26 @@
+.iiz {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.iiz__img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  cursor: zoom-in;
+}
+
+.iiz__zoom-img {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  transition: linear 0.15s opacity, linear 0.15s visibility;
+}
+
+.iiz__zoom-img--visible {
+  visibility: visible;
+  opacity: 1;
+  cursor: zoom-out;
+}
