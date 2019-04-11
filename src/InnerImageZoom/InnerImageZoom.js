@@ -29,7 +29,7 @@ class InnerImageZoom extends Component {
     } else {
       this.offset = this.el.getBoundingClientRect();
 
-      if (this.imgData) {
+      if (this.ratios) {
         this.zoomIn(e.pageX, e.pageY);
       } else {
         this.onLoadCallback = this.zoomIn.bind(this, e.pageX, e.pageY);
@@ -45,8 +45,8 @@ class InnerImageZoom extends Component {
     top = Math.max(Math.min(top, this.el.offsetHeight), 0);
 
     this.setState({
-      left: left * -this.imgData.xRatio,
-      top: top * -this.imgData.yRatio
+      left: left * -this.ratios.x,
+      top: top * -this.ratios.y
     });
   }
 
@@ -54,7 +54,7 @@ class InnerImageZoom extends Component {
     const wasZoomed = this.state.isZoomed;
 
     if (wasZoomed) {
-      if (this.imgData) {
+      if (this.ratios) {
         this.offset = {
           left: e.changedTouches[0].pageX - this.zoomImg.offsetLeft,
           top: e.changedTouches[0].pageY - this.zoomImg.offsetTop
@@ -84,9 +84,9 @@ class InnerImageZoom extends Component {
   }
 
   handleLoad = (e) => {
-    this.imgData = {
-      xRatio: (e.target.offsetWidth - this.el.offsetWidth) / this.el.offsetWidth,
-      yRatio: (e.target.offsetHeight - this.el.offsetHeight) / this.el.offsetHeight
+    this.ratios = {
+      x: (e.target.offsetWidth - this.el.offsetWidth) / this.el.offsetWidth,
+      y: (e.target.offsetHeight - this.el.offsetHeight) / this.el.offsetHeight
     };
 
     if (this.onLoadCallback) {
@@ -99,7 +99,7 @@ class InnerImageZoom extends Component {
     this.zoomOut(() => {
       // TODO: Switch to transitionend listener to account for custom styling
       setTimeout(() => {
-        this.imgData = null;
+        this.ratios = null;
 
         this.setState({
           isActive: false,
@@ -153,9 +153,11 @@ class InnerImageZoom extends Component {
   }
 
   render () {
+    const fullscreenOnMobile = this.props.fullscreenOnMobile && window.matchMedia && window.matchMedia(`(max-width: ${this.props.mobileBreakpoint}px)`).matches;
+
     return(
       <figure
-        className={`iiz ${this.props.fullscreenOnMobile && this.state.isZoomed ? 'iiz--full' : ''}`}
+        className={`iiz ${fullscreenOnMobile ? 'iiz--mobile' : ''} ${fullscreenOnMobile && this.state.isZoomed ? 'iiz--full' : ''}`}
         ref={(el) => { this.el = el; }}
         onMouseEnter={this.state.isTouch ? null : this.handleMouseEnter}
         onMouseMove={this.state.isZoomed && !this.state.isTouch ? (e) => { this.handleMouseMove(e.pageX, e.pageY); } : null}
@@ -177,7 +179,7 @@ class InnerImageZoom extends Component {
         }
 
         {this.state.isZoomed && this.state.isTouch &&
-          <a className="iiz__close" href="javascript:void(0);" onClick={this.handleClose}>Close</a>
+          <a className="iiz__close" href="javascript:void(0);" onClick={this.handleClose}></a>
         }
       </figure>
     );
@@ -188,8 +190,13 @@ InnerImageZoom.propTypes = {
   src: PropTypes.string,
   zoomSrc: PropTypes.string,
   fullscreenOnMobile: PropTypes.bool,
+  mobileBreakpoint: PropTypes.number,
   onZoomIn: PropTypes.func,
   onZoomOut: PropTypes.func
+};
+
+InnerImageZoom.defaultProps = {
+  mobileBreakpoint: 500
 };
 
 export default InnerImageZoom;
