@@ -4,7 +4,15 @@
 [![npm package][npm-badge]][npm]
 [![Coveralls][coveralls-badge]][coveralls]
 
-Describe react-inner-image-zoom here.
+## Props
+
+Prop | Type | Default | Description
+--- | --- | --- | ---
+src | String | N/A | TK
+zoomSrc | String | N/A | TK
+fullscreenOnMobile | Boolean | N/A | TK
+onZoomIn | Function | N/A | TK
+onZoomOut | Function | N/A | TK
 
 [build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
 [build]: https://travis-ci.org/user/repo
