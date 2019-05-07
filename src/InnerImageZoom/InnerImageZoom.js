@@ -27,7 +27,12 @@ class InnerImageZoom extends Component {
     if (wasZoomed) {
       this.zoomOut();
     } else {
-      this.offset = this.el.getBoundingClientRect();
+      const rect = this.el.getBoundingClientRect();
+
+      this.offset = {
+        left: window.pageXOffset + rect.left,
+        top: window.pageYOffset + rect.top
+      };
 
       if (this.ratios) {
         this.zoomIn(e.pageX, e.pageY);
@@ -58,13 +63,17 @@ class InnerImageZoom extends Component {
         this.offset = {
           left: e.changedTouches[0].pageX - this.zoomImg.offsetLeft,
           top: e.changedTouches[0].pageY - this.zoomImg.offsetTop
-        }
+        };
       }
     } else {
       this.setState({
         isActive: true,
         isTouch: true
       });
+
+      if (this.props.fullscreenOnMobile) {
+        document.documentElement.style.overflow = 'hidden';
+      }
 
       this.onLoadCallback = this.touchZoomIn.bind(this, e.changedTouches[0].pageX, e.changedTouches[0].pageY);
     }
@@ -101,6 +110,10 @@ class InnerImageZoom extends Component {
       setTimeout(() => {
         this.ratios = null;
 
+        if (this.props.fullscreenOnMobile) {
+          document.documentElement.style.overflow = 'auto';
+        }
+
         this.setState({
           isActive: false,
           isTouch: false
@@ -122,15 +135,27 @@ class InnerImageZoom extends Component {
   }
 
   touchZoomIn = (pageX, pageY) => {
-    this.offset = {
-      left: (this.zoomImg.offsetWidth / this.el.offsetWidth) * (pageX -  this.el.getBoundingClientRect().left),
-      top: (this.zoomImg.offsetHeight / this.el.offsetHeight) * (pageY - this.el.getBoundingClientRect().top)
-    };
+    const rect = this.el.getBoundingClientRect();
+
+    if (this.props.fullscreenOnMobile) {
+      this.ratios = {
+        x: (this.zoomImg.offsetWidth - this.el.offsetWidth) / this.el.offsetWidth,
+        y: (this.zoomImg.offsetHeight - this.el.offsetHeight) / this.el.offsetHeight
+      };
+    }
+
+    const zoomPageX = (pageX - (window.pageXOffset + rect.left)) * -this.ratios.x;
+    const zoomPageY = (pageY - (window.pageYOffset + rect.top)) * -this.ratios.y;
 
     this.setState({
       isZoomed: true
     }, () => {
-      this.handleTouchMove(pageX, pageY);
+      this.offset = {
+        left: 0,
+        top: 0
+      };
+
+      this.handleTouchMove(zoomPageX, zoomPageY);
 
       if (this.props.onZoomIn) {
         this.props.onZoomIn();
@@ -162,7 +187,7 @@ class InnerImageZoom extends Component {
         onMouseEnter={this.state.isTouch ? null : this.handleMouseEnter}
         onMouseMove={this.state.isZoomed && !this.state.isTouch ? (e) => { this.handleMouseMove(e.pageX, e.pageY); } : null}
         onMouseLeave={this.handleClose}
-        onClick={this.state.isTouch ? null : this.handleClick}
+        onClick={this.handleClick}
         onTouchStart={this.handleTouchStart}
         onTouchMove={this.state.isZoomed ? (e) => { this.handleTouchMove(e.changedTouches[0].pageX, e.changedTouches[0].pageY); } : null}
       >

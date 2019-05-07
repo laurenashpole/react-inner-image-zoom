@@ -1,14 +1,40 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { render } from 'react-dom';
 import InnerImageZoom from '../../src';
+import ThumbnailGallery from './components/ThumbnailGallery';
+import './styles.css';
 
 class Demo extends Component {
   render() {
     return (
-      <div>
-        <h1>react-inner-image-zoom Demo</h1>
-        <InnerImageZoom src="https://images.unsplash.com/photo-1517331156700-3c241d2b4d83?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" zoomSrc="https://images.unsplash.com/photo-1517331156700-3c241d2b4d83?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80" fullscreenOnMobile={true} />
-      </div>
+      <Fragment>
+        <header className="header">
+          <div className="container">
+            <h1>react-inner-image-zoom Demo</h1>
+            <p>Some kind of description can go here!</p>
+          </div>
+        </header>
+
+        <section className="container">
+          <InnerImageZoom src="/unsplash-1.jpg" zoomSrc="/unsplash-1-large.jpg" fullscreenOnMobile={false} />
+        </section>
+
+        <section className="container">
+          <ThumbnailGallery images={[{
+            src: '/unsplash-1.jpg',
+            zoomSrc: '/unsplash-1-large.jpg'
+          }, {
+            src: '/unsplash-2.jpg',
+            zoomSrc: '/unsplash-2-large.jpg'
+          }, {
+            src: '/unsplash-3.jpg',
+            zoomSrc: '/unsplash-3-large.jpg'
+          }, {
+            src: '/unsplash-4.jpg',
+            zoomSrc: '/unsplash-4-large.jpg'
+          }]} />
+        </section>
+      </Fragment>
     );
   }
 }
