@@ -66,9 +66,9 @@ class InnerImageZoom extends Component {
     }
   }
 
-  handleMouseMove = (pageX, pageY) => {
-    let left = pageX - this.offsets.x;
-    let top = pageY - this.offsets.y;
+  handleMouseMove = (e) => {
+    let left = e.pageX - this.offsets.x;
+    let top = e.pageY - this.offsets.y;
 
     left = Math.max(Math.min(left, this.img.offsetWidth), 0);
     top = Math.max(Math.min(top, this.img.offsetHeight), 0);
@@ -79,9 +79,9 @@ class InnerImageZoom extends Component {
     });
   }
 
-  handleTouchMove = (pageX, pageY) => {
-    let left = pageX - this.offsets.x;
-    let top = pageY - this.offsets.y;
+  handleTouchMove = (e) => {
+    let left = e.changedTouches[0].pageX - this.offsets.x;
+    let top = e.changedTouches[0].pageY - this.offsets.y;
 
     left = Math.max(Math.min(left, 0), (this.zoomImg.offsetWidth - this.img.offsetWidth) * -1);
     top = Math.max(Math.min(top, 0), (this.zoomImg.offsetHeight - this.img.offsetHeight) * -1);
@@ -124,7 +124,11 @@ class InnerImageZoom extends Component {
   initialMove = (pageX, pageY, rect) => {
     this.offsets.x = window.pageXOffset + rect.left
     this.offsets.y = window.pageYOffset + rect.top;
-    this.handleMouseMove(pageX, pageY);
+
+    this.handleMouseMove({
+      pageX: pageX,
+      pageY: pageY
+    });
   }
 
   initialTouchMove = (pageX, pageY, rect) => {
@@ -137,7 +141,13 @@ class InnerImageZoom extends Component {
 
     this.offsets.x = 0;
     this.offsets.y = 0;
-    this.handleTouchMove(initialPageX, initialPageY);
+
+    this.handleTouchMove({
+      changedTouches: [{
+        pageX: initialPageX,
+        pageY: initialPageY
+      }]
+    });
   }
 
   zoomOut = (callback) => {
@@ -178,9 +188,9 @@ class InnerImageZoom extends Component {
         onTouchStart={this.handleTouchStart}
         onClick={this.handleClick}
         onMouseEnter={this.state.isTouch ? null : this.handleMouseEnter}
-        onMouseMove={this.state.isZoomed && !this.state.isTouch ? (e) => { this.handleMouseMove(e.pageX, e.pageY); } : null}
+        onMouseMove={this.state.isZoomed && !this.state.isTouch ? this.handleMouseMove : null}
         onMouseLeave={this.state.isTouch ? null : this.handleClose}
-        onTouchMove={this.state.isZoomed ? (e) => { this.handleTouchMove(e.changedTouches[0].pageX, e.changedTouches[0].pageY); } : null}
+        onTouchMove={this.state.isZoomed ? this.handleTouchMove : null}
       >
         <img className="iiz__img" src={this.props.src} />
 
