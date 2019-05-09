@@ -94,20 +94,15 @@ class InnerImageZoom extends Component {
 
   handleClose = () => {
     this.zoomOut(() => {
-      // TODO: Switch to transitionend listener to account for custom styling
       setTimeout(() => {
         this.setDefaults();
-
-        if (this.state.isFullscreen) {
-          document.documentElement.style.overflow = 'auto';
-        }
 
         this.setState({
           isActive: false,
           isTouch: false,
           isFullscreen: false
         })
-      }, 120);
+      }, this.props.fadeDuration);
     });
   }
 
@@ -135,7 +130,6 @@ class InnerImageZoom extends Component {
   initialTouchMove = (pageX, pageY, rect) => {
     if (this.state.isFullscreen) {
       this.ratios = this.getRatios(this.img, this.zoomImg);
-      document.documentElement.style.overflow = 'hidden';
     }
 
     const initialPageX = (pageX - (window.pageXOffset + rect.left)) * -this.ratios.x;
@@ -175,6 +169,8 @@ class InnerImageZoom extends Component {
   }
 
   render () {
+    const fadeDuration = this.state.isFullscreen ? 0 : this.props.fadeDuration;
+
     return(
       <figure
         className={`iiz ${this.state.isFullscreen ? 'iiz--mobile' : ''} ${this.state.isFullscreen && this.state.isZoomed ? 'iiz--full' : ''}`}
@@ -192,7 +188,7 @@ class InnerImageZoom extends Component {
           <img
             className={`iiz__zoom-img ${this.state.isZoomed ? 'iiz__zoom-img--visible' : ''}`}
             src={this.props.zoomSrc}
-            style={{top: this.state.top, left: this.state.left}}
+            style={{top: this.state.top, left: this.state.left, transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`}}
             ref={(el) => { this.zoomImg = el; }}
             onLoad={this.handleLoad}
           />
@@ -209,6 +205,7 @@ class InnerImageZoom extends Component {
 InnerImageZoom.propTypes = {
   src: PropTypes.string,
   zoomSrc: PropTypes.string,
+  fadeDuration: PropTypes.number,
   fullscreenOnMobile: PropTypes.bool,
   mobileBreakpoint: PropTypes.number,
   onZoomIn: PropTypes.func,
@@ -216,6 +213,7 @@ InnerImageZoom.propTypes = {
 };
 
 InnerImageZoom.defaultProps = {
+  fadeDuration: 150,
   mobileBreakpoint: 640
 };
 

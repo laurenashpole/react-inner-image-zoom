@@ -14,10 +14,6 @@
   z-index: 10000;
 }
 
-.iiz--mobile .iiz__zoom-img {
-  transition: none;
-}
-
 .iiz__img {
   max-width: 100%;
   height: auto;
@@ -30,7 +26,7 @@
   position: absolute;
   visibility: hidden;
   opacity: 0;
-  transition: linear 0.15s opacity, linear 0.15s visibility;
+  touch-action: none;
 }
 
 .iiz__zoom-img--visible {
