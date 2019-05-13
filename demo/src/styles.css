@@ -206,4 +206,8 @@ body {
   .nav__list {
     padding: 1.2rem 0 1.2rem 1.6rem;
   }
+
+  .nav__item {
+    padding-left: 2.5rem;
+  }
 }
