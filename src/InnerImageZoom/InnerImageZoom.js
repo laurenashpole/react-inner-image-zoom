@@ -183,7 +183,7 @@ class InnerImageZoom extends Component {
 
     return(
       <figure
-        className={`iiz ${this.state.isFullscreen ? 'iiz--mobile' : ''} ${this.state.isFullscreen && this.state.isZoomed ? 'iiz--full' : ''}`}
+        className={`iiz ${this.state.isFullscreen && this.state.isZoomed ? 'iiz--full' : ''}`}
         ref={(el) => { this.img = el; }}
         onTouchStart={this.handleTouchStart}
         onClick={this.handleClick}
@@ -198,7 +198,11 @@ class InnerImageZoom extends Component {
           <img
             className={`iiz__zoom-img ${this.state.isZoomed ? 'iiz__zoom-img--visible' : ''}`}
             src={this.props.zoomSrc}
-            style={{top: this.state.top, left: this.state.left, transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`}}
+            style={{
+              top: this.state.top,
+              left: this.state.left,
+              transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
+            }}
             ref={(el) => { this.zoomImg = el; }}
             onLoad={this.handleLoad}
           />
