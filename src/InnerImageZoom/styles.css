@@ -37,8 +37,8 @@
 
 .iiz__btn {
   background: rgba(255, 255, 255, 0.8);
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   position: absolute;
   text-decoration: none;
   display: flex;
@@ -61,8 +61,8 @@
 .iiz__hint:before {
   content: " ";
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 19.9 19.9'%3E%3Cpath d='M13.9 7.4C13.9 3.8 11 .9 7.4.9S.9 3.8.9 7.4s2.9 6.5 6.5 6.5 6.5-2.9 6.5-6.5zm5.3 12.5l-6.7-7.2c-1.4 1.3-3.2 2.1-5.1 2.1-4.1 0-7.4-3.3-7.4-7.4S3.3 0 7.4 0s7.4 3.3 7.4 7.4c0 1.7-.6 3.4-1.7 4.7l6.8 7.2-.7.6z' fill='%23000222'/%3E%3C/svg%3E");
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 }
 
 .iiz__close {
@@ -72,8 +72,8 @@
 
 .iiz__close::before {
   content: " ";
-  width: 35px;
-  height: 35px;
+  width: 29px;
+  height: 29px;
   background-image: linear-gradient(#222, #222), linear-gradient(#222, #222);
   background-size: 100% 1px, 1px 100%;
   transform: rotate(45deg);

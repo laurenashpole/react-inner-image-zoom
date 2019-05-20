@@ -13,6 +13,19 @@ body {
   padding: 0;
 }
 
+body:before {
+  content: " ";
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23ECEDEF;stroke-miterlimit:10%7D%3C/style%3E%3Cpath class='st0' d='M7.5 20h25M20 32.5v-25'/%3E%3C/svg%3E");
+  background-size: 35px;
+  background-position: right top;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 60%;
+  height: 420px;
+}
+
 .nav__list {
   margin: 0;
   padding: 0.8rem 0.2rem;
@@ -44,24 +57,48 @@ body {
   left: 0.2rem;
 }
 
-.nav__item a {
+.nav__link {
   color: #373737;
   text-decoration: none;
   display: inline-block;
+  position: relative;
+  z-index: 0;
 }
 
-.nav__item a:hover,
-.nav__item a:focus {
+.nav__link:before {
+  content: " ";
+  background: #fff;
+  width: 100%;
+  height: 0;
+  position: absolute;
+  bottom: 0.188em;
+  left: 0.188em;
+  display: block;
+  z-index: -1;
+  transition: height 0.2s linear;
+}
+
+.nav__link--active:before,
+.nav__link:hover:before {
+  height: 1.125em;
+}
+
+.nav__link:hover,
+.nav__link:focus {
   color: #222;
 }
 
-.nav__list--secondary a {
+.nav__list--secondary .nav__link {
   color: #e55a02;
 }
 
-.nav__list--secondary a:hover,
-.nav__list--secondary a:focus {
-  color: #cc5002;
+.nav__list--secondary .nav__link:before {
+  background: #f2f3f7;
+}
+
+.nav__list--secondary .nav__link:hover,
+.nav__list--secondary .nav__link:focus {
+  color: #e55a02;
 }
 
 .container {
@@ -208,6 +245,10 @@ body {
   }
 
   .nav__item {
-    padding-left: 2.5rem;
+    padding-left: 3rem;
+  }
+
+  .nav__item--left {
+    padding-left: 1rem;
   }
 }
