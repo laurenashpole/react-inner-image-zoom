@@ -5,14 +5,14 @@
   display: inline-block;
 }
 
-.iiz--full {
+/*.iiz--full {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 10000;
-}
+}*/
 
 .iiz__img {
   max-width: 100%;
@@ -22,6 +22,7 @@
 }
 
 .iiz__zoom-img {
+  width: auto !important;
   max-width: none !important;
   position: absolute;
   visibility: hidden;
@@ -33,6 +34,15 @@
   visibility: visible;
   opacity: 1;
   cursor: zoom-out;
+}
+
+.iiz__zoom-container--full {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
 }
 
 .iiz__btn {
@@ -56,6 +66,7 @@
 .iiz__hint {
   bottom: 10px;
   right: 10px;
+  point-events: none;
 }
 
 .iiz__hint:before {

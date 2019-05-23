@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import FullscreenPortal from './FullscreenPortal';
 import './styles.css';
 
 class InnerImageZoom extends Component {
@@ -18,13 +19,7 @@ class InnerImageZoom extends Component {
     this.setDefaults();
   }
 
-  handleTouchStart = (e) => {
-    if (this.state.isZoomed) {
-      this.offsets.x = e.changedTouches[0].pageX - this.zoomImg.offsetLeft;
-      this.offsets.y = e.changedTouches[0].pageY - this.zoomImg.offsetTop;
-      return;
-    }
-
+  handleInitialTouchStart = () => {
     const isFullscreen = this.props.fullscreenOnMobile && window.matchMedia && window.matchMedia(`(max-width: ${this.props.mobileBreakpoint}px)`).matches;
 
     this.setState({
@@ -32,6 +27,11 @@ class InnerImageZoom extends Component {
       isActive: true,
       isFullscreen: isFullscreen
     });
+  }
+
+  handleTouchStart = (e) => {
+    this.offsets.x = e.changedTouches[0].pageX - this.zoomImg.offsetLeft;
+    this.offsets.y = e.changedTouches[0].pageY - this.zoomImg.offsetTop;
   }
 
   handleMouseEnter = () => {
@@ -57,8 +57,10 @@ class InnerImageZoom extends Component {
   }
 
   handleLoad = (e) => {
+    const container = this.state.isFullscreen ? this.fullscreenEl : this.img;
+
     this.isLoaded = true;
-    this.ratios = this.getRatios(this.img, e.target);
+    this.ratios = this.getRatios(container, e.target);
 
     if (this.onLoadCallback) {
       this.onLoadCallback();
@@ -80,11 +82,13 @@ class InnerImageZoom extends Component {
   }
 
   handleTouchMove = (e) => {
+    const container = this.state.isFullscreen ? this.fullscreenEl : this.img;
+
     let left = e.changedTouches[0].pageX - this.offsets.x;
     let top = e.changedTouches[0].pageY - this.offsets.y;
 
-    left = Math.max(Math.min(left, 0), (this.zoomImg.offsetWidth - this.img.offsetWidth) * -1);
-    top = Math.max(Math.min(top, 0), (this.zoomImg.offsetHeight - this.img.offsetHeight) * -1);
+    left = Math.max(Math.min(left, 0), (this.zoomImg.offsetWidth - container.offsetWidth) * -1);
+    top = Math.max(Math.min(top, 0), (this.zoomImg.offsetHeight - container.offsetHeight) * -1);
 
     this.setState({
       left: left,
@@ -111,7 +115,8 @@ class InnerImageZoom extends Component {
       isZoomed: true
     }, () => {
       const initialMove = this.state.isTouch ? this.initialTouchMove : this.initialMove;
-      const rect = this.img.getBoundingClientRect();
+      const container = this.state.isFullscreen ? this.fullscreenEl : this.img;
+      const rect = container.getBoundingClientRect();
 
       initialMove(pageX, pageY, rect);
 
@@ -132,10 +137,6 @@ class InnerImageZoom extends Component {
   }
 
   initialTouchMove = (pageX, pageY, rect) => {
-    if (this.state.isFullscreen) {
-      this.ratios = this.getRatios(this.img, this.zoomImg);
-    }
-
     const initialPageX = (pageX - (window.pageXOffset + rect.left)) * -this.ratios.x;
     const initialPageY = (pageY - (window.pageYOffset + rect.top)) * -this.ratios.y;
 
@@ -178,43 +179,60 @@ class InnerImageZoom extends Component {
     };
   }
 
-  render () {
-    const fadeDuration = this.state.isFullscreen ? 0 : this.props.fadeDuration;
+  getZoomImg = (fadeDuration) => {
+    return(
+      <Fragment>
+        <img
+          className={`iiz__zoom-img ${this.state.isZoomed ? 'iiz__zoom-img--visible' : ''}`}
+          src={this.props.zoomSrc}
+          ref={(el) => { this.zoomImg = el; }}
+          style={{
+            top: this.state.top,
+            left: this.state.left,
+            transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
+          }}
+          role="presentation"
+          onLoad={this.handleLoad}
+          onTouchStart={this.handleTouchStart}
+          onMouseMove={!this.state.isTouch ? this.handleMouseMove : null}
+          onTouchMove={this.state.isTouch ? this.handleTouchMove : null}
+        />
 
+        {this.state.isTouch &&
+          <a className="iiz__btn iiz__close" href="javascript:void(0);" onClick={this.handleClose} aria-label="Zoom Out"></a>
+        }
+      </Fragment>
+    );
+  }
+
+  render () {
     return(
       <figure
-        className={`iiz ${this.state.isFullscreen && this.state.isZoomed ? 'iiz--full' : ''}`}
+        className="iiz"
         ref={(el) => { this.img = el; }}
-        onTouchStart={this.handleTouchStart}
+        onTouchStart={this.handleInitialTouchStart}
         onClick={this.handleClick}
         onMouseEnter={this.state.isTouch ? null : this.handleMouseEnter}
-        onMouseMove={this.state.isZoomed && !this.state.isTouch ? this.handleMouseMove : null}
         onMouseLeave={this.state.isTouch ? null : this.handleClose}
-        onTouchMove={this.state.isZoomed ? this.handleTouchMove : null}
       >
         <img className="iiz__img" src={this.props.src} alt={this.props.alt} />
 
         {this.state.isActive &&
-          <img
-            className={`iiz__zoom-img ${this.state.isZoomed ? 'iiz__zoom-img--visible' : ''}`}
-            src={this.props.zoomSrc}
-            style={{
-              top: this.state.top,
-              left: this.state.left,
-              transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
-            }}
-            ref={(el) => { this.zoomImg = el; }}
-            role="presentation"
-            onLoad={this.handleLoad}
-          />
+          <Fragment>
+            {this.state.isFullscreen ? (
+              <FullscreenPortal>
+                <div className="iiz__zoom-container--full" ref={(el) => { this.fullscreenEl = el; }}>
+                  {this.getZoomImg(0)}
+                </div>
+              </FullscreenPortal>
+            ) : (
+              this.getZoomImg(this.props.fadeDuration)
+            )}
+          </Fragment>
         }
 
         {!this.state.isZoomed &&
           <span className="iiz__btn iiz__hint"></span>
-        }
-
-        {this.state.isZoomed && this.state.isTouch &&
-          <a className="iiz__btn iiz__close" href="javascript:void(0);" onClick={this.handleClose} aria-label="Zoom Out"></a>
         }
       </figure>
     );
