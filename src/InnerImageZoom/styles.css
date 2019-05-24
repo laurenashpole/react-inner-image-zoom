@@ -5,20 +5,12 @@
   display: inline-block;
 }
 
-/*.iiz--full {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 10000;
-}*/
-
 .iiz__img {
   max-width: 100%;
   height: auto;
   display: block;
   cursor: zoom-in;
+  pointer-events: none;
 }
 
 .iiz__zoom-img {
@@ -36,7 +28,7 @@
   cursor: zoom-out;
 }
 
-.iiz__zoom-container--full {
+.iiz__zoom-portal {
   position: fixed;
   top: 0;
   right: 0;
@@ -66,7 +58,7 @@
 .iiz__hint {
   bottom: 10px;
   right: 10px;
-  point-events: none;
+  pointer-events: none;
 }
 
 .iiz__hint:before {
@@ -79,6 +71,13 @@
 .iiz__close {
   top: 10px;
   right: 10px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.iiz__close--visible {
+  visibility: visible;
+  opacity: 1;
 }
 
 .iiz__close::before {

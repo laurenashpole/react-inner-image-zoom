@@ -6,6 +6,7 @@ class FullscreenPortal extends Component {
   constructor(props) {
     super(props);
     this.el = document.createElement('div');
+    this.el.classList.add(props.className);
   }
 
   componentDidMount() {

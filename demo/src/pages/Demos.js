@@ -27,7 +27,7 @@ const Demos = () => {
       </div>
 
       <div>
-        <Slick>
+        <Slick draggable={false}>
           <InnerImageZoom src="/unsplash-1.jpg" zoomSrc="/unsplash-1-large.jpg" fullscreenOnMobile={true} />
           <InnerImageZoom src="/unsplash-2.jpg" zoomSrc="/unsplash-2-large.jpg" fullscreenOnMobile={true} />
           <InnerImageZoom src="/unsplash-3.jpg" zoomSrc="/unsplash-3-large.jpg" fullscreenOnMobile={true} />
