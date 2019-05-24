@@ -1,0 +1,76 @@
+.demo {
+  background-image:
+    linear-gradient(#f2f3f7, #f2f3f7),
+    linear-gradient(transparent 1.5rem, #f2f3f7 1.5rem),
+    linear-gradient(#f2f3f7, #f2f3f7);
+  background-size:
+    2rem calc((100vw - 1.8rem) * 0.666),
+    calc(100% - 4rem) calc((100vw - 1.8rem) * 0.666),
+    2rem calc((100vw - 1.8rem) * 0.666);
+  background-position: 0 0, 2rem 0, 100% 0;
+  background-repeat: no-repeat;
+  margin-bottom: 2em;
+  padding: 0 1rem 1rem 1rem;
+}
+
+.demo__heading {
+  width: 100%;
+  padding: 0 1.5em;
+  color: #9697ae;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 3rem;
+  transform: translateY(-1.5rem);
+}
+
+.demo__notes-heading {
+  font-family: 'Frank Ruhl Libre', serif;
+  letter-spacing: 0.025em;
+}
+
+.demo__notes-list {
+  padding-left: 1em;
+}
+
+@media (min-width: 768px) {
+  .demo {
+    background-size:
+      2rem calc((100vw - 5.6rem) * 0.666),
+      17rem calc((100vw - 5.6rem) * 0.666),
+      calc(100% - 19rem) calc((100vw - 5.6rem) * 0.666);
+    background-position: 0 0, 2rem 0, 19rem 0;
+    padding: 0 2rem 2rem 2rem;
+  }
+
+  .demo__heading {
+    width: 17rem;
+    padding: 0 1.75rem;
+    text-align: left;
+  }
+}
+
+@media (min-width: 900px) {
+  .demo {
+    background-size:
+      2rem calc(100% - 4rem),
+      17rem calc(100% - 4rem),
+      calc(100% - 19rem) calc(100% - 4rem);
+    margin-bottom: 4em;
+  }
+
+  .demo__content {
+    display: flex;
+  }
+
+  .demo__example {
+    width: 75%;
+    padding-right: 2em;
+  }
+
+  .demo__notes {
+    width: 25%;
+  }
+}

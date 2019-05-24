@@ -3,13 +3,13 @@
   position: relative;
   overflow: hidden;
   display: inline-block;
+  cursor: zoom-in;
 }
 
 .iiz__img {
   max-width: 100%;
   height: auto;
   display: block;
-  cursor: zoom-in;
   pointer-events: none;
 }
 

@@ -15,15 +15,26 @@ body {
 
 body:before {
   content: " ";
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23ECEDEF;stroke-miterlimit:10%7D%3C/style%3E%3Cpath class='st0' d='M7.5 20h25M20 32.5v-25'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg id='Layer_1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cstyle%3E.st0%7Bfill:none;stroke:%23ecedef;stroke-miterlimit:10%7D%3C/style%3E%3Cpath class='st0' d='M9.5 20h21M20 30.5v-21'/%3E%3C/svg%3E");
   background-size: 35px;
-  background-position: right top;
+  background-position: right bottom;
   position: absolute;
   top: 0;
   left: 0;
   z-index: -1;
-  width: 60%;
-  height: 420px;
+  width: 70%;
+  height: 70%;
+}
+
+h2 {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 2rem;
+  letter-spacing: 0.025em;
+}
+
+.heading--offset {
+  text-align: center;
+  padding-bottom: 1.5rem;
 }
 
 .nav__list {
@@ -120,6 +131,7 @@ body:before {
   font-family: 'Frank Ruhl Libre', serif;
   font-size: 1.2rem;
   font-style: italic;
+  letter-spacing: 0.025em;
 }
 
 .product__btn {
@@ -240,6 +252,16 @@ body:before {
 }
 
 @media (min-width: 1024px) {
+  h2 {
+    font-size: 3rem;
+
+  }
+
+  .heading--offset {
+    padding-left: 2rem;
+    text-align: left;
+  }
+
   .nav__list {
     padding: 1.2rem 0 1.2rem 1.6rem;
   }
