@@ -30,8 +30,8 @@ class InnerImageZoom extends Component {
   }
 
   handleTouchStart = (e) => {
-    this.offsets.x = e.changedTouches[0].pageX - this.zoomImg.offsetLeft;
-    this.offsets.y = e.changedTouches[0].pageY - this.zoomImg.offsetTop;
+    const touch = e.changedTouches[0];
+    this.offsets = this.getOffsets(touch.pageX, touch.pageY, this.zoomImg.offsetLeft, this.zoomImg.offsetTop);
   }
 
   handleMouseEnter = () => {
@@ -57,10 +57,9 @@ class InnerImageZoom extends Component {
   }
 
   handleLoad = (e) => {
-    const container = this.state.isFullscreen ? this.fullscreenEl : this.img;
-
     this.isLoaded = true;
-    this.ratios = this.getRatios(container, e.target);
+    this.container = this.getContainer(this.img, this.state.isFullscreen);
+    this.ratios = this.getRatios(this.container, e.target);
 
     if (this.onLoadCallback) {
       this.onLoadCallback();
@@ -72,8 +71,8 @@ class InnerImageZoom extends Component {
     let left = e.pageX - this.offsets.x;
     let top = e.pageY - this.offsets.y;
 
-    left = Math.max(Math.min(left, this.img.offsetWidth), 0);
-    top = Math.max(Math.min(top, this.img.offsetHeight), 0);
+    left = Math.max(Math.min(left, this.container.offsetWidth), 0);
+    top = Math.max(Math.min(top, this.container.offsetHeight), 0);
 
     this.setState({
       left: left * -this.ratios.x,
@@ -82,13 +81,11 @@ class InnerImageZoom extends Component {
   }
 
   handleTouchMove = (e) => {
-    const container = this.state.isFullscreen ? this.fullscreenEl : this.img;
-
     let left = e.changedTouches[0].pageX - this.offsets.x;
     let top = e.changedTouches[0].pageY - this.offsets.y;
 
-    left = Math.max(Math.min(left, 0), (this.zoomImg.offsetWidth - container.offsetWidth) * -1);
-    top = Math.max(Math.min(top, 0), (this.zoomImg.offsetHeight - container.offsetHeight) * -1);
+    left = Math.max(Math.min(left, 0), (this.zoomImg.offsetWidth - this.container.offsetWidth) * -1);
+    top = Math.max(Math.min(top, 0), (this.zoomImg.offsetHeight - this.container.offsetHeight) * -1);
 
     this.setState({
       left: left,
@@ -115,10 +112,8 @@ class InnerImageZoom extends Component {
       isZoomed: true
     }, () => {
       const initialMove = this.state.isTouch ? this.initialTouchMove : this.initialMove;
-      const container = this.state.isFullscreen ? this.fullscreenEl : this.img;
-      const rect = container.getBoundingClientRect();
 
-      initialMove(pageX, pageY, rect);
+      initialMove(pageX, pageY);
 
       if (this.props.onZoomIn) {
         this.props.onZoomIn();
@@ -126,9 +121,8 @@ class InnerImageZoom extends Component {
     });
   }
 
-  initialMove = (pageX, pageY, rect) => {
-    this.offsets.x = window.pageXOffset + rect.left
-    this.offsets.y = window.pageYOffset + rect.top;
+  initialMove = (pageX, pageY) => {
+    this.offsets = this.getOffsets(window.pageXOffset, window.pageYOffset, -this.container.left, -this.container.top);
 
     this.handleMouseMove({
       pageX: pageX,
@@ -136,12 +130,12 @@ class InnerImageZoom extends Component {
     });
   }
 
-  initialTouchMove = (pageX, pageY, rect) => {
-    const initialPageX = (pageX - (window.pageXOffset + rect.left)) * -this.ratios.x;
-    const initialPageY = (pageY - (window.pageYOffset + rect.top)) * -this.ratios.y;
+  initialTouchMove = (pageX, pageY) => {
+    // TODO: This needs to factor in size of original image when fullscreen
+    const initialPageX = (pageX - (window.pageXOffset + this.container.left)) * -this.ratios.x;
+    const initialPageY = (pageY - (window.pageYOffset + this.container.top)) * -this.ratios.y;
 
-    this.offsets.x = 0;
-    this.offsets.y = 0;
+    this.offsets = this.getOffsets(0, 0, 0, 0);
 
     this.handleTouchMove({
       changedTouches: [{
@@ -168,8 +162,36 @@ class InnerImageZoom extends Component {
   setDefaults = () => {
     this.isLoaded = false;
     this.onLoadCallback = null;
+    this.container = {};
     this.offsets = {};
     this.ratios = {};
+  }
+
+  getContainer = (img, isFullscreen) => {
+    if (isFullscreen) {
+      return {
+        offsetWidth: window.innerWidth,
+        offsetHeight: window.innerHeight,
+        left: 0,
+        top: 0
+      };
+    }
+
+    const rect = img.getBoundingClientRect();
+
+    return {
+      offsetWidth: rect.width,
+      offsetHeight: rect.height,
+      left: rect.left,
+      top: rect.top
+    };
+  }
+
+  getOffsets = (pageX, pageY, left, top) => {
+    return {
+      x: pageX - left,
+      y: pageY - top
+    };
   }
 
   getRatios = (img, zoomImg) => {
@@ -221,7 +243,7 @@ class InnerImageZoom extends Component {
           <Fragment>
             {this.state.isFullscreen ? (
               <FullscreenPortal>
-                <div className="iiz__zoom-container--full" ref={(el) => { this.fullscreenEl = el; }}>
+                <div className="iiz__zoom-container--full">
                   {this.getZoomImg(0)}
                 </div>
               </FullscreenPortal>
