@@ -206,7 +206,7 @@ class InnerImageZoom extends Component {
     };
   }
 
-  getZoomImg = (fadeDuration) => {
+  renderZoomImg = (fadeDuration) => {
     return(
       <Fragment>
         <img
@@ -216,7 +216,7 @@ class InnerImageZoom extends Component {
             left: this.state.left,
             transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
           }}
-          src={this.props.zoomSrc}
+          src={this.props.zoomSrc || this.props.src}
           ref={(el) => { this.zoomImg = el; }}
           role="presentation"
           onLoad={this.handleLoad}
@@ -250,16 +250,47 @@ class InnerImageZoom extends Component {
         onMouseEnter={this.state.isTouch ? null : this.handleMouseEnter}
         onMouseLeave={this.state.isTouch ? null : this.handleClose}
       >
-        <img className="iiz__img" src={this.props.src} alt={this.props.alt} />
+        {this.props.sources ? (
+          <picture>
+            {this.props.sources.map((source, i) => {
+              return(
+                <Fragment>
+                  {source.srcSet &&
+                    <source
+                      key={i}
+                      srcSet={source.srcSet}
+                      media={source.media}
+                      type={source.type}
+                    />
+                  }
+                </Fragment>
+              );
+            })}
+
+            <img
+              className="iiz__img"
+              src={this.props.src}
+              srcSet={this.props.srcSet}
+              alt={this.props.alt}
+            />
+          </picture>
+        ) : (
+          <img
+            className="iiz__img"
+            src={this.props.src}
+            srcSet={this.props.srcSet}
+            alt={this.props.alt}
+          />
+        )}
 
         {this.state.isActive &&
           <Fragment>
             {this.state.isFullscreen ? (
               <FullscreenPortal className="iiz__zoom-portal">
-                {this.getZoomImg(0)}
+                {this.renderZoomImg(0)}
               </FullscreenPortal>
             ) : (
-              this.getZoomImg(this.props.fadeDuration)
+              this.renderZoomImg(this.props.fadeDuration)
             )}
           </Fragment>
         }
@@ -273,7 +304,9 @@ class InnerImageZoom extends Component {
 }
 
 InnerImageZoom.propTypes = {
-  src: PropTypes.string,
+  src: PropTypes.string.isRequired,
+  srcSet: PropTypes.string,
+  sources: PropTypes.array,
   zoomSrc: PropTypes.string,
   alt: PropTypes.string,
   fadeDuration: PropTypes.number,

@@ -12,7 +12,48 @@ const Demos = () => {
       <h2 className="heading--offset">Demos</h2>
 
       <div className="demo">
-        <h3 className="demo__heading">With Thumbnail Gallery</h3>
+        <h3 className="demo__heading">Basic</h3>
+
+        <div className="demo__content">
+          <div className="demo__example">
+            <InnerImageZoom src="/unsplash-6.jpg" />
+          </div>
+
+          <div className="demo__notes">
+            <h4 className="demo__notes-heading">Notes:</h4>
+            <ul className="demo__notes-list">
+              <li>Simplest use case with only src prop set.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="demo">
+        <h3 className="demo__heading">Responsive Images</h3>
+
+        <div className="demo__content">
+          <div className="demo__example">
+            <InnerImageZoom
+              src="/unsplash-4.jpg"
+              srcSet="/unsplash-4-305.jpg, /unsplash-4-610.jpg 2x"
+              sources={[{
+                srcSet: '/unsplash-4-740.jpg, /unsplash-4-1480.jpg 2x',
+                media: '(min-width: 375px)'
+              }]}
+            />
+          </div>
+
+          <div className="demo__notes">
+            <h4 className="demo__notes-heading">Notes:</h4>
+            <ul className="demo__notes-list">
+              <li>Simplest use case with only src prop set.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="demo">
+        <h3 className="demo__heading">Dynamic Images</h3>
 
         <div className="demo__content">
           <div className="demo__example">

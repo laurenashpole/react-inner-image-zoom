@@ -189,7 +189,7 @@ h2 {
   }
 
   .nav__list {
-    max-width: 960px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 1rem 0 1rem 1.6rem;
   }
@@ -211,7 +211,7 @@ h2 {
   }
 
   .container {
-    max-width: 1024px;
+    max-width: 1164px;
     margin: 3.6rem auto;
     padding: 0 1.6rem;
   }
@@ -226,7 +226,6 @@ h2 {
   }
 
   .product__details {
-    /*padding-left: 3.6rem;*/
     padding-left: 7.5%;
     text-align: left;
   }

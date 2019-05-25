@@ -33,6 +33,11 @@
 
 .demo__notes-list {
   padding-left: 1em;
+  font-size: 0.950rem;
+}
+
+.demo__notes-list li + li {
+  margin-top: 0.5rem;
 }
 
 @media (min-width: 768px) {
