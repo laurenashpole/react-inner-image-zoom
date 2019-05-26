@@ -243,7 +243,7 @@ class InnerImageZoom extends Component {
   render () {
     return(
       <figure
-        className="iiz"
+        className={`iiz ${this.props.className ? this.props.className : ''}`}
         ref={(el) => { this.img = el; }}
         onTouchStart={this.handleInitialTouchStart}
         onClick={this.handleClick}
@@ -257,7 +257,6 @@ class InnerImageZoom extends Component {
                 <Fragment key={i}>
                   {source.srcSet &&
                     <source
-                      key={i}
                       srcSet={source.srcSet}
                       media={source.media}
                       type={source.type}
@@ -312,6 +311,7 @@ InnerImageZoom.propTypes = {
   fadeDuration: PropTypes.number,
   fullscreenOnMobile: PropTypes.bool,
   mobileBreakpoint: PropTypes.number,
+  className: PropTypes.string,
   onZoomIn: PropTypes.func,
   onZoomOut: PropTypes.func
 };
