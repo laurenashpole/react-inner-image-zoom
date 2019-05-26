@@ -1,5 +1,7 @@
 # react-inner-image-zoom
 
+[Demo](https://laurenashpole.github.io/react-inner-image-zoom)
+
 React component for magnifying an image within its parent container. Zooming behavior is triggered on click with default hover panning that switches to drag if touch is detected.
 
 [![Travis][build-badge]][build]
@@ -10,18 +12,14 @@ React component for magnifying an image within its parent container. Zooming beh
 
 ### NPM
 ```
-TK
+npm install react-inner-image-zoom
 ```
 
 ### Yarn
 ```
-TK
+yarn add react-inner-image-zoom
 ```
 
-### Script Tag
-```
-TK
-```
 
 ## Usage
 
@@ -36,31 +34,35 @@ import InnerImageZoom from 'react-inner-image-zoom';
 
 This is the simplest usage. For additional examples, visit the [demo page](https://laurenashpole.github.io/react-inner-image-zoom).
 
+
 ## Props
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
-src | String | N/A | (Required) URL for the original image.
-srcSet | String | N/A | Default srcset attribute for a responsive original image.
-sources | Array | N/A | A list of image sources for using the picture tag to serve the appropriate original image (see below for more details).
-zoomSrc | String | N/A | URL for the larger zoom image. Falls back to original image src if not defined.
-alt | String | N/A | Alternative text for the original image.
+src | String | | (Required) URL for the original image.
+srcSet | String | | Default srcset attribute for a responsive original image.
+sources | Array | | A list of image sources for using the picture tag to serve the appropriate original image (see below for more details).
+zoomSrc | String | | URL for the larger zoom image. Falls back to original image src if not defined.
+alt | String | | Alternative text for the original image.
 fadeDuration | Number | 150 | Fade transition time in milliseconds.
 fullscreenOnMobile | Boolean | false | Enables fullscreen zoomed image on touch devices below a specified breakpoint.
 mobileBreakpoint | Number | 640 | The maximum breakpoint for fullscreen zoom image when fullscreenOnMobile is true.
-className | String | N/A | A custom classname for styling the component.
-onZoomIn | Function | N/A | A function to be called after zoom in.
-onZoomOut | Function | N/A | A function to be called after zoom out.
+className | String | | Custom classname for styling the component.
+onZoomIn | Function | | Function to be called after zoom in.
+onZoomOut | Function | | Function to be called after zoom out.
 
 ### Sources
 
+
 ## Notes
+
 
 ## Issues
 
 Please leave requests or issues [here](https://github.com/laurenashpole/react-inner-image-zoom/issues).
 
 This component only includes a click to zoom trigger because in my personal experience that has been the most popular implementation. If there's a demand for zooming on other events like hover or grab, I would be open to adding them so don't be afraid to ask.
+
 
 ## License
 
