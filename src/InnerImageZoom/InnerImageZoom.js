@@ -218,15 +218,15 @@ class InnerImageZoom extends Component {
           }}
           src={this.props.zoomSrc || this.props.src}
           ref={(el) => { this.zoomImg = el; }}
-          role="presentation"
           onLoad={this.handleLoad}
           onTouchStart={this.handleTouchStart}
           onMouseMove={!this.state.isTouch ? this.handleMouseMove : null}
           onTouchMove={this.state.isTouch ? this.handleTouchMove : null}
+          alt=""
         />
 
         {this.state.isTouch &&
-          <a
+          <button
             className={`iiz__btn iiz__close ${this.state.isZoomed ? 'iiz__close--visible' : ''}`}
             style={{
               transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
@@ -234,7 +234,7 @@ class InnerImageZoom extends Component {
             href="javascript:void(0);"
             onClick={this.handleClose}
             aria-label="Zoom Out"
-          ></a>
+          / >
         }
       </Fragment>
     );

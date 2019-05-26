@@ -41,11 +41,14 @@
   background: rgba(255, 255, 255, 0.8);
   width: 40px;
   height: 40px;
+  border: none;
+  outline: none;
   position: absolute;
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  appearance: none;
 }
 
 .iiz__btn:before {
