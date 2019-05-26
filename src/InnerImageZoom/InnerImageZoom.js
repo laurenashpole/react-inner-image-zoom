@@ -254,7 +254,7 @@ class InnerImageZoom extends Component {
           <picture>
             {this.props.sources.map((source, i) => {
               return(
-                <Fragment>
+                <Fragment key={i}>
                   {source.srcSet &&
                     <source
                       key={i}
