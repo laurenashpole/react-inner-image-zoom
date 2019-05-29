@@ -76,8 +76,8 @@ class InnerImageZoom extends Component {
     let left = e.pageX - this.offsets.x;
     let top = e.pageY - this.offsets.y;
 
-    left = Math.max(Math.min(left, this.container.offsetWidth), 0);
-    top = Math.max(Math.min(top, this.container.offsetHeight), 0);
+    left = Math.max(Math.min(left, this.container.width), 0);
+    top = Math.max(Math.min(top, this.container.height), 0);
 
     this.setState({
       left: left * -this.ratios.x,
@@ -89,8 +89,8 @@ class InnerImageZoom extends Component {
     let left = e.changedTouches[0].pageX - this.offsets.x;
     let top = e.changedTouches[0].pageY - this.offsets.y;
 
-    left = Math.max(Math.min(left, 0), (this.zoomImg.offsetWidth - this.container.offsetWidth) * -1);
-    top = Math.max(Math.min(top, 0), (this.zoomImg.offsetHeight - this.container.offsetHeight) * -1);
+    left = Math.max(Math.min(left, 0), (this.zoomImg.offsetWidth - this.container.width) * -1);
+    top = Math.max(Math.min(top, 0), (this.zoomImg.offsetHeight - this.container.height) * -1);
 
     this.setState({
       left: left,
@@ -175,21 +175,14 @@ class InnerImageZoom extends Component {
   getContainer = (img, isFullscreen) => {
     if (isFullscreen) {
       return {
-        offsetWidth: window.innerWidth,
-        offsetHeight: window.innerHeight,
+        width: window.innerWidth,
+        height: window.innerHeight,
         left: 0,
         top: 0
       };
     }
 
-    const rect = img.getBoundingClientRect();
-
-    return {
-      offsetWidth: rect.width,
-      offsetHeight: rect.height,
-      left: rect.left,
-      top: rect.top
-    };
+    return img.getBoundingClientRect();
   }
 
   getOffsets = (pageX, pageY, left, top) => {
@@ -199,14 +192,14 @@ class InnerImageZoom extends Component {
     };
   }
 
-  getRatios = (img, zoomImg) => {
+  getRatios = (container, zoomImg) => {
     return {
-      x: (zoomImg.offsetWidth - img.offsetWidth) / img.offsetWidth,
-      y: (zoomImg.offsetHeight - img.offsetHeight) / img.offsetHeight
+      x: (zoomImg.offsetWidth - container.width) / container.width,
+      y: (zoomImg.offsetHeight - container.height) / container.height
     };
   }
 
-  renderZoomImg = (fadeDuration) => {
+  renderZoomImg = (src, fadeDuration) => {
     return(
       <Fragment>
         <img
@@ -216,7 +209,7 @@ class InnerImageZoom extends Component {
             left: this.state.left,
             transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
           }}
-          src={this.props.zoomSrc || this.props.src}
+          src={src}
           ref={(el) => { this.zoomImg = el; }}
           onLoad={this.handleLoad}
           onTouchStart={this.handleTouchStart}
@@ -241,55 +234,51 @@ class InnerImageZoom extends Component {
   }
 
   render () {
+    const {
+      src,
+      srcSet,
+      sources,
+      zoomSrc,
+      alt,
+      fadeDuration,
+      className
+    } = this.props;
+
     return(
       <figure
-        className={`iiz ${this.props.className ? this.props.className : ''}`}
+        className={`iiz ${className ? className : ''}`}
         ref={(el) => { this.img = el; }}
         onTouchStart={this.handleInitialTouchStart}
         onClick={this.handleClick}
         onMouseEnter={this.state.isTouch ? null : this.handleMouseEnter}
         onMouseLeave={this.state.isTouch ? null : this.handleClose}
       >
-        {this.props.sources ? (
+        {sources ? (
           <picture>
-            {this.props.sources.map((source, i) => {
+            {sources.map((source, i) => {
               return(
                 <Fragment key={i}>
                   {source.srcSet &&
-                    <source
-                      srcSet={source.srcSet}
-                      media={source.media}
-                      type={source.type}
-                    />
+                    <source srcSet={source.srcSet} media={source.media} type={source.type} />
                   }
                 </Fragment>
               );
             })}
 
-            <img
-              className="iiz__img"
-              src={this.props.src}
-              srcSet={this.props.srcSet}
-              alt={this.props.alt}
-            />
+            <img className="iiz__img" src={src} srcSet={srcSet} alt={alt} />
           </picture>
         ) : (
-          <img
-            className="iiz__img"
-            src={this.props.src}
-            srcSet={this.props.srcSet}
-            alt={this.props.alt}
-          />
+          <img className="iiz__img" src={src} srcSet={srcSet} alt={alt} />
         )}
 
         {this.state.isActive &&
           <Fragment>
             {this.state.isFullscreen ? (
               <FullscreenPortal className="iiz__zoom-portal">
-                {this.renderZoomImg(0)}
+                {this.renderZoomImg(zoomSrc || src, 0)}
               </FullscreenPortal>
             ) : (
-              this.renderZoomImg(this.props.fadeDuration)
+              this.renderZoomImg(zoomSrc || src, fadeDuration)
             )}
           </Fragment>
         }
