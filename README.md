@@ -41,6 +41,7 @@ Prop | Type | Default | Description
 --- | --- | --- | ---
 src | String | | (Required) URL for the original image.
 srcSet | String | | Default srcset attribute for a responsive original image.
+sizes | String | | Default sizes attribute for use with srcset.
 sources | Array | | A list of image sources for using the picture tag to serve the appropriate original image (see below for more details).
 zoomSrc | String | | URL for the larger zoom image. Falls back to original image src if not defined.
 alt | String | | Alternative text for the original image.

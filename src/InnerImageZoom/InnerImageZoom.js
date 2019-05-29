@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import FullscreenPortal from './FullscreenPortal';
+import ResponsiveImage from './components/ResponsiveImage';
+import FullscreenPortal from './components/FullscreenPortal';
 import './styles.css';
 
 class InnerImageZoom extends Component {
@@ -237,6 +238,7 @@ class InnerImageZoom extends Component {
     const {
       src,
       srcSet,
+      sizes,
       sources,
       zoomSrc,
       alt,
@@ -253,23 +255,13 @@ class InnerImageZoom extends Component {
         onMouseEnter={this.state.isTouch ? null : this.handleMouseEnter}
         onMouseLeave={this.state.isTouch ? null : this.handleClose}
       >
-        {sources ? (
-          <picture>
-            {sources.map((source, i) => {
-              return(
-                <Fragment key={i}>
-                  {source.srcSet &&
-                    <source srcSet={source.srcSet} media={source.media} type={source.type} />
-                  }
-                </Fragment>
-              );
-            })}
-
-            <img className="iiz__img" src={src} srcSet={srcSet} alt={alt} />
-          </picture>
-        ) : (
-          <img className="iiz__img" src={src} srcSet={srcSet} alt={alt} />
-        )}
+        <ResponsiveImage
+          src={src}
+          srcSet={srcSet}
+          sizes={sizes}
+          sources={sources}
+          alt={alt}
+        />
 
         {this.state.isActive &&
           <Fragment>
@@ -294,6 +286,7 @@ class InnerImageZoom extends Component {
 InnerImageZoom.propTypes = {
   src: PropTypes.string.isRequired,
   srcSet: PropTypes.string,
+  sizes: PropTypes.string,
   sources: PropTypes.array,
   zoomSrc: PropTypes.string,
   alt: PropTypes.string,
