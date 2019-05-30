@@ -19,7 +19,7 @@
   position: absolute;
   visibility: hidden;
   opacity: 0;
-  /*touch-action: none;*/
+  display: block;
 }
 
 .iiz__zoom-img--visible {
