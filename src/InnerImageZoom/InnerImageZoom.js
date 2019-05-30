@@ -87,6 +87,8 @@ class InnerImageZoom extends Component {
   }
 
   handleTouchMove = (e) => {
+    e.preventDefault();
+
     let left = e.changedTouches[0].pageX - this.offsets.x;
     let top = e.changedTouches[0].pageY - this.offsets.y;
 
@@ -102,6 +104,10 @@ class InnerImageZoom extends Component {
   handleClose = () => {
     this.zoomOut(() => {
       setTimeout(() => {
+        if (this.state.isTouch) {
+          this.zoomImg.removeEventListener('touchmove', this.handleTouchMove);
+        }
+
         this.setDefaults();
 
         this.setState({
@@ -120,6 +126,10 @@ class InnerImageZoom extends Component {
       const initialMove = this.state.isTouch ? this.initialTouchMove : this.initialMove;
 
       initialMove(pageX, pageY);
+
+      if (this.state.isTouch) {
+        this.zoomImg.addEventListener('touchmove', this.handleTouchMove, { passive: false });
+      }
 
       if (this.props.onZoomIn) {
         this.props.onZoomIn();
@@ -147,7 +157,8 @@ class InnerImageZoom extends Component {
       changedTouches: [{
         pageX: initialPageX,
         pageY: initialPageY
-      }]
+      }],
+      preventDefault: () => {}
     });
   }
 
@@ -215,7 +226,6 @@ class InnerImageZoom extends Component {
           onLoad={this.handleLoad}
           onTouchStart={this.handleTouchStart}
           onMouseMove={!this.state.isTouch ? this.handleMouseMove : null}
-          onTouchMove={this.state.isTouch ? this.handleTouchMove : null}
           alt=""
         />
 

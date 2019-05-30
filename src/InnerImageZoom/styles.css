@@ -19,7 +19,7 @@
   position: absolute;
   visibility: hidden;
   opacity: 0;
-  touch-action: none;
+  /*touch-action: none;*/
 }
 
 .iiz__zoom-img--visible {
@@ -43,6 +43,7 @@
   height: 40px;
   border: none;
   outline: none;
+  padding: 0;
   position: absolute;
   text-decoration: none;
   display: flex;
