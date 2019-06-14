@@ -7,7 +7,7 @@ class Demo extends Component {
     return (
       <div>
         <h1>react-inner-image-zoom Demo</h1>
-        <InnerImageZoom src="unsplash.jpg" zoomSrc="unsplash-large.jpg" />
+        <InnerImageZoom src="unsplash.jpg" zoomSrc="unsplash-large.jpg" fullscreenOnMobile={true} />
       </div>
     );
   }

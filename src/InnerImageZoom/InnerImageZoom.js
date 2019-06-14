@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import ResponsiveImage from './components/ResponsiveImage';
+import Image from './components/Image';
+import ZoomImage from './components/ZoomImage';
 import FullscreenPortal from './components/FullscreenPortal';
 import './styles.css';
 
@@ -64,8 +65,9 @@ class InnerImageZoom extends Component {
 
   handleLoad = (e) => {
     this.isLoaded = true;
+    this.zoomImg = e.target;
     this.bounds = this.getBounds(this.img, false);
-    this.ratios = this.getRatios(this.bounds, e.target);
+    this.ratios = this.getRatios(this.bounds, this.zoomImg);
 
     if (this.onLoadCallback) {
       this.onLoadCallback();
@@ -179,6 +181,7 @@ class InnerImageZoom extends Component {
   setDefaults = () => {
     this.isLoaded = false;
     this.onLoadCallback = null;
+    this.zoomImg = null;
     this.bounds = {};
     this.offsets = {};
     this.ratios = {};
@@ -211,38 +214,6 @@ class InnerImageZoom extends Component {
     };
   }
 
-  renderZoomImg = (src, fadeDuration) => {
-    return(
-      <Fragment>
-        <img
-          className={`iiz__zoom-img ${this.state.isZoomed ? 'iiz__zoom-img--visible' : ''}`}
-          style={{
-            top: this.state.top,
-            left: this.state.left,
-            transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
-          }}
-          src={src}
-          ref={(el) => { this.zoomImg = el; }}
-          onLoad={this.handleLoad}
-          onTouchStart={this.handleTouchStart}
-          onMouseMove={!this.state.isTouch ? this.handleMouseMove : null}
-          alt=""
-        />
-
-        {this.state.isTouch &&
-          <button
-            className={`iiz__btn iiz__close ${this.state.isZoomed ? 'iiz__close--visible' : ''}`}
-            style={{
-              transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
-            }}
-            onClick={this.handleClose}
-            aria-label="Zoom Out"
-          />
-        }
-      </Fragment>
-    );
-  }
-
   render () {
     const {
       src,
@@ -255,6 +226,17 @@ class InnerImageZoom extends Component {
       className
     } = this.props;
 
+    const zoomImageProps = {
+      src: zoomSrc || src,
+      fadeDuration: this.state.isFullscreen ? 0 : fadeDuration,
+      top: this.state.top,
+      left: this.state.left,
+      isZoomed: this.state.isZoomed,
+      onLoad: this.handleLoad,
+      onTouchStart: this.handleTouchStart,
+      onClose: this.state.isTouch ? this.handleClose : null
+    };
+
     return(
       <figure
         className={`iiz ${className ? className : ''}`}
@@ -262,9 +244,10 @@ class InnerImageZoom extends Component {
         onTouchStart={this.handleInitialTouchStart}
         onClick={this.handleClick}
         onMouseEnter={this.state.isTouch ? null : this.handleMouseEnter}
+        onMouseMove={this.state.isTouch || !this.state.isZoomed ? null : this.handleMouseMove}
         onMouseLeave={this.state.isTouch ? null : this.handleClose}
       >
-        <ResponsiveImage
+        <Image
           src={src}
           srcSet={srcSet}
           sizes={sizes}
@@ -276,10 +259,10 @@ class InnerImageZoom extends Component {
           <Fragment>
             {this.state.isFullscreen ? (
               <FullscreenPortal className="iiz__zoom-portal">
-                {this.renderZoomImg(zoomSrc || src, 0)}
+                <ZoomImage {...zoomImageProps} />
               </FullscreenPortal>
             ) : (
-              this.renderZoomImg(zoomSrc || src, fadeDuration)
+              <ZoomImage {...zoomImageProps} />
             )}
           </Fragment>
         }

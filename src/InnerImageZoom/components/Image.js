@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-const ResponsiveImage = (props) => {
-    const {
-      src,
-      srcSet,
-      sizes,
-      sources,
-      alt
-    } = props;
+const Image = (props) => {
+  const {
+    src,
+    srcSet,
+    sizes,
+    sources,
+    alt
+  } = props;
 
   return(
     <Fragment>
@@ -50,7 +50,7 @@ const ResponsiveImage = (props) => {
   );
 };
 
-ResponsiveImage.propTypes = {
+Image.propTypes = {
   src: PropTypes.string.isRequired,
   srcSet: PropTypes.string,
   sizes: PropTypes.string,
@@ -58,4 +58,4 @@ ResponsiveImage.propTypes = {
   alt: PropTypes.string
 };
 
-export default ResponsiveImage;
+export default Image;
