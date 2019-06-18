@@ -1,8 +1,8 @@
 # react-inner-image-zoom
 
-[Demo](https://laurenashpole.github.io/react-inner-image-zoom)
+[Demo Page](https://laurenashpole.github.io/react-inner-image-zoom)
 
-React component for magnifying an image within its parent container. Zooming behavior is triggered on click with default hover panning that switches to drag if touch is detected.
+A React component for magnifying an image within its original container. The zoom behavior is triggered on click and includes default image panning on hover that switches to drag to move if a touch device is detected. The component supports responsive images and optional fullscreen zoom on mobile.
 
 [![Travis][build-badge]][build]
 [![npm package][npm-badge]][npm]
@@ -54,16 +54,20 @@ onZoomOut | Function | | Function to be called after zoom out.
 
 ### Sources
 
+This prop accepts an array of objects which it uses to create a picture tag and source elements. The component looks for the following optional properties and you can find additional details on responsive images [here](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images):
 
-## Notes
-
+Prop | Type | Default | Description
+--- | --- | --- | ---
+srcSet | String | | Srcset attribute for source tag.
+sizes | String | | Sizes attribute for source tag.
+media | String | | An attribute containing a media condition for use with the srcset.
+type | String | | An image MIME type. This is useful for using newer formats like WebP.
 
 ## Issues
 
-Please leave requests or issues [here](https://github.com/laurenashpole/react-inner-image-zoom/issues).
+Please submit issues or requests [here](https://github.com/laurenashpole/react-inner-image-zoom/issues).
 
-This component only includes a click to zoom trigger because in my personal experience that has been the most popular implementation. If there's a demand for zooming on other events like hover or grab, I would be open to adding them so don't be afraid to ask.
-
+Most of the implementation choices for this component are based on use cases I've encountered in the past. For example, I chose a click to zoom trigger because it's been the most requested on product detail pages I've worked on. If there's a demand for zoom on hover or other additional functionality, I'd be open to looking into it so feel free to ask.
 
 ## License
 
