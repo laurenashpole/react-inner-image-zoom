@@ -17,8 +17,14 @@ after_success:
   - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
   - npm run build
-  - npm run travis-deploy-once "npm run semantic-release"
 
 branches:
   only:
     - master
+
+jobs:
+  include:
+    - stage: npm release
+      if: branch = master
+      node_js: "8"
+      script: npm run semantic-release
