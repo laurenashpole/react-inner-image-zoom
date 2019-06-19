@@ -49,8 +49,8 @@ fadeDuration | Number | 150 | Fade transition time in milliseconds.
 fullscreenOnMobile | Boolean | false | Enables fullscreen zoomed image on touch devices below a specified breakpoint.
 mobileBreakpoint | Number | 640 | The maximum breakpoint for fullscreen zoom image when fullscreenOnMobile is true.
 className | String | | Custom classname for styling the component.
-onZoomIn | Function | | Function to be called after zoom in.
-onZoomOut | Function | | Function to be called after zoom out.
+afterZoomIn | Function | | Function to be called after zoom in.
+afterZoomOut | Function | | Function to be called after zoom out.
 
 ### Sources
 
