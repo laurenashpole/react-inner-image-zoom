@@ -75,5 +75,5 @@ Most of the implementation choices for this component are based on use cases I'v
 [build-badge]: https://travis-ci.org/laurenashpole/react-inner-image-zoom.svg?branch=master
 [build]: https://travis-ci.org/laurenashpole/react-inner-image-zoom
 
-[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
+[npm-badge]: http://img.shields.io/npm/v/react-inner-image-zoom.svg?style=flat
 [npm]: https://www.npmjs.com/package/react-inner-image-zoom
