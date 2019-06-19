@@ -146,23 +146,7 @@ describe('InnerImageZoom', () => {
 
       zoomImg.onload = () => {
         const topPos = zoomImg.style.top;
-        ReactTestUtils.Simulate.mouseMove(zoomImg, { pageX: 150, pageY: 150 });
-        const updatedTopPos = zoomImg.style.top;
-
-        expect(parseInt(topPos, 10)).toNotEqual(parseInt(updatedTopPos, 10));
-        done();
-      }
-    });
-
-    it('drags the zoomed image on touch move', (done) => {
-      ReactTestUtils.Simulate.touchStart(figure);
-      ReactTestUtils.Simulate.mouseEnter(figure);
-      ReactTestUtils.Simulate.click(figure, { pageX: 100, pageY: 100 });
-      const zoomImg = figure.querySelector('.iiz__zoom-img');
-
-      zoomImg.onload = () => {
-        const topPos = zoomImg.style.top;
-        ReactTestUtils.Simulate.touchMove(zoomImg, { changedTouches: [{ pageX: 150, pageY: 150}] });
+        ReactTestUtils.Simulate.mouseMove(figure, { pageX: 150, pageY: 150 });
         const updatedTopPos = zoomImg.style.top;
 
         expect(parseInt(topPos, 10)).toNotEqual(parseInt(updatedTopPos, 10));
@@ -202,15 +186,18 @@ describe('InnerImageZoom', () => {
       expect(visibleZoomImg).toBe(null);
     });
 
-    it('hides the zoomed image on close button click on touch devices', () => {
+    it('hides the zoomed image on close button click on touch devices', (done) => {
       ReactTestUtils.Simulate.touchStart(figure);
       ReactTestUtils.Simulate.mouseEnter(figure);
       ReactTestUtils.Simulate.click(figure, { pageX: 100, pageY: 100 });
       const closeButton = figure.querySelector('.iiz__close');
-      ReactTestUtils.Simulate.click(closeButton);
+      ReactTestUtils.Simulate.click(closeButton, { pageX: 0, pageY: 0 });
       const visibleZoomImg = figure.querySelector('.iiz__zoom-img--visible');
 
-      expect(visibleZoomImg).toBe(null);
+      setTimeout(() => {
+        expect(visibleZoomImg).toBe(null);
+        done();
+      }, 150);
     });
 
     it('removes the zoomed image after fade transition', (done) => {

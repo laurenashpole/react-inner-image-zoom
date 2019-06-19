@@ -1,6 +1,6 @@
 # react-inner-image-zoom
 
-[Demo Page](https://laurenashpole.github.io/react-inner-image-zoom)
+[Demos](https://laurenashpole.github.io/react-inner-image-zoom)
 
 A React component for magnifying an image within its original container. The zoom behavior is triggered on click and includes default image panning on hover that switches to drag to move if a touch device is detected. The component supports responsive images and optional fullscreen zoom on mobile.
 
