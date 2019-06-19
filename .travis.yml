@@ -1,26 +1,20 @@
 sudo: false
 
 language: node_js
+
 node_js:
-  - 8
+  - "stable"
 
 cache:
   directories:
     - ~/.npm
+
 notifications:
   email: false
 
-before_install:
-  - npm install codecov.io coveralls
-
-after_success:
-  - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+script:
+  - npm test
   - npm run build
-
-branches:
-  only:
-    - master
 
 jobs:
   include:

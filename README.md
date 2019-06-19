@@ -6,7 +6,6 @@ A React component for magnifying an image within its original container. The zoo
 
 [![Travis][build-badge]][build]
 [![npm package][npm-badge]][npm]
-[![Coveralls][coveralls-badge]][coveralls]
 
 ## Installation
 
@@ -73,11 +72,8 @@ Most of the implementation choices for this component are based on use cases I'v
 
 [MIT](https://github.com/laurenashpole/react-inner-image-zoom/blob/master/LICENSE)
 
-[build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
-[build]: https://travis-ci.org/user/repo
+[build-badge]: https://travis-ci.org/laurenashpole/react-inner-image-zoom.svg?branch=master
+[build]: https://travis-ci.org/laurenashpole/react-inner-image-zoom
 
 [npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
-[npm]: https://www.npmjs.org/package/npm-package
-
-[coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
-[coveralls]: https://coveralls.io/github/user/repo
+[npm]: https://www.npmjs.com/package/react-inner-image-zoom
