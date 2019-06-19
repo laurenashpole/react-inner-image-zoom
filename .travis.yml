@@ -1,4 +1,4 @@
-sudo: required
+sudo: false
 
 language: node_js
 node_js:
@@ -9,10 +9,6 @@ cache:
     - ~/.npm
 notifications:
   email: false
-
-before_script:
-  - "sudo chown root /opt/google/chrome/chrome-sandbox"
-  - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
 
 before_install:
   - npm install codecov.io coveralls
