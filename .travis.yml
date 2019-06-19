@@ -12,13 +12,17 @@ cache:
 notifications:
   email: false
 
-script:
-  - npm test
-  - npm run build
+branches:
+  only:
+    - master
 
 jobs:
   include:
+    - stage: test
+      script: npm test
+    - stage: compile
+      script: npm run build
     - stage: npm release
       if: branch = master
-      node_js: "8"
+      node_js: "stable"
       script: npm run semantic-release
