@@ -21,7 +21,7 @@ jobs:
     - stage: test
       script: npm test
     - stage: compile
-      script: npm run build
+      script: npm run build -- --copy-files
     - stage: npm release
       if: branch = master
       node_js: "stable"
