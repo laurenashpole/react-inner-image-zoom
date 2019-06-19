@@ -20,8 +20,6 @@ jobs:
   include:
     - stage: test
       script: npm test
-    - stage: compile
-      script: nwb build-react-component --copy-files
     - stage: npm release
       if: branch = master
       node_js: "stable"
