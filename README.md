@@ -23,7 +23,7 @@ yarn add react-inner-image-zoom
 ## Usage
 
 Import and render the component:
-```
+```javascript
 import InnerImageZoom from 'react-inner-image-zoom';
 
 ...
