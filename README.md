@@ -19,6 +19,17 @@ npm install react-inner-image-zoom
 yarn add react-inner-image-zoom
 ```
 
+### Styling
+
+I was originally importing the CSS directly into the component but I've recently realized that makes too many assumptions about the wider build process. You can now download the raw CSS file from:
+
+[/src/InnerImageZoom/styles.css](https://raw.githubusercontent.com/laurenashpole/react-inner-image-zoom/master/src/InnerImageZoom/styles.css)
+
+or the raw minified version at:
+
+[/src/InnerImageZoom/styles.min.css](https://raw.githubusercontent.com/laurenashpole/react-inner-image-zoom/master/src/InnerImageZoom/styles.min.css)
+
+and include it using `import`, `<link>`, or whatever works best for you.
 
 ## Usage
 

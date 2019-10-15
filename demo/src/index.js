@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import InnerImageZoom from '../../src';
+import '../../src/InnerImageZoom/styles.css';
 
 class Demo extends Component {
   render() {

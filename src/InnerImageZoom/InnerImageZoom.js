@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Image from './components/Image';
 import ZoomImage from './components/ZoomImage';
 import FullscreenPortal from './components/FullscreenPortal';
-import './styles.css';
 
 class InnerImageZoom extends Component {
   constructor (props) {

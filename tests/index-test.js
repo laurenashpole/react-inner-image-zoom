@@ -4,6 +4,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { TEST_PROPS } from './constants';
 import InnerImageZoom from 'src/';
+import 'src/InnerImageZoom/styles.css';
 
 describe('InnerImageZoom', () => {
   let node;

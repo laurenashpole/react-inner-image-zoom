@@ -1,6 +1,6 @@
 {
   "name": "react-inner-image-zoom",
-  "version": "0.0.0-development",
+  "version": "1.0.4",
   "description": "A React component for magnifying an image within its original container.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -11,7 +11,7 @@
     "umd"
   ],
   "scripts": {
-    "build": "nwb build-react-component --copy-files",
+    "build": "nwb build-react-component",
     "clean": "nwb clean-module && nwb clean-demo",
     "prepublishOnly": "npm run build",
     "start": "nwb serve-react-demo",
@@ -47,6 +47,7 @@
     "zoom",
     "enlarge",
     "image",
+    "responsive",
     "photo",
     "pdp",
     "ecommerce"
