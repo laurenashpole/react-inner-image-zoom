@@ -7,7 +7,9 @@ const Image = (props) => {
     srcSet,
     sizes,
     sources,
-    alt
+    alt,
+    isZoomed,
+    fadeDuration
   } = props;
 
   return(
@@ -30,7 +32,10 @@ const Image = (props) => {
           })}
 
           <img
-            className="iiz__img"
+            className={`iiz__img ${isZoomed ? 'iiz__img--invisible' : ''}`}
+            style={{
+              transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
+            }}
             src={src}
             srcSet={srcSet}
             sizes={sizes}
@@ -39,7 +44,10 @@ const Image = (props) => {
         </picture>
       ) : (
         <img
-          className="iiz__img"
+          className={`iiz__img ${isZoomed ? 'iiz__img--invisible' : ''}`}
+          style={{
+            transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
+          }}
           src={src}
           srcSet={srcSet}
           sizes={sizes}
@@ -55,7 +63,8 @@ Image.propTypes = {
   srcSet: PropTypes.string,
   sizes: PropTypes.string,
   sources: PropTypes.array,
-  alt: PropTypes.string
+  alt: PropTypes.string,
+  isZoomed: PropTypes.bool
 };
 
 export default Image;
