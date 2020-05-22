@@ -253,6 +253,8 @@ class InnerImageZoom extends Component {
           sizes={sizes}
           sources={sources}
           alt={alt}
+          fadeDuration={this.props.fadeDuration}
+          isZoomed={this.state.isZoomed}
         />
 
         {this.state.isActive &&

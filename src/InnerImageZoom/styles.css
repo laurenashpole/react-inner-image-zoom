@@ -11,6 +11,13 @@
   height: auto;
   display: block;
   pointer-events: none;
+  visibility: visible;
+  opacity: 1;
+}
+
+.iiz__img--invisible {
+  visibility: hidden;
+  opacity: 0;
 }
 
 .iiz__zoom-img {
