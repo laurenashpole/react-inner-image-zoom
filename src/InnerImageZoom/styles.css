@@ -6,6 +6,10 @@
   cursor: zoom-in;
 }
 
+.iiz--drag .iiz__zoom-img--visible {
+  cursor: grab;
+}
+
 .iiz__img {
   max-width: 100%;
   height: auto;

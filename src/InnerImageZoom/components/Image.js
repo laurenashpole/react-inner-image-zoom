@@ -44,7 +44,7 @@ const Image = (props) => {
         </picture>
       ) : (
         <img
-          className={`iiz__img ${isZoomed ? 'iiz__img--invisible' : ''}`}
+          className={`iiz__img ${isZoomed ? '' : ''}`}
           style={{
             transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
           }}
