@@ -64,6 +64,7 @@ Image.propTypes = {
   sizes: PropTypes.string,
   sources: PropTypes.array,
   alt: PropTypes.string,
+  fadeDuration: PropTypes.number,
   isZoomed: PropTypes.bool
 };
 
