@@ -121,12 +121,16 @@ class InnerImageZoom extends Component {
       const moveY = Math.abs(e.pageY - this.eventPosition.y);
 
       this.setState({
-        isDragging: moveX > 5 && moveY > 5
+        isDragging: moveX > 5 || moveY > 5
       });
     }
   }
 
-  handleCloseClick = () => {
+  handleMouseLeave = (e) => {
+    this.state.currentMoveType === 'drag' ? this.handleDragEnd(e) : this.handleClose();
+  }
+
+  handleClose = () => {
     this.zoomOut(() => {
       setTimeout(() => {
         this.setDefaults();
@@ -252,7 +256,7 @@ class InnerImageZoom extends Component {
       onLoad: this.handleLoad,
       onDragStart: this.handleDragStart,
       onDragEnd: this.handleDragEnd,
-      onClose: this.state.isTouch ? this.handleCloseClick : null
+      onClose: this.state.isTouch ? this.handleClose : null
     };
 
     return(
@@ -263,7 +267,7 @@ class InnerImageZoom extends Component {
         onClick={this.handleClick}
         onMouseEnter={this.state.isTouch ? null : this.handleMouseEnter}
         onMouseMove={this.state.currentMoveType === 'drag' || !this.state.isZoomed ? null : this.handleMouseMove}
-        onMouseLeave={this.state.currentMoveType === 'drag' ? null : this.handleCloseClick}
+        onMouseLeave={this.state.isTouch ? null : this.handleMouseLeave}
       >
         <Image
           src={src}
