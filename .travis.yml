@@ -22,5 +22,5 @@ jobs:
       script: npm test
     - stage: npm release
       if: branch = master
-      node_js: "stable"
+      node_js: 12
       script: npm run semantic-release
