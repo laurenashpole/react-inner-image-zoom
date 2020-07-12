@@ -9,7 +9,8 @@ const ZoomImage = (props) => {
     left,
     isZoomed,
     onLoad,
-    onTouchStart,
+    onDragStart,
+    onDragEnd,
     onClose
   } = props;
 
@@ -24,7 +25,10 @@ const ZoomImage = (props) => {
         }}
         src={src}
         onLoad={onLoad}
-        onTouchStart={onTouchStart}
+        onTouchStart={onDragStart}
+        onTouchEnd={onDragEnd}
+        onMouseDown={onDragStart}
+        onMouseUp={onDragEnd}
         alt=""
       />
 
@@ -49,7 +53,8 @@ ZoomImage.propTypes = {
   left: PropTypes.number,
   isZoomed: PropTypes.bool,
   onLoad: PropTypes.func,
-  onTouchStart: PropTypes.func,
+  onDragStart: PropTypes.func,
+  onDragEnd: PropTypes.func,
   onClose: PropTypes.func
 };
 

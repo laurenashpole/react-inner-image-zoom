@@ -8,7 +8,14 @@ class Demo extends Component {
     return (
       <div>
         <h1>react-inner-image-zoom Demo</h1>
-        <InnerImageZoom src="unsplash.jpg" zoomSrc="unsplash-large.jpg" fullscreenOnMobile={true} />
+        <div style={{ marginBottom: '30px' }}>
+          <h2>Pan Example</h2>
+          <InnerImageZoom src="unsplash.jpg" zoomSrc="unsplash-large.jpg" fullscreenOnMobile={true} />
+        </div>
+        <div style={{ marginBottom: '30px' }}>
+          <h2>Drag Example</h2>
+          <InnerImageZoom src="unsplash2.jpg" zoomSrc="unsplash2-large.jpg" fullscreenOnMobile={true} moveType="drag" />
+        </div>
       </div>
     );
   }

@@ -2,7 +2,7 @@
 
 [Demos](https://laurenashpole.github.io/react-inner-image-zoom)
 
-A React component for magnifying an image within its original container. The zoom behavior is triggered on click and includes default image panning on hover that switches to drag to move if a touch device is detected. The component supports responsive images and optional fullscreen zoom on mobile.
+A React component for magnifying an image within its original container. The zoom behavior is triggered on click and the image can be moved by dragging on touch devices and by either dragging or hover panning on non-touch devices. The component supports responsive images and optional fullscreen zoom on mobile.
 
 [![Travis][build-badge]][build]
 [![npm package][npm-badge]][npm]
@@ -21,15 +21,25 @@ yarn add react-inner-image-zoom
 
 ### Styling
 
-I was originally importing the CSS directly into the component but I've recently realized that makes too many assumptions about the wider build process. You can now download the raw CSS file from:
+I was originally importing the CSS directly into the component but I've recently realized that makes too many assumptions about the wider build process. You can now download the raw CSS file at:
 
 [/src/InnerImageZoom/styles.css](https://raw.githubusercontent.com/laurenashpole/react-inner-image-zoom/master/src/InnerImageZoom/styles.css)
 
-or the raw minified version at:
+or the minified raw minified version at:
 
 [/src/InnerImageZoom/styles.min.css](https://raw.githubusercontent.com/laurenashpole/react-inner-image-zoom/master/src/InnerImageZoom/styles.min.css)
 
-and include it using `import`, `<link>`, or whatever works best for you.
+to include however you see fit. Or, if your setup supports it, import the files directory from your `node_modules` using:
+
+```javascript
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
+```
+
+or:
+
+```javascript
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';
+```
 
 ## Usage
 
@@ -55,7 +65,8 @@ sizes | String | | Default sizes attribute for use with srcset.
 sources | Array | | A list of image sources for using the picture tag to serve the appropriate original image (see below for more details).
 zoomSrc | String | | URL for the larger zoom image. Falls back to original image src if not defined.
 alt | String | | Alternative text for the original image.
-fadeDuration | Number | 150 | Fade transition time in milliseconds.
+moveType | String | pan | `pan` or `drag`. The user behavior for moving zoomed images on non-touch devices.
+fadeDuration | Number | 150 | Fade transition time in milliseconds. If zooming in on transparent images, set this to `0` for best results.
 fullscreenOnMobile | Boolean | false | Enables fullscreen zoomed image on touch devices below a specified breakpoint.
 mobileBreakpoint | Number | 640 | The maximum breakpoint for fullscreen zoom image when fullscreenOnMobile is true.
 className | String | | Custom classname for styling the component.
