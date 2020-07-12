@@ -34,7 +34,7 @@ and include it using `import`, `<link>`, or whatever works best for you.
 ## Usage
 
 Import and render the component:
-```
+```javascript
 import InnerImageZoom from 'react-inner-image-zoom';
 
 ...
