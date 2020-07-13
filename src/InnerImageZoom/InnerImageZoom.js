@@ -127,7 +127,7 @@ class InnerImageZoom extends Component {
   }
 
   handleMouseLeave = (e) => {
-    this.state.currentMoveType === 'drag' ? this.handleDragEnd(e) : this.handleClose();
+    this.state.currentMoveType === 'drag' && this.state.isZoomed ? this.handleDragEnd(e) : this.handleClose();
   }
 
   handleClose = () => {
