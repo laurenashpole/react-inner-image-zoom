@@ -72,6 +72,7 @@ mobileBreakpoint | Number | 640 | The maximum breakpoint for fullscreen zoom ima
 className | String | | Custom classname for styling the component.
 afterZoomIn | Function | | Function to be called after zoom in.
 afterZoomOut | Function | | Function to be called after zoom out.
+startsActive | boolean | | if set to true, sets the initial value of isActive to true.
 
 ### Sources
 

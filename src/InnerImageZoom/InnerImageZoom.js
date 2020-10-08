@@ -9,7 +9,7 @@ class InnerImageZoom extends Component {
     super(props);
 
     this.state = {
-      isActive: false,
+      isActive: (props.startsActive === true ? true : false),
       isTouch: false,
       isZoomed: false,
       isFullscreen: false,
