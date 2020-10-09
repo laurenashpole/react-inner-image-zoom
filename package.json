@@ -1,6 +1,6 @@
 {
-  "name": "@bidlogix/react-inner-image-zoom",
-  "version": "1.0.7",
+  "name": "react-inner-image-zoom",
+  "version": "1.1.2",
   "description": "A React component for magnifying an image within its original container.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -31,14 +31,14 @@
     "semantic-release": "^17.1.2"
   },
   "author": "Lauren Ashpole",
-  "homepage": "https://github.com/laurenashpole/react-inner-image-zoom#readme",
+  "homepage": "https://github.com/taijuten/react-inner-image-zoom#readme",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/laurenashpole/react-inner-image-zoom.git"
+    "url": "git+https://github.com/taijuten/react-inner-image-zoom.git"
   },
   "bugs": {
-    "url": "https://github.com/laurenashpole/react-inner-image-zoom/issues"
+    "url": "https://github.com/taijuten/react-inner-image-zoom/issues"
   },
   "keywords": [
     "react",
@@ -51,5 +51,9 @@
     "photo",
     "pdp",
     "ecommerce"
-  ]
+  ],
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  }
 }
