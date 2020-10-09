@@ -79,7 +79,6 @@
 .iiz__hint {
   bottom: 10px;
   right: 10px;
-  pointer-events: none;
 }
 
 .iiz__hint:before {

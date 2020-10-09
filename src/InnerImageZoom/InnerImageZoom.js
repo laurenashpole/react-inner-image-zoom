@@ -53,8 +53,10 @@ class InnerImageZoom extends Component {
       });
     }
 
-    const coords = (e.target.className.indexOf('iiz__hint') > -1)
-      ? [0,0]
+    // if touch devices press the hint, we can direct them easily to middle of image
+    // for mouse devices we can't, as we use the mouse position for panning, so it would be in wrong position
+    const coords = (e.target.className.indexOf('iiz__hint') > -1 && this.state.isTouch)
+      ? [e.pageX / 2, e.pageY / 2]
       : [e.pageX, e.pageY]
 
     if (this.isLoaded) {
