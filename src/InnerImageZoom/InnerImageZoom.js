@@ -60,9 +60,9 @@ class InnerImageZoom extends Component {
       : [e.pageX, e.pageY]
 
     if (this.isLoaded) {
-      this.zoomIn(...coords);
+      this.zoomIn(coords[0], coords[1]);
     } else {
-      this.onLoadCallback = this.zoomIn.bind(this, ...coords);
+      this.onLoadCallback = this.zoomIn.bind(this, coords[0], coords[1]);
     }
   }
 
