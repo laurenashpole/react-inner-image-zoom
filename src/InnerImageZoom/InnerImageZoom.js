@@ -53,10 +53,14 @@ class InnerImageZoom extends Component {
       });
     }
 
+    const coords = (e.target.className.indexOf('iiz__hint') > -1)
+      ? [0,0]
+      : [e.pageX, e.pageY]
+
     if (this.isLoaded) {
-      this.zoomIn(e.pageX, e.pageY);
+      this.zoomIn(...coords);
     } else {
-      this.onLoadCallback = this.zoomIn.bind(this, e.pageX, e.pageY);
+      this.onLoadCallback = this.zoomIn.bind(this, ...coords);
     }
   }
 
