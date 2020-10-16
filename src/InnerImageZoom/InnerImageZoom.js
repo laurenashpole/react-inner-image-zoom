@@ -15,6 +15,7 @@ class InnerImageZoom extends Component {
       isFullscreen: false,
       isDragging: false,
       currentMoveType: props.moveType,
+      currentZoomType: props.zoomType,
       left: 0,
       top: 0
     };
@@ -22,10 +23,18 @@ class InnerImageZoom extends Component {
     this.setDefaults();
   }
 
-  handleMouseEnter = () => {
+  handleMouseEnter = (e) => {
     this.setState({
       isActive: true
     });
+
+    if (this.state.currentZoomType === 'hover' && !this.state.isZoomed) {
+      if (this.isLoaded) {
+        this.zoomIn(e.pageX, e.pageY);
+      } else {
+        this.onLoadCallback = this.zoomIn.bind(this, e.pageX, e.pageY);
+      }
+    }
   }
 
   handleTouchStart = () => {
@@ -301,6 +310,7 @@ class InnerImageZoom extends Component {
 
 InnerImageZoom.propTypes = {
   moveType: PropTypes.string,
+  zoomType: PropTypes.string,
   src: PropTypes.string.isRequired,
   srcSet: PropTypes.string,
   sizes: PropTypes.string,
@@ -317,6 +327,7 @@ InnerImageZoom.propTypes = {
 
 InnerImageZoom.defaultProps = {
   moveType: 'pan',
+  zoomType: 'click',
   fadeDuration: 150,
   mobileBreakpoint: 640
 };
