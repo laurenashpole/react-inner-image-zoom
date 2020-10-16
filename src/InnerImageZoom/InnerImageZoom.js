@@ -29,11 +29,7 @@ class InnerImageZoom extends Component {
     });
 
     if (this.state.currentZoomType === 'hover' && !this.state.isZoomed) {
-      if (this.isLoaded) {
-        this.zoomIn(e.pageX, e.pageY);
-      } else {
-        this.onLoadCallback = this.zoomIn.bind(this, e.pageX, e.pageY);
-      }
+      this.handleClick(e);
     }
   }
 
