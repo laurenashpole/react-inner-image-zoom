@@ -28,7 +28,7 @@
     "nwb": "0.23.x",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "semantic-release": "^15.13.16"
+    "semantic-release": "^17.2.3"
   },
   "author": "Lauren Ashpole",
   "homepage": "https://github.com/laurenashpole/react-inner-image-zoom#readme",
