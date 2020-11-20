@@ -18,7 +18,7 @@ class Demo extends Component {
         </div>
         <div style={{ marginBottom: '30px' }}>
           <h2>Drag Example</h2>
-          <InnerImageZoom src="unsplash2.jpg" zoomSrc="unsplash2-large.jpg" fullscreenOnMobile={true} moveType="drag" />
+          <InnerImageZoom src="unsplash3.jpg" zoomSrc="unsplash3-large.jpg" fullscreenOnMobile={true} moveType="drag" />
         </div>
       </div>
     );
