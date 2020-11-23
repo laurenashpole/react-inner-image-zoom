@@ -326,9 +326,9 @@ InnerImageZoom.propTypes = {
 InnerImageZoom.defaultProps = {
   moveType: 'pan',
   zoomType: 'click',
+  zoomScale: 1,
   fadeDuration: 150,
-  mobileBreakpoint: 640,
-  zoomScale: 1
+  mobileBreakpoint: 640
 };
 
 export default InnerImageZoom;
