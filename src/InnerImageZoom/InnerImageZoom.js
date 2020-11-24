@@ -318,7 +318,8 @@ InnerImageZoom.propTypes = {
   mobileBreakpoint: PropTypes.number,
   className: PropTypes.string,
   afterZoomIn: PropTypes.func,
-  afterZoomOut: PropTypes.func
+  afterZoomOut: PropTypes.func,
+  startsActive: PropTypes.bool
 };
 
 InnerImageZoom.defaultProps = {
