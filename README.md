@@ -64,6 +64,7 @@ srcSet | String | | Default srcset attribute for a responsive original image.
 sizes | String | | Default sizes attribute for use with srcset.
 sources | Array | | A list of image sources for using the picture tag to serve the appropriate original image (see below for more details).
 zoomSrc | String | | URL for the larger zoom image. Falls back to original image src if not defined.
+zoomScale | Number | 1 | Multiplied against the natural width and height of the zoomed image. This will generally be a decimal (example, 0.9 for 90%).
 alt | String | | Alternative text for the original image.
 moveType | String | pan | `pan` or `drag`. The user behavior for moving zoomed images on non-touch devices.
 zoomType | String | click | `click` or `hover`. The zoom behavior for images.
