@@ -93,6 +93,8 @@ Please submit issues or requests [here](https://github.com/laurenashpole/react-i
 
 Most of the implementation choices for this component are based on use cases I've encountered in the past. For example, I chose a click to zoom trigger because it's been the most requested on product detail pages I've worked on. If there's a demand for zoom on hover or other additional functionality, I'd be open to looking into it so feel free to ask.
 
+If you're interested in contributing, check out the guidelines [here](https://github.com/laurenashpole/react-inner-image-zoom/blob/master/CONTRIBUTING.md).
+
 ## License
 
 [MIT](https://github.com/laurenashpole/react-inner-image-zoom/blob/master/LICENSE)
