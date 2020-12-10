@@ -34,7 +34,7 @@ const Docs = () => {
             <p>If your setup supports it, import the CSS directly from your node_modules:</p>
             <pre className={styles.code}><code>import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';</code></pre>
             <p>or the minified version:</p>
-            <pre className="docs__code"><code>import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';</code></pre>
+            <pre className={styles.code}><code>import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';</code></pre>
           </div>
 
           <div>

@@ -1,0 +1,17 @@
+.container {
+  min-height: calc(100vh - 15.8rem);
+  text-align: center;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .container {
+    min-height: calc(100vh - 22rem);
+  }
+}
+
+@media (min-width: 900px) {
+  .container {
+    min-height: calc(100vh - 25.8rem);
+  }
+}
