@@ -1,55 +1,19 @@
 {
   "name": "react-inner-image-zoom",
-  "version": "1.3.0",
-  "description": "A React component for magnifying an image within its original container.",
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "files": [
-    "css",
-    "es",
-    "lib",
-    "umd"
-  ],
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "build": "nwb build-react-component --copy-files",
-    "clean": "nwb clean-module && nwb clean-demo",
-    "prepublishOnly": "npm run build",
-    "start": "nwb serve-react-demo",
-    "test": "nwb test-react",
-    "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server",
-    "semantic-release": "semantic-release"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
-  "dependencies": {},
-  "peerDependencies": {
-    "react": "16.x"
-  },
-  "devDependencies": {
-    "nwb": "0.23.x",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "semantic-release": "^17.2.3"
-  },
-  "author": "Lauren Ashpole",
-  "homepage": "https://github.com/laurenashpole/react-inner-image-zoom#readme",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/laurenashpole/react-inner-image-zoom.git"
-  },
-  "bugs": {
-    "url": "https://github.com/laurenashpole/react-inner-image-zoom/issues"
-  },
-  "keywords": [
-    "react",
-    "react-component",
-    "magnify",
-    "zoom",
-    "enlarge",
-    "image",
-    "responsive",
-    "photo",
-    "pdp",
-    "ecommerce"
-  ]
+  "dependencies": {
+    "next": "10.0.3",
+    "react": "17.0.1",
+    "react-copy-to-clipboard": "^5.0.2",
+    "react-dom": "17.0.1",
+    "react-inner-image-zoom": "^1.3.0",
+    "react-lazy-load": "^3.1.13",
+    "react-slick": "^0.27.13"
+  }
 }

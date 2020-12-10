@@ -1,106 +1,30 @@
-# react-inner-image-zoom
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-[Demos](https://laurenashpole.github.io/react-inner-image-zoom)
+## Getting Started
 
-A React component for magnifying an image within its original container. The zoom behavior is triggered on click and the image can be moved by dragging on touch devices and by either dragging or hover panning on non-touch devices. The component supports responsive images and optional fullscreen zoom on mobile.
+First, run the development server:
 
-[![Travis][build-badge]][build]
-[![npm package][npm-badge]][npm]
-
-## Installation
-
-### NPM
-```
-npm install react-inner-image-zoom
+```bash
+npm run dev
+# or
+yarn dev
 ```
 
-### Yarn
-```
-yarn add react-inner-image-zoom
-```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Styling
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-I was originally importing the CSS directly into the component but I've recently realized that makes too many assumptions about the wider build process. You can now download the raw CSS file at:
+## Learn More
 
-[/src/InnerImageZoom/styles.css](https://raw.githubusercontent.com/laurenashpole/react-inner-image-zoom/master/src/InnerImageZoom/styles.css)
+To learn more about Next.js, take a look at the following resources:
 
-or the minified raw minified version at:
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-[/src/InnerImageZoom/styles.min.css](https://raw.githubusercontent.com/laurenashpole/react-inner-image-zoom/master/src/InnerImageZoom/styles.min.css)
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-to include however you see fit. Or, if your setup supports it, import the files directory from your `node_modules` using:
+## Deploy on Vercel
 
-```javascript
-import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
-```
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-or:
-
-```javascript
-import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';
-```
-
-## Usage
-
-Import and render the component:
-```javascript
-import InnerImageZoom from 'react-inner-image-zoom';
-
-...
-
-<InnerImageZoom src="/path/to/image.jpg" zoomSrc="/path/to/zoom-image.jpg" />
-```
-
-This is the simplest usage. For additional examples, visit the [demo page](https://laurenashpole.github.io/react-inner-image-zoom).
-
-
-## Props
-
-Prop | Type | Default | Description
---- | --- | --- | ---
-src | String | | (Required) URL for the original image.
-srcSet | String | | Default srcset attribute for a responsive original image.
-sizes | String | | Default sizes attribute for use with srcset.
-sources | Array | | A list of image sources for using the picture tag to serve the appropriate original image (see below for more details).
-zoomSrc | String | | URL for the larger zoom image. Falls back to original image src if not defined.
-zoomScale | Number | 1 | Multiplied against the natural width and height of the zoomed image. This will generally be a decimal (example, 0.9 for 90%).
-alt | String | | Alternative text for the original image.
-moveType | String | pan | `pan` or `drag`. The user behavior for moving zoomed images on non-touch devices.
-zoomType | String | click | `click` or `hover`. The zoom behavior for images.
-fadeDuration | Number | 150 | Fade transition time in milliseconds. If zooming in on transparent images, set this to `0` for best results.
-fullscreenOnMobile | Boolean | false | Enables fullscreen zoomed image on touch devices below a specified breakpoint.
-mobileBreakpoint | Number | 640 | The maximum breakpoint for fullscreen zoom image when fullscreenOnMobile is true.
-className | String | | Custom classname for styling the component.
-afterZoomIn | Function | | Function to be called after zoom in.
-afterZoomOut | Function | | Function to be called after zoom out.
-startsActive | boolean | | if set to true, sets the initial value of isActive to true.
-
-### Sources
-
-This prop accepts an array of objects which it uses to create a picture tag and source elements. The component looks for the following optional properties and you can find additional details on responsive images [here](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images):
-
-Prop | Type | Default | Description
---- | --- | --- | ---
-srcSet | String | | Srcset attribute for source tag.
-sizes | String | | Sizes attribute for source tag.
-media | String | | An attribute containing a media condition for use with the srcset.
-type | String | | An image MIME type. This is useful for using newer formats like WebP.
-
-## Issues
-
-Please submit issues or requests [here](https://github.com/laurenashpole/react-inner-image-zoom/issues).
-
-Most of the implementation choices for this component are based on use cases I've encountered in the past. For example, I chose a click to zoom trigger because it's been the most requested on product detail pages I've worked on. If there's a demand for zoom on hover or other additional functionality, I'd be open to looking into it so feel free to ask.
-
-If you're interested in contributing, check out the guidelines [here](https://github.com/laurenashpole/react-inner-image-zoom/blob/master/CONTRIBUTING.md).
-
-## License
-
-[MIT](https://github.com/laurenashpole/react-inner-image-zoom/blob/master/LICENSE)
-
-[build-badge]: https://travis-ci.org/laurenashpole/react-inner-image-zoom.svg?branch=master
-[build]: https://travis-ci.org/laurenashpole/react-inner-image-zoom
-
-[npm-badge]: http://img.shields.io/npm/v/react-inner-image-zoom.svg?style=flat
-[npm]: https://www.npmjs.com/package/react-inner-image-zoom
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

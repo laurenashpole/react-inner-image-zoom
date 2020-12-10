@@ -1,0 +1,114 @@
+.container {
+  padding: 0 0.2rem;
+}
+
+.heading {
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.nav {
+  margin-bottom: 1.5rem;
+  font-size: 0.950rem;
+  text-align: center;
+}
+
+.nav a {
+  margin-right: 0.75rem;
+}
+
+.content {
+  border-top: 1px solid #d5d5df;
+  padding: 1.5rem 0 2.5rem 0;
+}
+
+.content h3 {
+  margin: 0 0 1.5rem 0;
+  padding: 1.5rem 0 0 0;
+}
+
+.content h4 {
+  margin: 1.5rem 0 0.665rem 0;
+  color: #727292;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.content b {
+  margin-bottom: 2px;
+  font-weight: 600;
+}
+
+.content div + div {
+  padding-top: 1.5rem;
+}
+
+.content p {
+  line-height: 1.4em;
+}
+
+.content p:last-child {
+  margin-bottom: 0;
+}
+
+.code {
+  background: #f2f3f7;
+  margin-top: 0;
+  padding: 1.5rem;
+  border-radius: 1px;
+  overflow: auto;
+}
+
+.propsList {
+  margin: 0;
+  padding: 0;
+  border: 1px solid #d5d5df;
+  border-radius: 1px;
+  list-style: none;
+}
+
+.propsList li {
+  padding: 0.65rem;
+  line-height: 1.4em;
+}
+
+.propsList li + li {
+  border-top: 1px solid #d5d5df;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .heading {
+    width: 100%;
+    margin: 0 0 0 25%;
+    border-left: 1px solid #d5d5df;
+    padding-left: 3rem;
+    text-align: left;
+  }
+
+  .nav {
+    width: 25%;
+    padding: 1.55rem 2rem 0 2rem;
+    text-align: right;
+  }
+
+  .nav a {
+    margin: 0 0 0.5rem 0;
+    display: block;
+  }
+
+  .content {
+    width: 75%;
+    border: none;
+    border-left: 1px solid #d5d5df;
+    padding: 0 0 2rem 3rem;
+  }
+}

@@ -1,0 +1,58 @@
+.container {
+  padding-bottom: 2.5rem;
+  text-align: center;
+}
+
+.content {
+  line-height: 1.5em;
+}
+
+.content p {
+  margin-bottom: 1.25rem;
+}
+
+.btn {
+  background: #cb4e01;
+  width: auto;
+  margin-top: 1.6rem;
+  border-radius: 2px;
+  padding: 0 2.25rem;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 3rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.075em;
+  display: inline-block;
+}
+
+.btn:hover,
+.btn:focus {
+  background: #b64600;
+  color: #fff;
+}
+
+.btn span {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-bottom: 0;
+  }
+
+  .heading {
+    margin-top: 0;
+  }
+
+  .content {
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+  }
+
+  .btn span {
+    display: inline;
+  }
+}

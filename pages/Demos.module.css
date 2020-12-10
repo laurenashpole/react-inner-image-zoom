@@ -1,0 +1,57 @@
+.container section + section {
+  margin-top: 2.5rem;
+}
+
+.heading {
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.nav {
+  margin-bottom: 2.8rem;
+  font-size: 0.950rem;
+  line-height: 1.75em;
+  text-align: center;
+}
+
+.nav a {
+  margin-left: 0.75rem;
+}
+
+.nav span {
+  color: #4b4b4b;
+  font-family: 'Frank Ruhl Libre', serif;
+  font-style: italic;
+  letter-spacing: 0.015em;
+}
+
+@media (min-width: 768px) {
+  .heading {
+    margin-top: 1rem;
+  }
+
+  .nav {
+    margin-bottom: 3.5rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .container section + section {
+    margin-top: 4rem;
+  }
+
+  .heading {
+    padding-left: 2rem;
+    text-align: left;
+  }
+
+  .nav {
+    margin-bottom: 4.6rem;
+    padding-left: 2rem;
+    text-align: left;
+  }
+
+  .nav a {
+    margin-left: 1rem;
+  }
+}
