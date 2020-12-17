@@ -32,6 +32,19 @@ class InnerImageZoom extends Component {
     }
   }
 
+  handleMouseOver = (e) => {
+    if (this.state.isActive) {
+      return;
+    }
+    this.setState({
+      isActive: true,
+    });
+
+    if (this.props.zoomType === "hover" && !this.state.isZoomed) {
+      this.handleClick(e);
+    }
+  };
+
   handleTouchStart = () => {
     const isFullscreen = this.props.fullscreenOnMobile && window.matchMedia && window.matchMedia(`(max-width: ${this.props.mobileBreakpoint}px)`).matches;
 
@@ -272,6 +285,7 @@ class InnerImageZoom extends Component {
         onTouchStart={this.handleTouchStart}
         onClick={this.handleClick}
         onMouseEnter={this.state.isTouch ? null : this.handleMouseEnter}
+        onMouseOver={this.state.isTouch ? null : this.handleMouseOver}
         onMouseMove={this.state.currentMoveType === 'drag' || !this.state.isZoomed ? null : this.handleMouseMove}
         onMouseLeave={this.state.isTouch ? null : this.handleMouseLeave}
       >

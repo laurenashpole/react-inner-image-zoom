@@ -109,6 +109,20 @@ describe('InnerImageZoom', () => {
           done();
         }
       });
+      it('makes the zoomed image visible on click if mouse over the element', (done) => {
+        const component = innerImageZoom();
+        const figure = ReactTestUtils.findRenderedDOMComponentWithTag(component, 'figure');
+        ReactTestUtils.Simulate.mouseOver(figure);
+        ReactTestUtils.Simulate.click(figure, { pageX: 100, pageY: 100 });
+        const zoomImg = figure.querySelector('.iiz__zoom-img');
+
+        zoomImg.onload = () => {
+          const visibleZoomImg = figure.querySelector('.iiz__zoom-img--visible');
+
+          expect(visibleZoomImg).toExist();
+          done();
+        }
+      });
 
       it('renders the zoomed image in a fullscreen portal if fullscreenOnMobile is set', () => {
         global.innerWidth = 500;
