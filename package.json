@@ -22,13 +22,13 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": "16.x"
+    "react": "^16.8.x"
   },
   "devDependencies": {
-    "nwb": "0.23.x",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "semantic-release": "^17.2.3"
+    "nwb": "^0.25.2",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "semantic-release": "^17.3.1"
   },
   "author": "Lauren Ashpole",
   "homepage": "https://github.com/laurenashpole/react-inner-image-zoom#readme",

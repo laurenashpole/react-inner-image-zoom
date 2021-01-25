@@ -1,33 +1,24 @@
-import { Component } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 
-class FullscreenPortal extends Component {
-  constructor(props) {
-    super(props);
-    this.el = document.createElement('div');
-    this.el.classList.add(props.className);
-  }
+const FullscreenPortal = ({ children }) => {
+  const portal = useRef(document.createElement('div'));
 
-  componentDidMount() {
-    document.body.appendChild(this.el);
-  }
+  useEffect(() => {
+    portal.current.classList.add('iiz__zoom-portal');
+    document.body.appendChild(portal.current);
 
-  componentWillUnmount() {
-    document.body.removeChild(this.el);
-  }
+    return () => {
+      document.body.removeChild(portal.current);
+    };
+  }, []);
 
-  render() {
-    return createPortal(
-      this.props.children,
-      this.el
-    );
-  }
-}
+  return createPortal(children, portal.current);
+};
 
 FullscreenPortal.propTypes = {
-  children: PropTypes.element,
-  className: PropTypes.string
+  children: PropTypes.element
 };
 
 export default FullscreenPortal;

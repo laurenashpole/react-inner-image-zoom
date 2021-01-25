@@ -1,17 +1,15 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-const Image = (props) => {
-  const {
-    src,
-    srcSet,
-    sizes,
-    sources,
-    alt,
-    isZoomed,
-    fadeDuration
-  } = props;
-
+const Image = ({
+  src,
+  srcSet,
+  sizes,
+  sources,
+  alt,
+  isZoomed,
+  fadeDuration
+}) => {
   return(
     <Fragment>
       {sources && sources.length > 0 ? (
@@ -32,7 +30,7 @@ const Image = (props) => {
           })}
 
           <img
-            className={`iiz__img ${isZoomed ? 'iiz__img--invisible' : ''}`}
+            className={`iiz__img ${isZoomed ? 'iiz__img--hidden' : ''}`}
             style={{
               transition: `linear 0ms opacity ${isZoomed ? fadeDuration : 0}ms, linear ${fadeDuration}ms visibility ${isZoomed ? fadeDuration : 0}ms`
             }}
@@ -44,7 +42,7 @@ const Image = (props) => {
         </picture>
       ) : (
         <img
-          className={`iiz__img ${isZoomed ? 'iiz__img--invisible' : ''}`}
+          className={`iiz__img ${isZoomed ? 'iiz__img--hidden' : ''}`}
           style={{
             transition: `linear 0ms opacity ${isZoomed ? fadeDuration : 0}ms, linear ${fadeDuration}ms visibility ${isZoomed ? fadeDuration : 0}ms`
           }}

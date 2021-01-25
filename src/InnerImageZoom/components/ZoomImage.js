@@ -1,26 +1,24 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-const ZoomImage = (props) => {
-  const {
-    src,
-    fadeDuration,
-    top,
-    left,
-    isZoomed,
-    onLoad,
-    onDragStart,
-    onDragEnd,
-    onClose
-  } = props;
-
+const ZoomImage = ({
+  src,
+  fadeDuration,
+  top,
+  left,
+  isZoomed,
+  onLoad,
+  onDragStart,
+  onDragEnd,
+  onClose
+}) => {
   return(
     <Fragment>
       <img
         className={`iiz__zoom-img ${isZoomed ? 'iiz__zoom-img--visible' : ''}`}
         style={{
-          top: top,
-          left: left,
+          top: top || 0,
+          left: left || 0,
           transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
         }}
         src={src}
