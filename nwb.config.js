@@ -4,4 +4,4 @@ module.exports = {
     esModules: true,
     umd: false
   }
-}
+};

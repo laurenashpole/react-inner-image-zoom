@@ -1,18 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-const ZoomImage = ({
-  src,
-  fadeDuration,
-  top,
-  left,
-  isZoomed,
-  onLoad,
-  onDragStart,
-  onDragEnd,
-  onClose
-}) => {
-  return(
+const ZoomImage = ({ src, fadeDuration, top, left, isZoomed, onLoad, onDragStart, onDragEnd, onClose }) => {
+  return (
     <Fragment>
       <img
         className={`iiz__zoom-img ${isZoomed ? 'iiz__zoom-img--visible' : ''}`}
@@ -30,7 +20,7 @@ const ZoomImage = ({
         alt=""
       />
 
-      {onClose &&
+      {onClose && (
         <button
           className={`iiz__btn iiz__close ${isZoomed ? 'iiz__close--visible' : ''}`}
           style={{
@@ -39,7 +29,7 @@ const ZoomImage = ({
           onClick={onClose}
           aria-label="Zoom Out"
         />
-      }
+      )}
     </Fragment>
   );
 };

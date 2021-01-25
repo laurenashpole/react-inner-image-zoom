@@ -1,20 +1,20 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 
 const FullscreenPortal = ({ children }) => {
-  const portal = useRef(document.createElement('div'));
+  const [portal] = useState(() => {
+    const el = document.createElement('div');
+    el.classList.add('iiz__zoom-portal');
+    return el;
+  });
 
   useEffect(() => {
-    portal.current.classList.add('iiz__zoom-portal');
-    document.body.appendChild(portal.current);
+    document.body.appendChild(portal);
+    return () => document.body.removeChild(portal);
+  }, [portal]);
 
-    return () => {
-      document.body.removeChild(portal.current);
-    };
-  }, []);
-
-  return createPortal(children, portal.current);
+  return createPortal(children, portal);
 };
 
 FullscreenPortal.propTypes = {

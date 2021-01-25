@@ -18,14 +18,17 @@ class Demo extends Component {
         </div>
         <div style={{ marginBottom: '30px' }}>
           <h2>Drag Example</h2>
-          <InnerImageZoom src="unsplash3.jpg" zoomSrc="unsplash3-large.jpg" fullscreenOnMobile={true} moveType="drag" zoomScale={0.9} />
+          <InnerImageZoom
+            src="unsplash3.jpg"
+            zoomSrc="unsplash3-large.jpg"
+            fullscreenOnMobile={true}
+            moveType="drag"
+            zoomScale={0.9}
+          />
         </div>
       </div>
     );
   }
 }
 
-render(
-  <Demo />,
-  document.querySelector('#demo')
-);
+render(<Demo />, document.querySelector('#demo'));

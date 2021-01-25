@@ -1,16 +1,27 @@
 import expect, { createSpy } from 'expect';
 import React, { Component } from 'react';
-import { Simulate, act, findRenderedDOMComponentWithClass, findRenderedDOMComponentWithTag, scryRenderedDOMComponentsWithTag } from 'react-dom/test-utils';
+import PropTypes from 'prop-types';
+import {
+  Simulate,
+  act,
+  findRenderedDOMComponentWithClass,
+  findRenderedDOMComponentWithTag,
+  scryRenderedDOMComponentsWithTag
+} from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { SRCS } from './constants/srcs';
 import InnerImageZoom from 'src/';
 import 'src/InnerImageZoom/styles.css';
 
 class Wrapper extends Component {
-  render () { 
+  render() {
     return this.props.children;
   }
 }
+
+Wrapper.propTypes = {
+  children: PropTypes.element
+};
 
 describe('InnerImageZoom', () => {
   let node;
@@ -30,9 +41,14 @@ describe('InnerImageZoom', () => {
 
   const innerImageZoom = (props = {}) => {
     return act(() => {
-      component = render(<Wrapper><InnerImageZoom src={SRCS.default} {...props} /></Wrapper>, node);
+      component = render(
+        <Wrapper>
+          <InnerImageZoom src={SRCS.default} {...props} />
+        </Wrapper>,
+        node
+      );
     });
-  }
+  };
 
   describe('mount', () => {
     describe('container', () => {
@@ -85,12 +101,11 @@ describe('InnerImageZoom', () => {
         const figure = findRenderedDOMComponentWithTag(component, 'figure');
         Simulate.mouseEnter(figure);
         const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
-        expect(zoomImg.getAttribute('src')).toEqual('https://images.unsplash.com/photo-1517331156700-3c241d2b4d83?fit=crop&w=1000');
+        expect(zoomImg.getAttribute('src')).toEqual(SRCS.zoom);
       });
 
       it('renders the zoomed image on render if zoomPreload is true', () => {
         innerImageZoom({ zoomPreload: true });
-        const figure = findRenderedDOMComponentWithTag(component, 'figure');
         const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
         expect(zoomImg).toExist();
       });
@@ -107,7 +122,7 @@ describe('InnerImageZoom', () => {
         zoomImg.onload = () => {
           expect(zoomImg.classList.contains('iiz__zoom-img--visible')).toBe(true);
           done();
-        }
+        };
       });
 
       it('makes the zoomed image visible on mouse enter if zoomType hover is set', (done) => {
@@ -119,12 +134,14 @@ describe('InnerImageZoom', () => {
         zoomImg.onload = () => {
           expect(zoomImg.classList.contains('iiz__zoom-img--visible')).toBe(true);
           done();
-        }
+        };
       });
 
       it('renders the zoomed image in a fullscreen portal if fullscreenOnMobile is set', () => {
         global.innerWidth = 500;
-        global.window.matchMedia = () => { return { matches: true }};
+        global.window.matchMedia = () => {
+          return { matches: true };
+        };
         innerImageZoom({ fullscreenOnMobile: true });
         const figure = findRenderedDOMComponentWithTag(component, 'figure');
         Simulate.touchStart(figure);
@@ -148,7 +165,7 @@ describe('InnerImageZoom', () => {
           expect(afterZoomIn).toHaveBeenCalled();
           afterZoomIn.restore();
           done();
-        }
+        };
       });
     });
   });
@@ -167,7 +184,7 @@ describe('InnerImageZoom', () => {
         const updatedTopPos = zoomImg.style.top;
         expect(parseInt(topPos, 10)).toNotEqual(parseInt(updatedTopPos, 10));
         done();
-      }
+      };
     });
   });
 
@@ -183,7 +200,7 @@ describe('InnerImageZoom', () => {
         Simulate.click(figure, { pageX: 100, pageY: 100 });
         expect(zoomImg.classList.contains('iiz__zoom-img--visible')).toBe(false);
         done();
-      }
+      };
     });
 
     it('hides the zoomed image on mouse leave', (done) => {
@@ -197,7 +214,7 @@ describe('InnerImageZoom', () => {
         Simulate.mouseLeave(figure);
         expect(zoomImg.classList.contains('iiz__zoom-img--visible')).toBe(false);
         done();
-      }
+      };
     });
 
     it('hides the zoomed image on close button click on touch devices', (done) => {
@@ -213,7 +230,7 @@ describe('InnerImageZoom', () => {
         Simulate.click(button, { pageX: 0, pageY: 0 });
         expect(zoomImg.classList.contains('iiz__zoom-img--visible')).toBe(false);
         done();
-      }
+      };
     });
 
     it('removes the zoomed image after fade transition', (done) => {
@@ -231,7 +248,7 @@ describe('InnerImageZoom', () => {
           expect(img.length).toBe(1);
           done();
         }, 150);
-      }
+      };
     });
 
     it('removes the zoomed image after fade transition on touch devices', (done) => {
@@ -251,7 +268,7 @@ describe('InnerImageZoom', () => {
           expect(img.length).toBe(1);
           done();
         }, 150);
-      }
+      };
     });
 
     it('fires afterZoomOut callback on zoom out', (done) => {
@@ -267,7 +284,7 @@ describe('InnerImageZoom', () => {
         expect(afterZoomOut).toHaveBeenCalled();
         afterZoomOut.restore();
         done();
-      }
+      };
     });
   });
 });

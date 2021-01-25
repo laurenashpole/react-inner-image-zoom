@@ -40,11 +40,12 @@ const InnerImageZoom = ({
 
   const handleMouseEnter = (e) => {
     setIsActive(true);
-    (zoomType === 'hover' && !isZoomed) && handleClick(e);
+    zoomType === 'hover' && !isZoomed && handleClick(e);
   };
 
   const handleTouchStart = () => {
-    const enableFullscreen = fullscreenOnMobile && window.matchMedia && window.matchMedia(`(max-width: ${mobileBreakpoint}px)`).matches;
+    const enableFullscreen =
+      fullscreenOnMobile && window.matchMedia && window.matchMedia(`(max-width: ${mobileBreakpoint}px)`).matches;
 
     setIsTouch(true);
     setIsFullscreen(enableFullscreen);
@@ -53,7 +54,7 @@ const InnerImageZoom = ({
 
   const handleClick = (e) => {
     if (isZoomed) {
-      (!isTouch && !isDragging) && zoomOut();
+      !isTouch && !isDragging && zoomOut();
       return;
     }
 
@@ -94,7 +95,12 @@ const InnerImageZoom = ({
   const handleDragStart = (e) => {
     const eventType = isTouch ? 'touchmove' : 'mousemove';
 
-    imgProps.current.offsets = getOffsets((e.pageX || e.changedTouches[0].pageX), (e.pageY || e.changedTouches[0].pageY), zoomImg.current.offsetLeft, zoomImg.current.offsetTop);
+    imgProps.current.offsets = getOffsets(
+      e.pageX || e.changedTouches[0].pageX,
+      e.pageY || e.changedTouches[0].pageY,
+      zoomImg.current.offsetLeft,
+      zoomImg.current.offsetTop
+    );
     zoomImg.current.addEventListener(eventType, handleDragMove, { passive: false });
 
     if (!isTouch) {
@@ -143,7 +149,7 @@ const InnerImageZoom = ({
         imgProps.current = getDefaults();
 
         setIsActive(false);
-        setIsTouch(false)
+        setIsTouch(false);
         setIsFullscreen(false);
         setCurrentMoveType(moveType);
       }, fadeDuration);
@@ -151,7 +157,12 @@ const InnerImageZoom = ({
   };
 
   const initialMove = (pageX, pageY) => {
-    imgProps.current.offsets = getOffsets(window.pageXOffset, window.pageYOffset, -imgProps.current.bounds.left, -imgProps.current.bounds.top);
+    imgProps.current.offsets = getOffsets(
+      window.pageXOffset,
+      window.pageYOffset,
+      -imgProps.current.bounds.left,
+      -imgProps.current.bounds.top
+    );
     handleMouseMove({ pageX, pageY });
   };
 
@@ -163,10 +174,12 @@ const InnerImageZoom = ({
     imgProps.current.offsets = getOffsets(0, 0, 0, 0);
 
     handleDragMove({
-      changedTouches: [{
-        pageX: initialPageX,
-        pageY: initialPageY
-      }],
+      changedTouches: [
+        {
+          pageX: initialPageX,
+          pageY: initialPageY
+        }
+      ],
       preventDefault: () => {},
       stopPropagation: () => {}
     });
@@ -233,7 +246,7 @@ const InnerImageZoom = ({
     onClose: isTouch ? handleClose : null
   };
 
-  return(
+  return (
     <figure
       className={`iiz ${currentMoveType === 'drag' ? 'iiz--drag' : ''} ${className ? className : ''}`}
       ref={img}
@@ -253,7 +266,7 @@ const InnerImageZoom = ({
         isZoomed={isZoomed}
       />
 
-      {isActive &&
+      {isActive && (
         <Fragment>
           {isFullscreen ? (
             <FullscreenPortal>
@@ -263,11 +276,9 @@ const InnerImageZoom = ({
             <ZoomImage {...zoomImageProps} />
           )}
         </Fragment>
-      }
+      )}
 
-      {!isZoomed &&
-        <span className="iiz__btn iiz__hint"></span>
-      }
+      {!isZoomed && <span className="iiz__btn iiz__hint"></span>}
     </figure>
   );
 };
