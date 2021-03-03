@@ -61,6 +61,12 @@
   overflow: auto;
 }
 
+.inlineCode {
+  background: #f2f3f7;
+  border-radius: 1px;
+  padding: 2px 4px;
+}
+
 .propsList {
   margin: 0;
   padding: 0;

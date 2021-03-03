@@ -15,10 +15,15 @@
 }
 
 .nav a {
-  margin-left: 0.75rem;
+  margin-right: 0.75rem;
 }
 
-.nav span {
+.nav br {
+  display: none;
+}
+
+.navLabel {
+  margin-right: 0.75rem;
   color: #4b4b4b;
   font-family: 'Frank Ruhl Libre', serif;
   font-style: italic;
@@ -49,9 +54,19 @@
     margin-bottom: 4.6rem;
     padding-left: 2rem;
     text-align: left;
+    display: flex;
   }
 
   .nav a {
-    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .nav br {
+    display: block;
+  }
+
+  .navLabel {
+    margin-right: 1rem;
+    flex-shrink: 0;
   }
 }

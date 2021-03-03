@@ -7,7 +7,7 @@ const Docs = () => {
       <div className={styles.container}>
         <h2 className={styles.heading}>Docs</h2>
 
-        <nav className={styles.nav}>
+        <nav className={styles.nav} aria-label="Topics">
           <a href="#installation">Installation</a>
           <a href="#styling">Styling</a>
           <a href="#usage">Usage</a>
@@ -17,6 +17,7 @@ const Docs = () => {
         <section className={styles.content}>
           <div>
             <h3 id="installation">Installation</h3>
+            <p><b>Note:</b> Version 2.0.0 introduces React hooks and requires React v16.8.0 or above. To use this package with older versions of React, install with <code className={styles.inlineCode}>npm install react-inner-image-zoom@1.3.0</code> or <code className={styles.inlineCode}>yarn add react-inner-image-zoom@1.3.0</code> instead of the instructions below.</p>
             <h4>NPM</h4>
             <pre className={styles.code}><code>npm install react-inner-image-zoom</code></pre>
             <h4>Yarn</h4>
@@ -54,17 +55,23 @@ const Docs = () => {
               <li><b>srcSet (String): </b>Default srcset attribute for a responsive original image.</li>
               <li><b>sizes (String): </b>Default sizes attribute for use with srcset.</li>
               <li><b>sources (Array): </b>A list of image sources for using the picture tag to serve the appropriate original image (see below for more details).</li>
+              <li><b>width (Number): </b>Width attribute for original image.</li>
+              <li><b>height (Number): </b>Height attribute for original image.</li>
+              <li><b>hasSpacer (Boolean): </b>Default false. If true, gets the original image's aspect ratio based on the width and height props and creates a spacer to prevent cumulative layout shift.</li>
               <li><b>zoomSrc (String): </b>URL for the larger zoom image. Falls back to original image src if not defined.</li>
+              <li><b>zoomScale (Number): </b>Default 1. Multiplied against the natural width and height of the zoomed image. This will generally be a decimal (example, 0.9 for 90%).</li>
+              <li><b>zoomPreload (Boolean): </b>Default false If set to true, preloads the zoom image instead of waiting for mouseenter.</li>
               <li><b>alt (String): </b>Alternative text for the original image.</li>
               <li><b>moveType (String): </b>Default pan. Accepts pan or drag options. The user behavior for moving zoomed images on non-touch devices.</li>
               <li><b>zoomType (String): </b>Default click. Accepts click or hover options. The trigger for zooming images</li>
               <li><b>fadeDuration (Number): </b>Default 150. Fade transition time in milliseconds. If zooming in on transparent images, set this to 0 for best results.</li>
               <li><b>fullscreenOnMobile (Boolean): </b>Default false. Enables fullscreen zoomed image on touch devices below a specified breakpoint.</li>
               <li><b>mobileBreakpoint (Number): </b>Default 640. The maximum breakpoint for fullscreen zoom image when fullscreenOnMobile is true.</li>
+              <li><b>hideCloseButton (Boolean): </b>Default false. Hides the close button on touch devices. If set to true, zoom out is triggered by tap.</li>
+              <li><b>hideHint (Boolean): </b>Default false. Hides the magnifying glass hint.</li>
               <li><b>className (String): </b>Custom classname for styling the component.</li>
               <li><b>afterZoomIn (Function): </b>Function to be called after zoom in.</li>
               <li><b>afterZoomOut (Function): </b>Function to be called after zoom out.</li>
-              <li><b>startsActive (Boolean): </b>If set to true, sets the initial value of isActive to true.</li>
             </ul>
 
             <h4>Sources</h4>

@@ -3,7 +3,7 @@ import styles from './nav.styles.js';
 
 const Nav = () => {
   return(
-    <nav className="nav">
+    <nav className="nav" aria-label="Main">
       <ul className="nav__list nav__list--secondary">
         <li className="nav__item">
           <a className="nav__link" href="https://github.com/laurenashpole/react-inner-image-zoom">Github</a>

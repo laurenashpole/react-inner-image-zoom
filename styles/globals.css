@@ -7,12 +7,14 @@ html {
   color: #373737;
   font: 125% 'Mada', 'Helvetica', 'Arial', sans-serif;
   font-weight: 300;
+  scroll-behavior: smooth;
 }
 
 body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 body:before {

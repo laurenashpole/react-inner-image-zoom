@@ -13,7 +13,7 @@
     "react": "17.0.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "17.0.1",
-    "react-inner-image-zoom": "^1.3.0",
+    "react-inner-image-zoom": "^2.0.0",
     "react-lazy-load": "^3.1.13",
     "react-slick": "^0.27.13"
   }
