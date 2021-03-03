@@ -70,14 +70,14 @@ height | Number | | Height attribute for original image.
 hasSpacer | Boolean | false | If true, gets the original image's aspect ratio based on the width and height props and creates a spacer to prevent cumulative layout shift.
 zoomSrc | String | | URL for the larger zoom image. Falls back to original image src if not defined.
 zoomScale | Number | 1 | Multiplied against the natural width and height of the zoomed image. This will generally be a decimal (example, 0.9 for 90%).
-zoomPreload | boolean | false | If set to true, preloads the zoom image instead of waiting for mouseenter.
+zoomPreload | Boolean | false | If set to true, preloads the zoom image instead of waiting for mouseenter.
 alt | String | | Alternative text for the original image.
 moveType | String | pan | `pan` or `drag`. The user behavior for moving zoomed images on non-touch devices.
 zoomType | String | click | `click` or `hover`. The zoom behavior for images.
 fadeDuration | Number | 150 | Fade transition time in milliseconds. If zooming in on transparent images, set this to `0` for best results.
 fullscreenOnMobile | Boolean | false | Enables fullscreen zoomed image on touch devices below a specified breakpoint.
 mobileBreakpoint | Number | 640 | The maximum breakpoint for fullscreen zoom image when fullscreenOnMobile is true.
-hideMobileButton | Boolean | false | Hides the close button on touch devices. If set to true, zoom out is triggered by tap.
+hideCloseButton | Boolean | false | Hides the close button on touch devices. If set to true, zoom out is triggered by tap.
 hideHint | Boolean | false | Hides the magnifying glass hint.
 className | String | | Custom classname for styling the component.
 afterZoomIn | Function | | Function to be called after zoom in.
