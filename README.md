@@ -9,6 +9,8 @@ A React component for magnifying an image within its original container. The zoo
 
 ## Installation
 
+**Note:** Version 2.0.0 introduces React hooks and requires React v16.8.0 or above. To use this package with older versions of React, install with `npm install react-inner-image-zoom@1.3.0` or `yarn add react-inner-image-zoom@1.3.0` instead of the instructions below.
+
 ### NPM
 ```
 npm install react-inner-image-zoom
@@ -63,18 +65,23 @@ src | String | | (Required) URL for the original image.
 srcSet | String | | Default srcset attribute for a responsive original image.
 sizes | String | | Default sizes attribute for use with srcset.
 sources | Array | | A list of image sources for using the picture tag to serve the appropriate original image (see below for more details).
+width | Number | | Width attribute for original image.
+height | Number | | Height attribute for original image.
+hasSpacer | Boolean | false | If true, gets the original image's aspect ratio based on the width and height props and creates a spacer to prevent cumulative layout shift.
 zoomSrc | String | | URL for the larger zoom image. Falls back to original image src if not defined.
 zoomScale | Number | 1 | Multiplied against the natural width and height of the zoomed image. This will generally be a decimal (example, 0.9 for 90%).
+zoomPreload | Boolean | false | If set to true, preloads the zoom image instead of waiting for mouseenter.
 alt | String | | Alternative text for the original image.
 moveType | String | pan | `pan` or `drag`. The user behavior for moving zoomed images on non-touch devices.
 zoomType | String | click | `click` or `hover`. The zoom behavior for images.
 fadeDuration | Number | 150 | Fade transition time in milliseconds. If zooming in on transparent images, set this to `0` for best results.
 fullscreenOnMobile | Boolean | false | Enables fullscreen zoomed image on touch devices below a specified breakpoint.
 mobileBreakpoint | Number | 640 | The maximum breakpoint for fullscreen zoom image when fullscreenOnMobile is true.
+hideCloseButton | Boolean | false | Hides the close button on touch devices. If set to true, zoom out is triggered by tap.
+hideHint | Boolean | false | Hides the magnifying glass hint.
 className | String | | Custom classname for styling the component.
 afterZoomIn | Function | | Function to be called after zoom in.
 afterZoomOut | Function | | Function to be called after zoom out.
-startsActive | boolean | | if set to true, sets the initial value of isActive to true.
 
 ### Sources
 

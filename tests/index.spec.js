@@ -1,13 +1,31 @@
 import expect, { createSpy } from 'expect';
-import React from 'react';
-import { Simulate, act, findRenderedDOMComponentWithClass, findRenderedDOMComponentWithTag, scryRenderedDOMComponentsWithTag } from 'react-dom/test-utils';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import {
+  Simulate,
+  act,
+  findRenderedDOMComponentWithClass,
+  findRenderedDOMComponentWithTag,
+  scryRenderedDOMComponentsWithTag
+} from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { SRCS } from './constants/srcs';
 import InnerImageZoom from 'src/';
 import 'src/InnerImageZoom/styles.css';
 
+class Wrapper extends Component {
+  render() {
+    return this.props.children;
+  }
+}
+
+Wrapper.propTypes = {
+  children: PropTypes.element
+};
+
 describe('InnerImageZoom', () => {
   let node;
+  let component;
 
   beforeEach(() => {
     node = document.createElement('div');
@@ -15,24 +33,33 @@ describe('InnerImageZoom', () => {
   });
 
   afterEach(() => {
-    document.body.removeChild(node);
     unmountComponentAtNode(node);
+    node.remove();
+    node = null;
+    component = null;
   });
 
   const innerImageZoom = (props = {}) => {
-    return render(<InnerImageZoom src={SRCS.default} {...props} />, node);
-  }
+    return act(() => {
+      component = render(
+        <Wrapper>
+          <InnerImageZoom src={SRCS.default} {...props} />
+        </Wrapper>,
+        node
+      );
+    });
+  };
 
   describe('mount', () => {
     describe('container', () => {
       it('renders a figure', () => {
-        const component = innerImageZoom();
+        innerImageZoom();
         const figure = findRenderedDOMComponentWithTag(component, 'figure');
         expect(figure).toExist();
       });
 
       it('renders a figure with a custom classname', () => {
-        const component = innerImageZoom({ className: 'custom' });
+        innerImageZoom({ className: 'custom' });
         const figure = findRenderedDOMComponentWithTag(component, 'figure');
         expect(figure.classList.contains('custom')).toBe(true);
       });
@@ -40,21 +67,39 @@ describe('InnerImageZoom', () => {
 
     describe('original image', () => {
       it('renders the original image', () => {
-        const component = innerImageZoom();
+        innerImageZoom();
         const img = findRenderedDOMComponentWithTag(component, 'img');
         expect(img).toExist();
       });
 
       it('renders the original image with sources', () => {
-        const component = innerImageZoom({ sources: SRCS.sources });
+        innerImageZoom({ sources: SRCS.sources });
         const sources = scryRenderedDOMComponentsWithTag(component, 'source');
         expect(sources.length).toEqual(2);
       });
 
       it('only renders sources that have srcSet set', () => {
-        const component = innerImageZoom({ sources: SRCS.invalidSources });
+        innerImageZoom({ sources: SRCS.invalidSources });
         const sources = scryRenderedDOMComponentsWithTag(component, 'source');
         expect(sources.length).toEqual(1);
+      });
+
+      it('renders an image spacer if width, height, and hasSpacer are set', () => {
+        innerImageZoom({ width: 750, height: 500, hasSpacer: true });
+        const wrapper = findRenderedDOMComponentWithTag(component, 'div');
+        expect(wrapper.style['padding-top']).toEqual('66.66666666666666%');
+      });
+
+      it('ignores hasSpacer if width or height are not set', () => {
+        innerImageZoom({ height: 500, hasSpacer: true });
+        const wrapper = findRenderedDOMComponentWithTag(component, 'div');
+        expect(wrapper.style['padding-top']).toNotExist();
+      });
+
+      it('hides the magnifying glass hint if hideHint is true', () => {
+        innerImageZoom({ hideHint: true });
+        const hints = scryRenderedDOMComponentsWithTag(component, 'span');
+        expect(hints.length).toBe(0);
       });
     });
   });
@@ -62,7 +107,7 @@ describe('InnerImageZoom', () => {
   describe('zoom in', () => {
     describe('render', () => {
       it('renders the zoomed image on mouse enter', () => {
-        const component = innerImageZoom();
+        innerImageZoom();
         const figure = findRenderedDOMComponentWithTag(component, 'figure');
         Simulate.mouseEnter(figure);
         const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
@@ -70,16 +115,15 @@ describe('InnerImageZoom', () => {
       });
 
       it('renders the zoomed image with unique src if set', () => {
-        const component = innerImageZoom({ zoomSrc: SRCS.zoom });
+        innerImageZoom({ zoomSrc: SRCS.zoom });
         const figure = findRenderedDOMComponentWithTag(component, 'figure');
         Simulate.mouseEnter(figure);
         const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
-        expect(zoomImg.getAttribute('src')).toEqual('https://images.unsplash.com/photo-1517331156700-3c241d2b4d83?fit=crop&w=1000');
+        expect(zoomImg.getAttribute('src')).toEqual(SRCS.zoom);
       });
 
-      it('renders the zoomed image on render if startsActive is true', () => {
-        const component = innerImageZoom({ startsActive: true });
-        const figure = findRenderedDOMComponentWithTag(component, 'figure');
+      it('renders the zoomed image on render if zoomPreload is true', () => {
+        innerImageZoom({ zoomPreload: true });
         const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
         expect(zoomImg).toExist();
       });
@@ -87,7 +131,7 @@ describe('InnerImageZoom', () => {
 
     describe('show', () => {
       it('makes the zoomed image visible on click', (done) => {
-        const component = innerImageZoom();
+        innerImageZoom();
         const figure = findRenderedDOMComponentWithTag(component, 'figure');
         Simulate.mouseEnter(figure);
         Simulate.click(figure, { pageX: 100, pageY: 100 });
@@ -96,11 +140,11 @@ describe('InnerImageZoom', () => {
         zoomImg.onload = () => {
           expect(zoomImg.classList.contains('iiz__zoom-img--visible')).toBe(true);
           done();
-        }
+        };
       });
 
       it('makes the zoomed image visible on mouse enter if zoomType hover is set', (done) => {
-        const component = innerImageZoom({ zoomType: 'hover' });
+        innerImageZoom({ zoomType: 'hover' });
         const figure = findRenderedDOMComponentWithTag(component, 'figure');
         Simulate.mouseEnter(figure, { pageX: 100, pageY: 100 });
         const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
@@ -108,24 +152,28 @@ describe('InnerImageZoom', () => {
         zoomImg.onload = () => {
           expect(zoomImg.classList.contains('iiz__zoom-img--visible')).toBe(true);
           done();
-        }
+        };
       });
 
       it('renders the zoomed image in a fullscreen portal if fullscreenOnMobile is set', () => {
         global.innerWidth = 500;
-        global.window.matchMedia = () => { return { matches: true }};
-        const component = innerImageZoom({ fullscreenOnMobile: true });
+        global.window.matchMedia = () => {
+          return { matches: true };
+        };
+        innerImageZoom({ fullscreenOnMobile: true });
         const figure = findRenderedDOMComponentWithTag(component, 'figure');
         Simulate.touchStart(figure);
         Simulate.mouseEnter(figure);
-        Simulate.click(figure, { pageX: 100, pageY: 100 });
+        act(() => {
+          Simulate.click(figure, { pageX: 100, pageY: 100 });
+        });
         const zoomPortal = document.querySelector('.iiz__zoom-portal');
         expect(zoomPortal).toExist();
       });
 
       it('fires afterZoomIn callback on zoom in', (done) => {
         const afterZoomIn = createSpy();
-        const component = innerImageZoom({ afterZoomIn: afterZoomIn });
+        innerImageZoom({ afterZoomIn: afterZoomIn });
         const figure = findRenderedDOMComponentWithTag(component, 'figure');
         Simulate.mouseEnter(figure);
         Simulate.click(figure, { pageX: 100, pageY: 100 });
@@ -135,14 +183,14 @@ describe('InnerImageZoom', () => {
           expect(afterZoomIn).toHaveBeenCalled();
           afterZoomIn.restore();
           done();
-        }
+        };
       });
     });
   });
 
   describe('move', () => {
     it('pans the zoomed image on mouse move', (done) => {
-      const component = innerImageZoom({ zoomSrc: SRCS.zoomSrc });
+      innerImageZoom({ zoomSrc: SRCS.zoomSrc });
       const figure = findRenderedDOMComponentWithTag(component, 'figure');
       Simulate.mouseEnter(figure);
       Simulate.click(figure, { pageX: 100, pageY: 100 });
@@ -154,13 +202,13 @@ describe('InnerImageZoom', () => {
         const updatedTopPos = zoomImg.style.top;
         expect(parseInt(topPos, 10)).toNotEqual(parseInt(updatedTopPos, 10));
         done();
-      }
+      };
     });
   });
 
   describe('zoom out', () => {
     it('hides the zoomed image on toggle click', (done) => {
-      const component = innerImageZoom();
+      innerImageZoom();
       const figure = findRenderedDOMComponentWithTag(component, 'figure');
       Simulate.mouseEnter(figure);
       Simulate.click(figure, { pageX: 100, pageY: 100 });
@@ -170,11 +218,11 @@ describe('InnerImageZoom', () => {
         Simulate.click(figure, { pageX: 100, pageY: 100 });
         expect(zoomImg.classList.contains('iiz__zoom-img--visible')).toBe(false);
         done();
-      }
+      };
     });
 
     it('hides the zoomed image on mouse leave', (done) => {
-      const component = innerImageZoom();
+      innerImageZoom();
       const figure = findRenderedDOMComponentWithTag(component, 'figure');
       Simulate.mouseEnter(figure);
       Simulate.click(figure, { pageX: 100, pageY: 100 });
@@ -184,11 +232,11 @@ describe('InnerImageZoom', () => {
         Simulate.mouseLeave(figure);
         expect(zoomImg.classList.contains('iiz__zoom-img--visible')).toBe(false);
         done();
-      }
+      };
     });
 
     it('hides the zoomed image on close button click on touch devices', (done) => {
-      const component = innerImageZoom();
+      innerImageZoom();
       const figure = findRenderedDOMComponentWithTag(component, 'figure');
       Simulate.touchStart(figure);
       Simulate.mouseEnter(figure);
@@ -200,11 +248,26 @@ describe('InnerImageZoom', () => {
         Simulate.click(button, { pageX: 0, pageY: 0 });
         expect(zoomImg.classList.contains('iiz__zoom-img--visible')).toBe(false);
         done();
-      }
+      };
+    });
+
+    it('hides the zoomed image on click on touch devices if hideCloseButton is true', (done) => {
+      innerImageZoom({ hideCloseButton: true });
+      const figure = findRenderedDOMComponentWithTag(component, 'figure');
+      Simulate.touchStart(figure);
+      Simulate.mouseEnter(figure);
+      Simulate.click(figure, { pageX: 100, pageY: 100 });
+      const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
+
+      zoomImg.onload = () => {
+        Simulate.click(figure, { pageX: 0, pageY: 0 });
+        expect(zoomImg.classList.contains('iiz__zoom-img--visible')).toBe(false);
+        done();
+      };
     });
 
     it('removes the zoomed image after fade transition', (done) => {
-      const component = innerImageZoom();
+      innerImageZoom();
       const figure = findRenderedDOMComponentWithTag(component, 'figure');
       Simulate.mouseEnter(figure);
       Simulate.click(figure, { pageX: 100, pageY: 100 });
@@ -218,11 +281,11 @@ describe('InnerImageZoom', () => {
           expect(img.length).toBe(1);
           done();
         }, 150);
-      }
+      };
     });
 
     it('removes the zoomed image after fade transition on touch devices', (done) => {
-      const component = innerImageZoom();
+      innerImageZoom();
       const figure = findRenderedDOMComponentWithTag(component, 'figure');
       Simulate.touchStart(figure);
       Simulate.mouseEnter(figure);
@@ -238,12 +301,12 @@ describe('InnerImageZoom', () => {
           expect(img.length).toBe(1);
           done();
         }, 150);
-      }
+      };
     });
 
     it('fires afterZoomOut callback on zoom out', (done) => {
       const afterZoomOut = createSpy();
-      const component = innerImageZoom({ afterZoomOut: afterZoomOut });
+      innerImageZoom({ afterZoomOut: afterZoomOut });
       const figure = findRenderedDOMComponentWithTag(component, 'figure');
       Simulate.mouseEnter(figure);
       Simulate.click(figure, { pageX: 100, pageY: 100 });
@@ -254,7 +317,7 @@ describe('InnerImageZoom', () => {
         expect(afterZoomOut).toHaveBeenCalled();
         afterZoomOut.restore();
         done();
-      }
+      };
     });
   });
 });

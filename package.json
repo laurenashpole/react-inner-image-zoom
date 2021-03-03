@@ -15,20 +15,27 @@
     "clean": "nwb clean-module && nwb clean-demo",
     "prepublishOnly": "npm run build",
     "start": "nwb serve-react-demo",
-    "test": "nwb test-react",
+    "test": "nwb test-react && eslint .",
     "test:coverage": "nwb test-react --coverage",
     "test:watch": "nwb test-react --server",
+    "lint": "eslint --fix .",
     "semantic-release": "semantic-release"
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": "16.x"
+    "react": ">=16.8.0"
   },
   "devDependencies": {
-    "nwb": "0.23.x",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "semantic-release": "^17.2.3"
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "nwb": "^0.25.2",
+    "prettier": "^2.2.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "semantic-release": "^17.3.1"
   },
   "author": "Lauren Ashpole",
   "homepage": "https://github.com/laurenashpole/react-inner-image-zoom#readme",
