@@ -17,6 +17,7 @@ const ZoomImage = ({ src, fadeDuration, top, left, isZoomed, onLoad, onDragStart
         onTouchEnd={onDragEnd}
         onMouseDown={onDragStart}
         onMouseUp={onDragEnd}
+        draggable="false"
         alt=""
       />
 

@@ -98,8 +98,6 @@ const InnerImageZoom = ({
   };
 
   const handleDragStart = (e) => {
-    e.preventDefault();
-
     imgProps.current.offsets = getOffsets(
       e.pageX || e.changedTouches[0].pageX,
       e.pageY || e.changedTouches[0].pageY,
