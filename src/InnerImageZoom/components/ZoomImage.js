@@ -7,8 +7,8 @@ const ZoomImage = ({ src, fadeDuration, top, left, isZoomed, onLoad, onDragStart
       <img
         className={`iiz__zoom-img ${isZoomed ? 'iiz__zoom-img--visible' : ''}`}
         style={{
-          top: top || 0,
-          left: left || 0,
+          top: top,
+          left: left,
           transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
         }}
         src={src}

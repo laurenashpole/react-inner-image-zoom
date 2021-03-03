@@ -10,11 +10,16 @@ class Demo extends Component {
         <h1>react-inner-image-zoom Demo</h1>
         <div style={{ marginBottom: '30px' }}>
           <h2>Pan Example</h2>
-          <InnerImageZoom src="unsplash.jpg" zoomSrc="unsplash-large.jpg" fullscreenOnMobile={true} />
+          <InnerImageZoom
+            src="unsplash.jpg"
+            zoomSrc="unsplash-large.jpg"
+            fullscreenOnMobile={true}
+            zoomPreload={true}
+          />
         </div>
         <div style={{ marginBottom: '30px' }}>
           <h2>Hover Example</h2>
-          <InnerImageZoom src="unsplash2.jpg" zoomSrc="unsplash2-large.jpg" zoomType="hover" />
+          <InnerImageZoom src="unsplash2.jpg" zoomSrc="unsplash2-large.jpg" zoomType="hover" zoomPreload={true} />
         </div>
         <div style={{ marginBottom: '30px' }}>
           <h2>Drag Example</h2>

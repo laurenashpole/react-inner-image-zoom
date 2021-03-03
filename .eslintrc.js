@@ -33,6 +33,7 @@ module.exports = {
       }
     ]
   },
+  ignorePatterns: ['**/dist/**', '**/es/**', '**/lib/**'],
   overrides: [
     {
       files: ['*.spec.js'],

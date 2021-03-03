@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Image from './components/Image';
 import ZoomImage from './components/ZoomImage';
@@ -30,13 +30,10 @@ const InnerImageZoom = ({
   const [isZoomed, setIsZoomed] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [isValidDrag, setIsValidDrag] = useState(false);
   const [currentMoveType, setCurrentMoveType] = useState(moveType);
   const [left, setLeft] = useState(0);
   const [top, setTop] = useState(0);
-
-  useEffect(() => {
-    imgProps.current = getDefaults();
-  }, []);
 
   const handleMouseEnter = (e) => {
     setIsActive(true);
@@ -44,23 +41,21 @@ const InnerImageZoom = ({
   };
 
   const handleTouchStart = () => {
-    const enableFullscreen =
-      fullscreenOnMobile && window.matchMedia && window.matchMedia(`(max-width: ${mobileBreakpoint}px)`).matches;
-
     setIsTouch(true);
-    setIsFullscreen(enableFullscreen);
+    setIsFullscreen(getFullscreenStatus(fullscreenOnMobile, mobileBreakpoint));
     setCurrentMoveType('drag');
   };
 
   const handleClick = (e) => {
     if (isZoomed) {
-      !isTouch && !isDragging && zoomOut();
+      !isTouch && !isValidDrag && zoomOut();
       return;
     }
 
     isTouch && setIsActive(true);
 
     if (zoomImg.current) {
+      handleLoad({ target: zoomImg.current });
       zoomIn(e.pageX, e.pageY);
     } else {
       imgProps.current.onLoadCallback = zoomIn.bind(this, e.pageX, e.pageY);
@@ -93,7 +88,7 @@ const InnerImageZoom = ({
   };
 
   const handleDragStart = (e) => {
-    const eventType = isTouch ? 'touchmove' : 'mousemove';
+    e.preventDefault();
 
     imgProps.current.offsets = getOffsets(
       e.pageX || e.changedTouches[0].pageX,
@@ -101,7 +96,8 @@ const InnerImageZoom = ({
       zoomImg.current.offsetLeft,
       zoomImg.current.offsetTop
     );
-    zoomImg.current.addEventListener(eventType, handleDragMove, { passive: false });
+
+    setIsDragging(true);
 
     if (!isTouch) {
       imgProps.current.eventPosition = {
@@ -111,7 +107,7 @@ const InnerImageZoom = ({
     }
   };
 
-  const handleDragMove = (e) => {
+  const handleDragMove = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -123,18 +119,15 @@ const InnerImageZoom = ({
 
     setLeft(left);
     setTop(top);
-  };
+  }, []);
 
   const handleDragEnd = (e) => {
-    const eventType = isTouch ? 'touchmove' : 'mousemove';
-
-    zoomImg.current.removeEventListener(eventType, handleDragMove);
+    setIsDragging(false);
 
     if (!isTouch) {
       const moveX = Math.abs(e.pageX - imgProps.current.eventPosition.x);
       const moveY = Math.abs(e.pageY - imgProps.current.eventPosition.y);
-
-      setIsDragging(moveX > 5 || moveY > 5);
+      setIsValidDrag(moveX > 5 || moveY > 5);
     }
   };
 
@@ -234,6 +227,10 @@ const InnerImageZoom = ({
     };
   };
 
+  const getFullscreenStatus = (fullscreenOnMobile, mobileBreakpoint) => {
+    return fullscreenOnMobile && window.matchMedia && window.matchMedia(`(max-width: ${mobileBreakpoint}px)`).matches;
+  };
+
   const zoomImageProps = {
     src: zoomSrc || src,
     fadeDuration: isFullscreen ? 0 : fadeDuration,
@@ -241,10 +238,32 @@ const InnerImageZoom = ({
     left,
     isZoomed,
     onLoad: handleLoad,
-    onDragStart: handleDragStart,
-    onDragEnd: handleDragEnd,
+    onDragStart: currentMoveType === 'drag' ? handleDragStart : null,
+    onDragEnd: currentMoveType === 'drag' ? handleDragEnd : null,
     onClose: isTouch ? handleClose : null
   };
+
+  useEffect(() => {
+    imgProps.current = getDefaults();
+  }, []);
+
+  useEffect(() => {
+    getFullscreenStatus(fullscreenOnMobile, mobileBreakpoint) && setIsActive(false);
+  }, [fullscreenOnMobile, mobileBreakpoint]);
+
+  useEffect(() => {
+    if (!zoomImg.current) {
+      return;
+    }
+
+    const eventType = isTouch ? 'touchmove' : 'mousemove';
+
+    if (isDragging) {
+      zoomImg.current.addEventListener(eventType, handleDragMove, { passive: false });
+    } else {
+      zoomImg.current.removeEventListener(eventType, handleDragMove);
+    }
+  }, [isDragging, isTouch, handleDragMove]);
 
   return (
     <figure
