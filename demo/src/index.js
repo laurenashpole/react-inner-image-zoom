@@ -15,7 +15,9 @@ class Demo extends Component {
             zoomSrc="unsplash-large.jpg"
             fullscreenOnMobile={true}
             zoomPreload={true}
-            hideCloseButton={true}
+            width={750}
+            height={500}
+            hasSpacer={true}
           />
         </div>
         <div style={{ marginBottom: '30px' }}>

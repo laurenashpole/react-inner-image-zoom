@@ -11,6 +11,9 @@ const InnerImageZoom = ({
   srcSet,
   sizes,
   sources,
+  width,
+  height,
+  hasSpacer,
   zoomSrc,
   zoomScale = 1,
   zoomPreload,
@@ -53,7 +56,7 @@ const InnerImageZoom = ({
       if (isTouch) {
         hideCloseButton && handleClose();
       } else {
-        !isValidDrag && zoomOut()
+        !isValidDrag && zoomOut();
       }
 
       return;
@@ -275,6 +278,7 @@ const InnerImageZoom = ({
   return (
     <figure
       className={`iiz ${currentMoveType === 'drag' ? 'iiz--drag' : ''} ${className ? className : ''}`}
+      style={{ width: width }}
       ref={img}
       onTouchStart={isZoomed ? null : handleTouchStart}
       onClick={handleClick}
@@ -287,6 +291,9 @@ const InnerImageZoom = ({
         srcSet={srcSet}
         sizes={sizes}
         sources={sources}
+        width={width}
+        height={height}
+        hasSpacer={hasSpacer}
         alt={alt}
         fadeDuration={fadeDuration}
         isZoomed={isZoomed}
@@ -316,6 +323,9 @@ InnerImageZoom.propTypes = {
   srcSet: PropTypes.string,
   sizes: PropTypes.string,
   sources: PropTypes.array,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  hasSpacer: PropTypes.bool,
   zoomSrc: PropTypes.string,
   zoomScale: PropTypes.number,
   zoomPreload: PropTypes.bool,

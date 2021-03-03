@@ -1,4 +1,5 @@
 .iiz {
+  max-width: 100%;
   margin: 0;
   position: relative;
   overflow: hidden;
@@ -22,6 +23,15 @@
 .iiz__img--hidden {
   visibility: hidden;
   opacity: 0;
+}
+
+.iiz__img--abs {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
 }
 
 .iiz__zoom-img {
