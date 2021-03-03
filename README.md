@@ -74,6 +74,8 @@ zoomType | String | click | `click` or `hover`. The zoom behavior for images.
 fadeDuration | Number | 150 | Fade transition time in milliseconds. If zooming in on transparent images, set this to `0` for best results.
 fullscreenOnMobile | Boolean | false | Enables fullscreen zoomed image on touch devices below a specified breakpoint.
 mobileBreakpoint | Number | 640 | The maximum breakpoint for fullscreen zoom image when fullscreenOnMobile is true.
+hideMobileButton | Boolean | false | Hides the close button on touch devices. If set to true, zoom out is triggered by tap.
+hideHint | Boolean | false | Hides the magnifying glass hint.
 className | String | | Custom classname for styling the component.
 afterZoomIn | Function | | Function to be called after zoom in.
 afterZoomOut | Function | | Function to be called after zoom out.

@@ -18,6 +18,8 @@ const InnerImageZoom = ({
   fadeDuration = 150,
   fullscreenOnMobile,
   mobileBreakpoint = 640,
+  hideCloseButton,
+  hideHint,
   className,
   afterZoomIn,
   afterZoomOut
@@ -48,7 +50,12 @@ const InnerImageZoom = ({
 
   const handleClick = (e) => {
     if (isZoomed) {
-      !isTouch && !isValidDrag && zoomOut();
+      if (isTouch) {
+        hideCloseButton && handleClose();
+      } else {
+        !isValidDrag && zoomOut()
+      }
+
       return;
     }
 
@@ -240,7 +247,7 @@ const InnerImageZoom = ({
     onLoad: handleLoad,
     onDragStart: currentMoveType === 'drag' ? handleDragStart : null,
     onDragEnd: currentMoveType === 'drag' ? handleDragEnd : null,
-    onClose: isTouch ? handleClose : null
+    onClose: !hideCloseButton && isTouch ? handleClose : null
   };
 
   useEffect(() => {
@@ -297,7 +304,7 @@ const InnerImageZoom = ({
         </Fragment>
       )}
 
-      {!isZoomed && <span className="iiz__btn iiz__hint"></span>}
+      {!hideHint && !isZoomed && <span className="iiz__btn iiz__hint"></span>}
     </figure>
   );
 };
@@ -316,6 +323,8 @@ InnerImageZoom.propTypes = {
   fadeDuration: PropTypes.number,
   fullscreenOnMobile: PropTypes.bool,
   mobileBreakpoint: PropTypes.number,
+  hideCloseButton: PropTypes.bool,
+  hideHint: PropTypes.bool,
   className: PropTypes.string,
   afterZoomIn: PropTypes.func,
   afterZoomOut: PropTypes.func
