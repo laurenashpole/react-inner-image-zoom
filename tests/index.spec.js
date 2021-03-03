@@ -83,6 +83,24 @@ describe('InnerImageZoom', () => {
         const sources = scryRenderedDOMComponentsWithTag(component, 'source');
         expect(sources.length).toEqual(1);
       });
+
+      it('renders an image spacer if width, height, and hasSpacer are set', () => {
+        innerImageZoom({ width: 750, height: 500, hasSpacer: true });
+        const wrapper = findRenderedDOMComponentWithTag(component, 'div');
+        expect(wrapper.style['padding-top']).toEqual('66.66666666666666%');
+      });
+
+      it('ignores hasSpacer if width or height are not set', () => {
+        innerImageZoom({ height: 500, hasSpacer: true });
+        const wrapper = findRenderedDOMComponentWithTag(component, 'div');
+        expect(wrapper.style['padding-top']).toNotExist();
+      });
+
+      it('hides the magnifying glass hint if hideHint is true', () => {
+        innerImageZoom({ hideHint: true });
+        const hints = scryRenderedDOMComponentsWithTag(component, 'span');
+        expect(hints.length).toBe(0);
+      });
     });
   });
 
@@ -228,6 +246,21 @@ describe('InnerImageZoom', () => {
       zoomImg.onload = () => {
         const button = findRenderedDOMComponentWithTag(component, 'button');
         Simulate.click(button, { pageX: 0, pageY: 0 });
+        expect(zoomImg.classList.contains('iiz__zoom-img--visible')).toBe(false);
+        done();
+      };
+    });
+
+    it('hides the zoomed image on click on touch devices if hideCloseButton is true', (done) => {
+      innerImageZoom({ hideCloseButton: true });
+      const figure = findRenderedDOMComponentWithTag(component, 'figure');
+      Simulate.touchStart(figure);
+      Simulate.mouseEnter(figure);
+      Simulate.click(figure, { pageX: 100, pageY: 100 });
+      const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
+
+      zoomImg.onload = () => {
+        Simulate.click(figure, { pageX: 0, pageY: 0 });
         expect(zoomImg.classList.contains('iiz__zoom-img--visible')).toBe(false);
         done();
       };
