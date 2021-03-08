@@ -74,8 +74,8 @@ const InnerImageZoom = ({
 
   const handleLoad = (e) => {
     zoomImg.current = e.target;
-    zoomImg.current.setAttribute('width', zoomImg.current.offsetWidth * zoomScale);
-    zoomImg.current.setAttribute('height', zoomImg.current.offsetHeight * zoomScale);
+    zoomImg.current.setAttribute('width', zoomImg.current.naturalWidth * zoomScale);
+    zoomImg.current.setAttribute('height', zoomImg.current.naturalHeight * zoomScale);
 
     imgProps.current.bounds = getBounds(img.current, false);
     imgProps.current.ratios = getRatios(imgProps.current.bounds, zoomImg.current);
