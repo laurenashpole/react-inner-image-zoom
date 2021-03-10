@@ -144,7 +144,7 @@ describe('InnerImageZoom', () => {
           expect(zoomImg.width).toBe(500 * scale);
           done();
         };
-      }).timeout(5000);
+      });
     });
 
     describe('show', () => {
