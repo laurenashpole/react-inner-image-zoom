@@ -127,6 +127,24 @@ describe('InnerImageZoom', () => {
         const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
         expect(zoomImg).toExist();
       });
+
+      it('renders the zoomed image at the right scale', (done) => {
+        const scale = 0.5;
+        innerImageZoom({ zoomScale: scale });
+        const figure = findRenderedDOMComponentWithTag(component, 'figure');
+        Simulate.mouseEnter(figure);
+        Simulate.click(figure, { pageX: 100, pageY: 100 });
+        const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
+        zoomImg.onload = () => {
+          expect(zoomImg.width).toBe(500 * scale);
+          // Zoom out
+          Simulate.click(figure, { pageX: 100, pageY: 100 });
+          // Zoom in again
+          Simulate.click(figure, { pageX: 100, pageY: 100 });
+          expect(zoomImg.width).toBe(500 * scale);
+          done();
+        };
+      }).timeout(5000);
     });
 
     describe('show', () => {
