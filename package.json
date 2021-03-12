@@ -1,6 +1,6 @@
 {
   "name": "react-inner-image-zoom",
-  "version": "1.3.0",
+  "version": "2.0.1",
   "description": "A React component for magnifying an image within its original container.",
   "main": "lib/index.js",
   "module": "es/index.js",
