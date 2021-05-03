@@ -39,6 +39,7 @@ const InnerImageZoom = ({
   const [currentMoveType, setCurrentMoveType] = useState(moveType);
   const [left, setLeft] = useState(0);
   const [top, setTop] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   const handleMouseEnter = (e) => {
     setIsActive(true);
@@ -73,7 +74,6 @@ const InnerImageZoom = ({
   };
 
   const handleLoad = (e) => {
-    zoomImg.current = e.target;
     zoomImg.current.setAttribute('width', zoomImg.current.naturalWidth * zoomScale);
     zoomImg.current.setAttribute('height', zoomImg.current.naturalHeight * zoomScale);
 
@@ -153,6 +153,7 @@ const InnerImageZoom = ({
         setIsTouch(false);
         setIsFullscreen(false);
         setCurrentMoveType(moveType);
+        setLoaded(false);
       }, fadeDuration);
     });
   };
@@ -245,7 +246,10 @@ const InnerImageZoom = ({
     top,
     left,
     isZoomed,
-    onLoad: handleLoad,
+    onLoad: (e) => {
+      zoomImg.current = e.target;
+      setLoaded(true);
+    },
     onDragStart: currentMoveType === 'drag' ? handleDragStart : null,
     onDragEnd: currentMoveType === 'drag' ? handleDragEnd : null,
     onClose: !hideCloseButton && isTouch ? handleClose : null
@@ -272,6 +276,14 @@ const InnerImageZoom = ({
       zoomImg.current.removeEventListener(eventType, handleDragMove);
     }
   }, [isDragging, isTouch, handleDragMove]);
+
+  useEffect(() => {
+    if (loaded && zoomImg.current) {
+      handleLoad({
+        target: zoomImg.current
+      });
+    }
+  }, [loaded]);
 
   return (
     <figure
