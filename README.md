@@ -119,5 +119,5 @@ If you're interested in contributing, check out the guidelines [here](https://gi
 [npm-badge]: http://img.shields.io/npm/v/react-inner-image-zoom.svg?style=flat
 [npm]: https://www.npmjs.com/package/react-inner-image-zoom
 
-[dt-badge]: //definitelytyped.org/badges/standard-flat.svg
+[dt-badge]: https://definitelytyped.org/badges/standard-flat.svg
 [dt]: http://definitelytyped.org
