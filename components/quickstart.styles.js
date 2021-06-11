@@ -60,6 +60,11 @@ export default css`
     left: -15px;
   }
 
+  .quick-start__code {
+    font-family: monospace;
+    line-height: 1.5;
+  }
+
   @media (min-width: 768px) {
     .quick-start {
       margin-top: 6rem;

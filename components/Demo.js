@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import js from 'react-syntax-highlighter/dist/cjs/languages/hljs/javascript';
+import a11yLight from 'react-syntax-highlighter/dist/cjs/styles/hljs/a11y-light';
 import styles from './demo.styles.js';
+
+SyntaxHighlighter.registerLanguage('javascript', js);
 
 const Demo = ({ children, name, notes, code }) => {
   const [showCode, setShowCode] = useState(false);
@@ -50,7 +55,9 @@ const Demo = ({ children, name, notes, code }) => {
             <button className="demo__code-copy demo__code-btn">{`Cop${isCopied ? 'ied!' : 'y'}`}</button>
           </CopyToClipboard>
 
-          <code>{code}</code>
+          <SyntaxHighlighter language="javascript|html" style={a11yLight}>
+            {code}
+          </SyntaxHighlighter>
         </pre>
       }
 

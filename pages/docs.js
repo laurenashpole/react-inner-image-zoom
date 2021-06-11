@@ -1,5 +1,10 @@
 import Layout from '../components/Layout';
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import js from 'react-syntax-highlighter/dist/cjs/languages/hljs/javascript';
+import a11yLight from 'react-syntax-highlighter/dist/cjs/styles/hljs/a11y-light';
 import styles from './Docs.module.css';
+
+SyntaxHighlighter.registerLanguage('javascript', js);
 
 const Docs = () => {
   return (
@@ -22,6 +27,9 @@ const Docs = () => {
             <pre className={styles.code}><code>npm install react-inner-image-zoom</code></pre>
             <h4>Yarn</h4>
             <pre className={styles.code}><code>yarn add react-inner-image-zoom</code></pre>
+            <h4>TypeScript</h4>
+            <p>For TypeScript users, type definitions are available through DefinitelyTyped and can be installed with:</p>
+            <pre className={styles.code}><code>npm install --save-dev @types/react-inner-image-zoom</code></pre>
           </div>
 
           <div>
@@ -33,18 +41,21 @@ const Docs = () => {
             <p><a href="https://raw.githubusercontent.com/laurenashpole/react-inner-image-zoom/master/src/InnerImageZoom/styles.min.css" target="_blank" rel="noopener noreferrer">styles.min.css</a></p>
             <h4>Import</h4>
             <p>If your setup supports it, import the CSS directly from your node_modules:</p>
-            <pre className={styles.code}><code>import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';</code></pre>
+            <SyntaxHighlighter language="javascript|html" style={a11yLight} customStyle={{ margin: 0, padding: '1.5rem', background: '#f2f3f7', borderRadius: '1px' }}>
+              import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
+            </SyntaxHighlighter>
             <p>or the minified version:</p>
-            <pre className={styles.code}><code>import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';</code></pre>
+            <SyntaxHighlighter language="javascript|html" style={a11yLight} customStyle={{ margin: 0, padding: '1.5rem', background: '#f2f3f7', borderRadius: '1px' }}>
+              import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';
+            </SyntaxHighlighter>
           </div>
 
           <div>
             <h3 id="usage">Usage</h3>
             <p>Import and render the component:</p>
-
-            <pre className={styles.code}><code>
+            <SyntaxHighlighter language="javascript|html" style={a11yLight} customStyle={{ margin: 0, padding: '1.5rem', background: '#f2f3f7', borderRadius: '1px' }}>
               {`import InnerImageZoom from 'react-inner-image-zoom';\n\n...\n\n<InnerImageZoom src="/path/to/image.jpg" zoomSrc="/path/to/zoom-image.jpg" />`}
-            </code></pre>
+            </SyntaxHighlighter>
           </div>
 
           <div>
@@ -63,7 +74,7 @@ const Docs = () => {
               <li><b>zoomPreload (Boolean): </b>Default false If set to true, preloads the zoom image instead of waiting for mouseenter.</li>
               <li><b>alt (String): </b>Alternative text for the original image.</li>
               <li><b>moveType (String): </b>Default pan. Accepts pan or drag options. The user behavior for moving zoomed images on non-touch devices.</li>
-              <li><b>zoomType (String): </b>Default click. Accepts click or hover options. The trigger for zooming images</li>
+              <li><b>zoomType (String): </b>Default click. Accepts click or hover options. The trigger for zooming images.</li>
               <li><b>fadeDuration (Number): </b>Default 150. Fade transition time in milliseconds. If zooming in on transparent images, set this to 0 for best results.</li>
               <li><b>fullscreenOnMobile (Boolean): </b>Default false. Enables fullscreen zoomed image on touch devices below a specified breakpoint.</li>
               <li><b>mobileBreakpoint (Number): </b>Default 640. The maximum breakpoint for fullscreen zoom image when fullscreenOnMobile is true.</li>
