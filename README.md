@@ -2,23 +2,30 @@
 
 [Demos](https://laurenashpole.github.io/react-inner-image-zoom)
 
-A React component for magnifying an image within its original container. The zoom behavior is triggered on click and the image can be moved by dragging on touch devices and by either dragging or hover panning on non-touch devices. The component supports responsive images and optional fullscreen zoom on mobile.
+[![Travis][build-badge]][build] [![npm package][npm-badge]][npm] [![TypeScript definitions on DefinitelyTyped][dt-badge]][dt]
 
-[![Travis][build-badge]][build]
-[![npm package][npm-badge]][npm]
+A React component for magnifying an image within its original container. Zoom behavior can be triggered on click or hover and the zoomed image can be moved by dragging on touch devices and either dragging or pan on hover on non-touch devices. The component supports responsive images, loading placeholders, optional fullscreen zoom on mobile, and more.
 
 ## Installation
 
 **Note:** Version 2.0.0 introduces React hooks and requires React v16.8.0 or above. To use this package with older versions of React, install with `npm install react-inner-image-zoom@1.3.0` or `yarn add react-inner-image-zoom@1.3.0` instead of the instructions below.
 
 ### NPM
-```
+```javascript
 npm install react-inner-image-zoom
 ```
 
 ### Yarn
-```
+```javascript
 yarn add react-inner-image-zoom
+```
+
+### TypeScript
+
+For TypeScript users, type definitions are available through [DefinitelyTyped](https://definitelytyped.org/) and can be installed with:
+
+```javascript
+npm install --save-dev @types/react-inner-image-zoom
 ```
 
 ### Styling
@@ -98,7 +105,7 @@ type | String | | An image MIME type. This is useful for using newer formats lik
 
 Please submit issues or requests [here](https://github.com/laurenashpole/react-inner-image-zoom/issues).
 
-Most of the implementation choices for this component are based on use cases I've encountered in the past. For example, I chose a click to zoom trigger because it's been the most requested on product detail pages I've worked on. If there's a demand for zoom on hover or other additional functionality, I'd be open to looking into it so feel free to ask.
+Most of the implementation choices for this component are based on use cases I've encountered in the past. For example, I chose click to zoom as the default because it's been the most requested on product detail pages I've worked on. If there's a demand for additional triggers or other functionality, I'd be open to looking into it so feel free to ask. And if you want to talk through ideas first, check out the [discussions page](https://github.com/laurenashpole/react-inner-image-zoom/discussions).
 
 If you're interested in contributing, check out the guidelines [here](https://github.com/laurenashpole/react-inner-image-zoom/blob/master/CONTRIBUTING.md).
 
@@ -111,3 +118,6 @@ If you're interested in contributing, check out the guidelines [here](https://gi
 
 [npm-badge]: http://img.shields.io/npm/v/react-inner-image-zoom.svg?style=flat
 [npm]: https://www.npmjs.com/package/react-inner-image-zoom
+
+[dt-badge]: //definitelytyped.org/badges/standard-flat.svg
+[dt]: http://definitelytyped.org
