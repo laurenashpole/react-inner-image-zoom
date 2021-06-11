@@ -146,10 +146,12 @@ const InnerImageZoom = ({
   const handleClose = () => {
     zoomOut(() => {
       setTimeout(() => {
-        zoomImg.current = null;
-        imgProps.current = getDefaults();
+        if ((zoomPreload && isTouch) || !zoomPreload) {
+          zoomImg.current = null;
+          imgProps.current = getDefaults();
+          setIsActive(false);
+        }
 
-        setIsActive(false);
         setIsTouch(false);
         setIsFullscreen(false);
         setCurrentMoveType(moveType);
