@@ -47,8 +47,8 @@ const Demos = () => {
         </section>
 
         <section id="zoomOnHover">
-          <Demo name="Zoom On Hover" notes={['Trigger image zoom on hover', 'Photo credit: <a href="https://unsplash.com/@socialcut?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">S O C I A L . C U T</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Unsplash</a>']} code={`<InnerImageZoom\n\xa0\xa0src="/path/to/image.jpg"\n\xa0\xa0zoomSrc="/path/to/zoom-image.jpg"\n\xa0\xa0zoomType="hover"\n/>`}>
-            <InnerImageZoom src="/react-inner-image-zoom/images/unsplash-10.jpg" zoomSrc="/react-inner-image-zoom/images/unsplash-10-large.jpg" zoomType="hover" />
+          <Demo name="Zoom On Hover" notes={['Trigger image zoom on hover', 'Recommended with zoomPreload option to avoid flickering with fast movements.', 'Photo credit: <a href="https://unsplash.com/@socialcut?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">S O C I A L . C U T</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Unsplash</a>']} code={`<InnerImageZoom\n\xa0\xa0src="/path/to/image.jpg"\n\xa0\xa0zoomSrc="/path/to/zoom-image.jpg"\n\xa0\xa0zoomType="hover"\n\xa0\xa0zoomPreload={true}\n/>`}>
+            <InnerImageZoom src="/react-inner-image-zoom/images/unsplash-10.jpg" zoomSrc="/react-inner-image-zoom/images/unsplash-10-large.jpg" zoomType="hover" zoomPreload={true} />
           </Demo>
         </section>
 

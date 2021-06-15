@@ -71,10 +71,10 @@ const Docs = () => {
               <li><b>hasSpacer (Boolean): </b>Default false. If true, gets the original image's aspect ratio based on the width and height props and creates a spacer to prevent cumulative layout shift.</li>
               <li><b>zoomSrc (String): </b>URL for the larger zoom image. Falls back to original image src if not defined.</li>
               <li><b>zoomScale (Number): </b>Default 1. Multiplied against the natural width and height of the zoomed image. This will generally be a decimal (example, 0.9 for 90%).</li>
-              <li><b>zoomPreload (Boolean): </b>Default false If set to true, preloads the zoom image instead of waiting for mouseenter.</li>
+              <li><b>zoomPreload (Boolean): </b>Default false If set to true, preloads the zoom image instead of waiting for mouseenter and (unless on a touch device) persists the image on mouseleave.</li>
               <li><b>alt (String): </b>Alternative text for the original image.</li>
               <li><b>moveType (String): </b>Default pan. Accepts pan or drag options. The user behavior for moving zoomed images on non-touch devices.</li>
-              <li><b>zoomType (String): </b>Default click. Accepts click or hover options. The trigger for zooming images.</li>
+              <li><b>zoomType (String): </b>Default click. Accepts click or hover options. The user behavior for triggering zoom. When using hover, combine with zoomPreload to avoid flickering on rapid mouse movements.</li>
               <li><b>fadeDuration (Number): </b>Default 150. Fade transition time in milliseconds. If zooming in on transparent images, set this to 0 for best results.</li>
               <li><b>fullscreenOnMobile (Boolean): </b>Default false. Enables fullscreen zoomed image on touch devices below a specified breakpoint.</li>
               <li><b>mobileBreakpoint (Number): </b>Default 640. The maximum breakpoint for fullscreen zoom image when fullscreenOnMobile is true.</li>
