@@ -13,7 +13,7 @@ class Demo extends Component {
           <InnerImageZoom
             src="unsplash.jpg"
             zoomSrc="unsplash-large.jpg"
-            fullscreenOnMobile={true}
+            fullscreenOnMobile={false}
             zoomPreload={true}
             width={750}
             height={500}
@@ -22,7 +22,13 @@ class Demo extends Component {
         </div>
         <div style={{ marginBottom: '30px' }}>
           <h2>Hover Example</h2>
-          <InnerImageZoom src="unsplash2.jpg" zoomSrc="unsplash2-large.jpg" zoomType="hover" zoomPreload={true} />
+          <InnerImageZoom
+            src="unsplash2.jpg"
+            zoomSrc="unsplash2-large.jpg"
+            zoomType="hover"
+            zoomPreload={true}
+            fullscreenOnMobile={true}
+          />
         </div>
         <div style={{ marginBottom: '30px' }}>
           <h2>Drag Example</h2>
@@ -32,6 +38,7 @@ class Demo extends Component {
             fullscreenOnMobile={true}
             moveType="drag"
             zoomScale={0.9}
+            zoomPreload={true}
           />
         </div>
       </div>
