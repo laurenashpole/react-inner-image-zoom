@@ -137,9 +137,7 @@ describe('InnerImageZoom', () => {
         const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
         zoomImg.onload = () => {
           expect(zoomImg.width).toBe(500 * scale);
-          // Zoom out
           Simulate.click(figure, { pageX: 100, pageY: 100 });
-          // Zoom in again
           Simulate.click(figure, { pageX: 100, pageY: 100 });
           expect(zoomImg.width).toBe(500 * scale);
           done();
@@ -317,6 +315,24 @@ describe('InnerImageZoom', () => {
         setTimeout(() => {
           const img = scryRenderedDOMComponentsWithTag(component, 'img');
           expect(img.length).toBe(1);
+          done();
+        }, 150);
+      };
+    });
+
+    it('persists the zoomed image after fade transition if zoomPreload is true', (done) => {
+      innerImageZoom({ zoomPreload: true });
+      const figure = findRenderedDOMComponentWithTag(component, 'figure');
+      Simulate.mouseEnter(figure);
+      Simulate.click(figure, { pageX: 100, pageY: 100 });
+      const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
+
+      zoomImg.onload = () => {
+        Simulate.mouseLeave(figure);
+
+        setTimeout(() => {
+          const img = scryRenderedDOMComponentsWithTag(component, 'img');
+          expect(img.length).toBe(2);
           done();
         }, 150);
       };
