@@ -142,17 +142,20 @@ const InnerImageZoom = ({
 
   const handleClose = () => {
     zoomOut(() => {
-      setTimeout(() => {
-        if ((zoomPreload && isTouch) || !zoomPreload) {
-          zoomImg.current = null;
-          imgProps.current = getDefaults();
-          setIsActive(false);
-        }
+      setTimeout(
+        () => {
+          if ((zoomPreload && isTouch) || !zoomPreload) {
+            zoomImg.current = null;
+            imgProps.current = getDefaults();
+            setIsActive(false);
+          }
 
-        setIsTouch(false);
-        setIsFullscreen(false);
-        setCurrentMoveType(moveType);
-      }, isFullscreen ? 0 : fadeDuration);
+          setIsTouch(false);
+          setIsFullscreen(false);
+          setCurrentMoveType(moveType);
+        },
+        isFullscreen ? 0 : fadeDuration
+      );
     });
   };
 
