@@ -11,6 +11,8 @@
 .iiz--drag .iiz__zoom-img--visible {
   cursor: -webkit-grab;
   cursor: grab;
+  -ms-touch-action: none;
+  touch-action: none;
 }
 
 .iiz__img {

@@ -116,9 +116,6 @@ const InnerImageZoom = ({
   };
 
   const handleDragMove = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
     let left = (e.pageX || e.changedTouches[0].pageX) - imgProps.current.offsets.x;
     let top = (e.pageY || e.changedTouches[0].pageY) - imgProps.current.offsets.y;
 
@@ -155,7 +152,7 @@ const InnerImageZoom = ({
         setIsTouch(false);
         setIsFullscreen(false);
         setCurrentMoveType(moveType);
-      }, fadeDuration);
+      }, isFullscreen ? 0 : fadeDuration);
     });
   };
 
@@ -271,7 +268,7 @@ const InnerImageZoom = ({
     const eventType = isTouch ? 'touchmove' : 'mousemove';
 
     if (isDragging) {
-      zoomImg.current.addEventListener(eventType, handleDragMove, { passive: false });
+      zoomImg.current.addEventListener(eventType, handleDragMove, { passive: true });
     } else {
       zoomImg.current.removeEventListener(eventType, handleDragMove);
     }
