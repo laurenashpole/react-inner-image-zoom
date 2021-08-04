@@ -11,8 +11,6 @@
 .iiz--drag .iiz__zoom-img--visible {
   cursor: -webkit-grab;
   cursor: grab;
-  -ms-touch-action: none;
-  touch-action: none;
 }
 
 .iiz__img {
@@ -44,14 +42,18 @@
   position: absolute;
   visibility: hidden;
   opacity: 0;
+  pointer-events: none;
   display: block;
 }
 
 .iiz__zoom-img--visible {
   visibility: visible;
   opacity: 1;
+  pointer-events: auto;
   cursor: -webkit-zoom-out;
   cursor: zoom-out;
+  -ms-touch-action: none;
+  touch-action: none;
 }
 
 .iiz__zoom-portal {
