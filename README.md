@@ -2,7 +2,7 @@
 
 [Demos](https://laurenashpole.github.io/react-inner-image-zoom)
 
-[![Travis][build-badge]][build] [![npm package][npm-badge]][npm] [![TypeScript definitions on DefinitelyTyped][dt-badge]][dt]
+![GitHub Actions][build-badge] [![npm package][npm-badge]][npm] [![TypeScript definitions on DefinitelyTyped][dt-badge]][dt]
 
 A React component for magnifying an image within its original container. Zoom behavior can be triggered on click or hover and the zoomed image can be moved by dragging on touch devices and either dragging or pan on hover on non-touch devices. The component supports responsive images, loading placeholders, optional fullscreen zoom on mobile, and more.
 
@@ -113,8 +113,7 @@ If you're interested in contributing, check out the guidelines [here](https://gi
 
 [MIT](https://github.com/laurenashpole/react-inner-image-zoom/blob/master/LICENSE)
 
-[build-badge]: https://travis-ci.org/laurenashpole/react-inner-image-zoom.svg?branch=master
-[build]: https://travis-ci.org/laurenashpole/react-inner-image-zoom
+[build-badge]: https://github.com/laurenashpole/react-inner-image-zoom/actions/workflows/release.yml/badge.svg
 
 [npm-badge]: http://img.shields.io/npm/v/react-inner-image-zoom.svg?style=flat
 [npm]: https://www.npmjs.com/package/react-inner-image-zoom
