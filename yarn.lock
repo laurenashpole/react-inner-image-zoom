@@ -2786,10 +2786,10 @@ react-dom@17.0.1:
     object-assign "^4.1.1"
     scheduler "^0.20.1"
 
-react-inner-image-zoom@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/react-inner-image-zoom/-/react-inner-image-zoom-2.0.2.tgz#430d58b4c196180934c9b91a28554f73d960e45f"
-  integrity sha512-B149FzRknDA0TK9xr1GCrUC1nh57oS1J/APkAY6bi4HEXpy/V9I9LctH7HvIOkn3MmORYXpLTAnNE8sWY3SDgA==
+react-inner-image-zoom@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-inner-image-zoom/-/react-inner-image-zoom-2.0.3.tgz#7ffe23734e51606c7012f4479c9a66736453c941"
+  integrity sha512-l/30pVjYieeooac8ifLQX18Zn3goFhlhL4Zo/lV2DPCtm8rkNaCo/6Oxx8HqBMq+p7QXvnG9qYs06577UbHw/g==
 
 react-is@16.13.1, react-is@^16.8.1:
   version "16.13.1"
