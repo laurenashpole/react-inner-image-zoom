@@ -18,6 +18,7 @@ const InnerImageZoom = ({
   zoomScale = 1,
   zoomPreload,
   alt,
+  title,
   fadeDuration = 150,
   fullscreenOnMobile,
   mobileBreakpoint = 640,
@@ -308,6 +309,7 @@ const InnerImageZoom = ({
         height={height}
         hasSpacer={hasSpacer}
         alt={alt}
+        title={title}
         fadeDuration={fadeDuration}
         isZoomed={isZoomed}
       />
@@ -343,6 +345,7 @@ InnerImageZoom.propTypes = {
   zoomScale: PropTypes.number,
   zoomPreload: PropTypes.bool,
   alt: PropTypes.string,
+  title: PropTypes.string,
   fadeDuration: PropTypes.number,
   fullscreenOnMobile: PropTypes.bool,
   mobileBreakpoint: PropTypes.number,

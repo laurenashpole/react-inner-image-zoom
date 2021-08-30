@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-const Image = ({ src, srcSet, sizes, sources, width, height, hasSpacer, alt, isZoomed, fadeDuration }) => {
+const Image = ({ src, srcSet, sizes, sources, width, height, hasSpacer, alt, title, isZoomed, fadeDuration }) => {
   const createSpacer = width && height && hasSpacer;
 
   return (
@@ -31,6 +31,7 @@ const Image = ({ src, srcSet, sizes, sources, width, height, hasSpacer, alt, isZ
             width={width}
             height={height}
             alt={alt}
+            title={title}
           />
         </picture>
       ) : (
@@ -47,6 +48,7 @@ const Image = ({ src, srcSet, sizes, sources, width, height, hasSpacer, alt, isZ
           width={width}
           height={height}
           alt={alt}
+          title={title}
         />
       )}
     </div>
@@ -62,6 +64,7 @@ Image.propTypes = {
   height: PropTypes.number,
   hasSpacer: PropTypes.bool,
   alt: PropTypes.string,
+  title: PropTypes.string,
   fadeDuration: PropTypes.number,
   isZoomed: PropTypes.bool
 };
