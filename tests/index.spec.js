@@ -87,7 +87,9 @@ describe('InnerImageZoom', () => {
       it('renders an image spacer if width, height, and hasSpacer are set', () => {
         innerImageZoom({ width: 750, height: 500, hasSpacer: true });
         const wrapper = findRenderedDOMComponentWithTag(component, 'div');
-        expect(wrapper.style['padding-top']).toEqual('66.66666666666666%');
+        const paddingTop = wrapper.style['padding-top'];
+        expect(paddingTop.substring(paddingTop.length - 1)).toBe('%');
+        expect(Math.abs(66.67 - parseFloat(paddingTop))).toBeLessThan(0.05); // i.e. 100 x 500/750 %
       });
 
       it('ignores hasSpacer if width or height are not set', () => {
