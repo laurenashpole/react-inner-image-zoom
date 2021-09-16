@@ -31,6 +31,7 @@ const InnerImageZoom = ({
   const img = useRef(null);
   const zoomImg = useRef(null);
   const imgProps = useRef({});
+  const closeTimerId = useRef(null);
   const [isActive, setIsActive] = useState(zoomPreload);
   const [isTouch, setIsTouch] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
@@ -146,7 +147,8 @@ const InnerImageZoom = ({
 
   const handleClose = () => {
     zoomOut(() => {
-      setTimeout(
+      clearCloseTimer();
+      closeTimerId.current = setTimeout(
         () => {
           if ((zoomPreload && isTouch) || !zoomPreload) {
             zoomImg.current = null;
@@ -157,6 +159,8 @@ const InnerImageZoom = ({
           setIsTouch(false);
           setIsFullscreen(false);
           setCurrentMoveType(moveType);
+
+          closeTimerId.current = null;
         },
         isFullscreen ? 0 : fadeDuration
       );
@@ -195,6 +199,8 @@ const InnerImageZoom = ({
   };
 
   const zoomIn = (pageX, pageY) => {
+    clearCloseTimer(); // Debounce a previous zoom out
+
     setIsZoomed(true);
     currentMoveType === 'drag' ? initialDrag(pageX, pageY) : initialMove(pageX, pageY);
     afterZoomIn && afterZoomIn();
@@ -266,6 +272,21 @@ const InnerImageZoom = ({
     onDragEnd: currentMoveType === 'drag' ? handleDragEnd : null,
     onClose: !hideCloseButton && isTouch ? handleClose : null
   };
+
+  const clearCloseTimer = () => {
+    if (closeTimerId.current !== null) {
+      clearTimeout(closeTimerId.current);
+    }
+  };
+
+  /**
+   * Cancels the zoom out timer (if it is running) when the component unmounts.
+   */
+  useEffect(() => {
+    return () => {
+      clearCloseTimer();
+    };
+  }, []);
 
   useEffect(() => {
     imgProps.current = getDefaults();
