@@ -208,7 +208,7 @@ describe('InnerImageZoom', () => {
 
   describe('move', () => {
     it('pans the zoomed image on mouse move', (done) => {
-      innerImageZoom({ zoomSrc: SRCS.zoomSrc });
+      innerImageZoom({ zoomSrc: SRCS.zoom });
       const figure = findRenderedDOMComponentWithTag(component, 'figure');
       Simulate.mouseEnter(figure);
       Simulate.click(figure, { pageX: 100, pageY: 100 });
