@@ -27,7 +27,7 @@ describe('InnerImageZoom', function () {
   let node;
   let component;
 
-  this.timeout(1000 * 60 * 5);
+  this.timeout(5000);
 
   beforeEach(() => {
     node = document.createElement('div');
