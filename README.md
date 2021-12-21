@@ -69,17 +69,14 @@ This is the simplest usage. For additional examples, visit the [demo page](https
 Prop | Type | Default | Description
 --- | --- | --- | ---
 src | String | | (Required) URL for the original image.
-srcSet | String | | Default srcset attribute for a responsive original image.
-sizes | String | | Default sizes attribute for use with srcset.
 sources | Array | | A list of image sources for using the picture tag to serve the appropriate original image (see below for more details).
 width | Number | | Width attribute for original image.
 height | Number | | Height attribute for original image.
 hasSpacer | Boolean | false | If true, gets the original image's aspect ratio based on the width and height props and creates a spacer to prevent cumulative layout shift.
+imgAttributes | Object | | [Img](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes) and [global](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes) attributes for the original image (excluding `src`, `width`, `height`, and `style` which are set elsewhere). The imgAttributes keys should follow the [React DOM element](https://reactjs.org/docs/dom-elements.html) naming conventions.
 zoomSrc | String | | URL for the larger zoom image. Falls back to original image src if not defined.
 zoomScale | Number | 1 | Multiplied against the natural width and height of the zoomed image. This will generally be a decimal (example, 0.9 for 90%).
 zoomPreload | Boolean | false | If set to true, preloads the zoom image instead of waiting for mouseenter and (unless on a touch device) persists the image on mouseleave.
-alt | String | | Alternative text for the original image.
-title | String | | Title attribute for the original image.
 moveType | String | pan | `pan` or `drag`. The user behavior for moving zoomed images on non-touch devices.
 zoomType | String | click | `click` or `hover`. The user behavior for triggering zoom. When using `hover`, combine with `zoomPreload` to avoid flickering on rapid mouse movements.
 fadeDuration | Number | 150 | Fade transition time in milliseconds. If zooming in on transparent images, set this to `0` for best results.

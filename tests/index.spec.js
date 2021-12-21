@@ -72,6 +72,24 @@ describe('InnerImageZoom', () => {
         expect(img).toExist();
       });
 
+      it('renders an image with custom attributes if imgAttributes is set', () => {
+        innerImageZoom({ imgAttributes: { 'data-key': 'value' } });
+        const img = findRenderedDOMComponentWithTag(component, 'img');
+        expect(img.getAttribute('data-key')).toEqual('value');
+      });
+
+      it('combines image classes if imgAttributes contains className', () => {
+        innerImageZoom({ imgAttributes: { className: 'class' } });
+        const img = findRenderedDOMComponentWithTag(component, 'img');
+        expect(img.classList.contains('iiz__img') && img.classList.contains('class')).toBe(true);
+      });
+
+      it('ignores style properties in imgAttributes prop', () => {
+        innerImageZoom({ imgAttributes: { style: { background: 'pink' } } });
+        const img = findRenderedDOMComponentWithTag(component, 'img');
+        expect(img.style.background).toBeFalsy();
+      });
+
       it('renders the original image with sources', () => {
         innerImageZoom({ sources: SRCS.sources });
         const sources = scryRenderedDOMComponentsWithTag(component, 'source');

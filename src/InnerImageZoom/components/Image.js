@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-const Image = ({ src, srcSet, sizes, sources, width, height, hasSpacer, alt, title, isZoomed, fadeDuration }) => {
+const Image = ({ src, sources, width, height, hasSpacer, imgAttributes, isZoomed, fadeDuration }) => {
   const createSpacer = width && height && hasSpacer;
 
   return (
@@ -9,46 +9,38 @@ const Image = ({ src, srcSet, sizes, sources, width, height, hasSpacer, alt, tit
       {sources && sources.length > 0 ? (
         <picture>
           {sources.map((source, i) => {
-            return (
-              <Fragment key={i}>
-                {source.srcSet && (
-                  <source srcSet={source.srcSet} sizes={source.sizes} media={source.media} type={source.type} />
-                )}
-              </Fragment>
-            );
+            return <Fragment key={i}>{source.srcSet && <source {...source} />}</Fragment>;
           })}
 
           <img
-            className={`iiz__img ${isZoomed ? 'iiz__img--hidden' : ''} ${createSpacer ? 'iiz__img--abs' : ''}`}
+            {...imgAttributes}
+            className={`iiz__img ${imgAttributes.className || ''} ${isZoomed ? 'iiz__img--hidden' : ''} ${
+              createSpacer ? 'iiz__img--abs' : ''
+            }`}
             style={{
               transition: `linear 0ms opacity ${isZoomed ? fadeDuration : 0}ms, linear ${fadeDuration}ms visibility ${
                 isZoomed ? fadeDuration : 0
               }ms`
             }}
             src={src}
-            srcSet={srcSet}
-            sizes={sizes}
             width={width}
             height={height}
-            alt={alt}
-            title={title}
           />
         </picture>
       ) : (
         <img
-          className={`iiz__img ${isZoomed ? 'iiz__img--hidden' : ''} ${createSpacer ? 'iiz__img--abs' : ''}`}
+          {...imgAttributes}
+          className={`iiz__img ${imgAttributes.className || ''} ${isZoomed ? 'iiz__img--hidden' : ''} ${
+            createSpacer ? 'iiz__img--abs' : ''
+          }`}
           style={{
             transition: `linear 0ms opacity ${isZoomed ? fadeDuration : 0}ms, linear ${fadeDuration}ms visibility ${
               isZoomed ? fadeDuration : 0
             }ms`
           }}
           src={src}
-          srcSet={srcSet}
-          sizes={sizes}
           width={width}
           height={height}
-          alt={alt}
-          title={title}
         />
       )}
     </div>
@@ -57,14 +49,11 @@ const Image = ({ src, srcSet, sizes, sources, width, height, hasSpacer, alt, tit
 
 Image.propTypes = {
   src: PropTypes.string.isRequired,
-  srcSet: PropTypes.string,
-  sizes: PropTypes.string,
   sources: PropTypes.array,
   width: PropTypes.number,
   height: PropTypes.number,
   hasSpacer: PropTypes.bool,
-  alt: PropTypes.string,
-  title: PropTypes.string,
+  imgAttributes: PropTypes.object,
   fadeDuration: PropTypes.number,
   isZoomed: PropTypes.bool
 };
