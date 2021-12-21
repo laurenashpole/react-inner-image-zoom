@@ -23,9 +23,11 @@ Wrapper.propTypes = {
   children: PropTypes.element
 };
 
-describe('InnerImageZoom', () => {
+describe('InnerImageZoom', function () {
   let node;
   let component;
+
+  this.timeout(5000);
 
   beforeEach(() => {
     node = document.createElement('div');
@@ -87,7 +89,9 @@ describe('InnerImageZoom', () => {
       it('renders an image spacer if width, height, and hasSpacer are set', () => {
         innerImageZoom({ width: 750, height: 500, hasSpacer: true });
         const wrapper = findRenderedDOMComponentWithTag(component, 'div');
-        expect(wrapper.style['padding-top']).toEqual('66.66666666666666%');
+        const paddingTop = wrapper.style['padding-top'];
+        expect(paddingTop.substring(paddingTop.length - 1)).toBe('%');
+        expect(Math.abs(66.67 - parseFloat(paddingTop))).toBeLessThan(0.05); // i.e. 100 x 500/750 %
       });
 
       it('ignores hasSpacer if width or height are not set', () => {
@@ -206,7 +210,7 @@ describe('InnerImageZoom', () => {
 
   describe('move', () => {
     it('pans the zoomed image on mouse move', (done) => {
-      innerImageZoom({ zoomSrc: SRCS.zoomSrc });
+      innerImageZoom({ zoomSrc: SRCS.zoom });
       const figure = findRenderedDOMComponentWithTag(component, 'figure');
       Simulate.mouseEnter(figure);
       Simulate.click(figure, { pageX: 100, pageY: 100 });
