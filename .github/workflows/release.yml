@@ -38,14 +38,11 @@ jobs:
         run: npm install
       - name: Run tests
         run: npm test
-      - name: Temporary Test Build
-        if: matrix.publish
-        run: npm build
       - name: Publish
         if: matrix.publish && github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          npm build
+          npm run build
           npm run semantic-release
