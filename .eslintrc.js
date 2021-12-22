@@ -29,7 +29,8 @@ module.exports = {
         singleQuote: true,
         jsxBracketSameLine: false,
         trailingComma: 'none',
-        printWidth: 120
+        printWidth: 120,
+        endOfLine: 'auto'
       }
     ]
   },
