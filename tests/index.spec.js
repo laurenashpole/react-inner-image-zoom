@@ -23,11 +23,9 @@ Wrapper.propTypes = {
   children: PropTypes.element
 };
 
-describe('InnerImageZoom', function () {
+describe('InnerImageZoom', () => {
   let node;
   let component;
-
-  this.timeout(5000);
 
   beforeEach(() => {
     node = document.createElement('div');

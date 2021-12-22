@@ -15,7 +15,7 @@
     "clean": "nwb clean-module && nwb clean-demo",
     "prepublishOnly": "npm run build",
     "start": "nwb serve-react-demo",
-    "test": "nwb test-react && eslint .",
+    "test": "nwb test-react --karma.browsers=FirefoxHeadless --karma.browsers=ChromeHeadless && eslint .",
     "test:coverage": "nwb test-react --coverage",
     "test:watch": "nwb test-react --server",
     "lint": "eslint --fix .",
