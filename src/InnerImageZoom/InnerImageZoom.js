@@ -8,17 +8,14 @@ const InnerImageZoom = ({
   moveType = 'pan',
   zoomType = 'click',
   src,
-  srcSet,
-  sizes,
   sources,
   width,
   height,
   hasSpacer,
+  imgAttributes = {},
   zoomSrc,
   zoomScale = 1,
   zoomPreload,
-  alt,
-  title,
   fadeDuration = 150,
   fullscreenOnMobile,
   mobileBreakpoint = 640,
@@ -323,14 +320,11 @@ const InnerImageZoom = ({
     >
       <Image
         src={src}
-        srcSet={srcSet}
-        sizes={sizes}
         sources={sources}
         width={width}
         height={height}
         hasSpacer={hasSpacer}
-        alt={alt}
-        title={title}
+        imgAttributes={imgAttributes}
         fadeDuration={fadeDuration}
         isZoomed={isZoomed}
       />
@@ -356,17 +350,14 @@ InnerImageZoom.propTypes = {
   moveType: PropTypes.string,
   zoomType: PropTypes.string,
   src: PropTypes.string.isRequired,
-  srcSet: PropTypes.string,
-  sizes: PropTypes.string,
   sources: PropTypes.array,
   width: PropTypes.number,
   height: PropTypes.number,
   hasSpacer: PropTypes.bool,
+  imgAttributes: PropTypes.object,
   zoomSrc: PropTypes.string,
   zoomScale: PropTypes.number,
   zoomPreload: PropTypes.bool,
-  alt: PropTypes.string,
-  title: PropTypes.string,
   fadeDuration: PropTypes.number,
   fullscreenOnMobile: PropTypes.bool,
   mobileBreakpoint: PropTypes.number,
