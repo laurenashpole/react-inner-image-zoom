@@ -143,7 +143,6 @@ const InnerImageZoom = ({
   };
 
   const handleClose = () => {
-    console.log('handle close');
     if (!isZoomed || isFullscreen || !fadeDuration) {
       handleFadeOut({}, true);
     } else {
@@ -155,8 +154,6 @@ const InnerImageZoom = ({
 
   const handleFadeOut = (e, noTransition) => {
     if (noTransition || (e.propertyName === 'opacity' && img.current.contains(e.target))) {
-      console.log('handle fade out');
-
       if ((zoomPreload && isTouch) || !zoomPreload) {
         zoomImg.current = null;
         imgProps.current = getDefaults();

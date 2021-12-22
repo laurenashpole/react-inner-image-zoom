@@ -338,6 +338,44 @@ describe('InnerImageZoom', function () {
       };
     });
 
+    it('removes the zoomed image immediately if fade duration is set to zero', (done) => {
+      innerImageZoom({ fadeDuration: 0 });
+      const figure = findRenderedDOMComponentWithTag(component, 'figure');
+      Simulate.mouseEnter(figure);
+      Simulate.click(figure, { pageX: 100, pageY: 100 });
+      const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
+
+      zoomImg.onload = () => {
+        Simulate.mouseLeave(figure);
+        const img = scryRenderedDOMComponentsWithTag(component, 'img');
+        expect(img.length).toBe(1);
+        done();
+      };
+    });
+
+    it('removes the fullscreen portal immediately on mobile if fullscreenOnMobile is set', (done) => {
+      global.innerWidth = 500;
+      global.window.matchMedia = () => {
+        return { matches: true };
+      };
+      innerImageZoom({ fullscreenOnMobile: true });
+      const figure = findRenderedDOMComponentWithTag(component, 'figure');
+      Simulate.touchStart(figure);
+      Simulate.mouseEnter(figure);
+      act(() => {
+        Simulate.click(figure, { pageX: 100, pageY: 100 });
+      });
+      const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
+
+      zoomImg.onload = () => {
+        const button = findRenderedDOMComponentWithTag(component, 'button');
+        Simulate.click(button, { pageX: 0, pageY: 0 });
+        const zoomPortal = document.querySelector('.iiz__zoom-portal');
+        expect(zoomPortal).toNotExist();
+        done();
+      };
+    });
+
     it('persists the zoomed image after fade transition if zoomPreload is true', (done) => {
       innerImageZoom({ zoomPreload: true });
       const figure = findRenderedDOMComponentWithTag(component, 'figure');
@@ -347,12 +385,10 @@ describe('InnerImageZoom', function () {
 
       zoomImg.onload = () => {
         Simulate.mouseLeave(figure);
-
-        setTimeout(() => {
-          const img = scryRenderedDOMComponentsWithTag(component, 'img');
-          expect(img.length).toBe(2);
-          done();
-        }, 150);
+        Simulate.transitionEnd(zoomImg, { propertyName: 'opacity' });
+        const img = scryRenderedDOMComponentsWithTag(component, 'img');
+        expect(img.length).toBe(2);
+        done();
       };
     });
 
