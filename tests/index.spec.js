@@ -313,12 +313,10 @@ describe('InnerImageZoom', function () {
 
       zoomImg.onload = () => {
         Simulate.mouseLeave(figure);
-
-        setTimeout(() => {
-          const img = scryRenderedDOMComponentsWithTag(component, 'img');
-          expect(img.length).toBe(1);
-          done();
-        }, 150);
+        Simulate.transitionEnd(zoomImg, { propertyName: 'opacity' });
+        const img = scryRenderedDOMComponentsWithTag(component, 'img');
+        expect(img.length).toBe(1);
+        done();
       };
     });
 
@@ -333,12 +331,10 @@ describe('InnerImageZoom', function () {
       zoomImg.onload = () => {
         const button = findRenderedDOMComponentWithTag(component, 'button');
         Simulate.click(button, { pageX: 0, pageY: 0 });
-
-        setTimeout(() => {
-          const img = scryRenderedDOMComponentsWithTag(component, 'img');
-          expect(img.length).toBe(1);
-          done();
-        }, 150);
+        Simulate.transitionEnd(zoomImg, { propertyName: 'opacity' });
+        const img = scryRenderedDOMComponentsWithTag(component, 'img');
+        expect(img.length).toBe(1);
+        done();
       };
     });
 
