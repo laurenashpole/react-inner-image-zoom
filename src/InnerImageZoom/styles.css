@@ -118,6 +118,7 @@
 .iiz__close--visible {
   visibility: visible;
   opacity: 1;
+  cursor: pointer;
 }
 
 .iiz__close::before {

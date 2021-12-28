@@ -157,6 +157,7 @@ describe('InnerImageZoom', function () {
         Simulate.mouseEnter(figure);
         Simulate.click(figure, { pageX: 100, pageY: 100 });
         const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
+
         zoomImg.onload = () => {
           expect(zoomImg.width).toBe(500 * scale);
           Simulate.click(figure, { pageX: 100, pageY: 100 });
@@ -300,6 +301,20 @@ describe('InnerImageZoom', function () {
       zoomImg.onload = () => {
         Simulate.click(figure, { pageX: 0, pageY: 0 });
         expect(zoomImg.classList.contains('iiz__zoom-img--visible')).toBe(false);
+        done();
+      };
+    });
+
+    it('renders the close button on desktop if moveType is drag', (done) => {
+      innerImageZoom({ moveType: 'drag' });
+      const figure = findRenderedDOMComponentWithTag(component, 'figure');
+      Simulate.mouseEnter(figure);
+      Simulate.click(figure, { pageX: 100, pageY: 100 });
+      const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
+
+      zoomImg.onload = () => {
+        const button = findRenderedDOMComponentWithTag(component, 'button');
+        expect(button).toExist();
         done();
       };
     });

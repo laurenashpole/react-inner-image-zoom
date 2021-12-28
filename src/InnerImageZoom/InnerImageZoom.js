@@ -267,7 +267,7 @@ const InnerImageZoom = ({
     onLoad: handleLoad,
     onDragStart: currentMoveType === 'drag' ? handleDragStart : null,
     onDragEnd: currentMoveType === 'drag' ? handleDragEnd : null,
-    onClose: !hideCloseButton && isTouch ? handleClose : null
+    onClose: !hideCloseButton && currentMoveType === 'drag' ? handleClose : null
   };
 
   const clearCloseTimer = () => {
