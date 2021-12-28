@@ -28,13 +28,13 @@ const InnerImageZoom = ({
   const img = useRef(null);
   const zoomImg = useRef(null);
   const imgProps = useRef({});
-  const closeTimerId = useRef(null);
   const [isActive, setIsActive] = useState(zoomPreload);
   const [isTouch, setIsTouch] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isValidDrag, setIsValidDrag] = useState(false);
+  const [isFading, setIsFading] = useState(false);
   const [currentMoveType, setCurrentMoveType] = useState(moveType);
   const [left, setLeft] = useState(0);
   const [top, setTop] = useState(0);
@@ -143,25 +143,28 @@ const InnerImageZoom = ({
   };
 
   const handleClose = () => {
-    zoomOut(() => {
-      clearCloseTimer();
-      closeTimerId.current = setTimeout(
-        () => {
-          if ((zoomPreload && isTouch) || !zoomPreload) {
-            zoomImg.current = null;
-            imgProps.current = getDefaults();
-            setIsActive(false);
-          }
+    if (!isZoomed || isFullscreen || !fadeDuration) {
+      handleFadeOut({}, true);
+    } else {
+      setIsFading(true);
+    }
 
-          setIsTouch(false);
-          setIsFullscreen(false);
-          setCurrentMoveType(moveType);
+    zoomOut();
+  };
 
-          closeTimerId.current = null;
-        },
-        isFullscreen ? 0 : fadeDuration
-      );
-    });
+  const handleFadeOut = (e, noTransition) => {
+    if (noTransition || (e.propertyName === 'opacity' && img.current.contains(e.target))) {
+      if ((zoomPreload && isTouch) || !zoomPreload) {
+        zoomImg.current = null;
+        imgProps.current = getDefaults();
+        setIsActive(false);
+      }
+
+      setIsTouch(false);
+      setIsFullscreen(false);
+      setCurrentMoveType(moveType);
+      setIsFading(false);
+    }
   };
 
   const initialMove = (pageX, pageY) => {
@@ -196,17 +199,14 @@ const InnerImageZoom = ({
   };
 
   const zoomIn = (pageX, pageY) => {
-    clearCloseTimer(); // Debounce a previous zoom out
-
     setIsZoomed(true);
     currentMoveType === 'drag' ? initialDrag(pageX, pageY) : initialMove(pageX, pageY);
     afterZoomIn && afterZoomIn();
   };
 
-  const zoomOut = (callback) => {
+  const zoomOut = () => {
     setIsZoomed(false);
     afterZoomOut && afterZoomOut();
-    callback && callback();
   };
 
   const getDefaults = () => {
@@ -267,23 +267,9 @@ const InnerImageZoom = ({
     onLoad: handleLoad,
     onDragStart: currentMoveType === 'drag' ? handleDragStart : null,
     onDragEnd: currentMoveType === 'drag' ? handleDragEnd : null,
-    onClose: !hideCloseButton && currentMoveType === 'drag' ? handleClose : null
+    onClose: !hideCloseButton && currentMoveType === 'drag' ? handleClose : null,
+    onFadeOut: isFading ? handleFadeOut : null
   };
-
-  const clearCloseTimer = () => {
-    if (closeTimerId.current !== null) {
-      clearTimeout(closeTimerId.current);
-    }
-  };
-
-  /**
-   * Cancels the zoom out timer (if it is running) when the component unmounts.
-   */
-  useEffect(() => {
-    return () => {
-      clearCloseTimer();
-    };
-  }, []);
 
   useEffect(() => {
     imgProps.current = getDefaults();
