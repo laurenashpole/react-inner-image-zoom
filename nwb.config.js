@@ -6,9 +6,6 @@ module.exports = {
   },
   karma: {
     browsers: ['ChromeHeadless'],
-    plugins: ['karma-firefox-launcher'],
-    extra: {
-      singleRun: true
-    }
+    plugins: ['karma-firefox-launcher']
   }
 };
