@@ -195,7 +195,6 @@ describe('InnerImageZoom', function () {
       });
 
       it('renders the zoomed image in a fullscreen portal if fullscreenOnMobile is set', () => {
-        global.innerWidth = 500;
         global.window.matchMedia = () => {
           return { matches: true };
         };
@@ -369,7 +368,6 @@ describe('InnerImageZoom', function () {
     });
 
     it('removes the fullscreen portal immediately on mobile if fullscreenOnMobile is set', (done) => {
-      global.innerWidth = 500;
       global.window.matchMedia = () => {
         return { matches: true };
       };
@@ -384,7 +382,9 @@ describe('InnerImageZoom', function () {
 
       zoomImg.onload = () => {
         const button = findRenderedDOMComponentWithTag(component, 'button');
-        Simulate.click(button, { pageX: 0, pageY: 0 });
+        act(() => {
+          Simulate.click(button, { pageX: 0, pageY: 0 });
+        });
         const zoomPortal = document.querySelector('.iiz__zoom-portal');
         expect(zoomPortal).toNotExist();
         done();
