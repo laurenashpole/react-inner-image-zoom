@@ -12,6 +12,10 @@
 
 - This handy CHANGELOG.
 
+### Fixed
+
+- Added `stopPropagation` on touchmove to prevent events below fullscreen modal.
+
 ##  [2.1.0](https://github.com/laurenashpole/react-inner-image-zoom/compare/v2.0.3...v2.1.0) (2021-08-30)
 
 ### Added

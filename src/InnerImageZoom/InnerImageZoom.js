@@ -118,6 +118,7 @@ const InnerImageZoom = ({
   };
 
   const handleDragMove = useCallback((e) => {
+    e.stopPropagation();
     let left = (e.pageX || e.changedTouches[0].pageX) - imgProps.current.offsets.x;
     let top = (e.pageY || e.changedTouches[0].pageY) - imgProps.current.offsets.y;
 
