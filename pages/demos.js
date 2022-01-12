@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import LazyLoad from 'react-lazy-load';
 import Slick from 'react-slick';
 import InnerImageZoom from 'react-inner-image-zoom';
@@ -7,6 +8,12 @@ import styles from './Demos.module.css';
 import slickStyles from '../components/slick.styles.js';
 
 const Demos = () => {
+  const [pageLoaded, setPageLoaded] = useState(false);
+
+  useEffect(() => {
+    setPageLoaded(true);
+  }, []);
+
   return (
     <Layout title="Demos">
       <div className={styles.container}>
@@ -47,9 +54,11 @@ const Demos = () => {
         </section>
 
         <section id="zoomOnHover">
-          <Demo name="Zoom On Hover" notes={['Trigger image zoom on hover', 'Recommended with zoomPreload option to avoid flickering with fast movements.', 'Photo credit: <a href="https://unsplash.com/@socialcut?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">S O C I A L . C U T</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Unsplash</a>']} code={`<InnerImageZoom\n\xa0\xa0src="/path/to/image.jpg"\n\xa0\xa0zoomSrc="/path/to/zoom-image.jpg"\n\xa0\xa0zoomType="hover"\n\xa0\xa0zoomPreload={true}\n/>`}>
-            <InnerImageZoom src="/react-inner-image-zoom/images/unsplash-10.jpg" zoomSrc="/react-inner-image-zoom/images/unsplash-10-large.jpg" zoomType="hover" zoomPreload={true} />
-          </Demo>
+          {pageLoaded &&
+            <Demo name="Zoom On Hover" notes={['Trigger image zoom on hover', 'Recommended with zoomPreload option to avoid flickering with fast movements.', 'Photo credit: <a href="https://unsplash.com/@socialcut?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">S O C I A L . C U T</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer">Unsplash</a>']} code={`<InnerImageZoom\n\xa0\xa0src="/path/to/image.jpg"\n\xa0\xa0zoomSrc="/path/to/zoom-image.jpg"\n\xa0\xa0zoomType="hover"\n\xa0\xa0zoomPreload={true}\n/>`}>
+              <InnerImageZoom src="/react-inner-image-zoom/images/unsplash-10.jpg" zoomSrc="/react-inner-image-zoom/images/unsplash-10-large.jpg" zoomType="hover" zoomPreload={true} />
+            </Demo>
+          }
         </section>
 
         <section id="fullscreen">
