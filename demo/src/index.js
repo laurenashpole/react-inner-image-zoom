@@ -14,16 +14,23 @@ class Demo extends Component {
             src="unsplash.jpg"
             zoomSrc="unsplash-large.jpg"
             fullscreenOnMobile={false}
-            zoomPreload={true}
-            width={750}
-            height={500}
-            hasSpacer={true}
+            imgAttributes={{
+              src: 'test',
+              'data-key': 'value',
+              title: 'Title',
+              alt: '',
+              height: 1000,
+              onLoad: () => console.log('Original image loaded')
+            }}
           />
         </div>
         <div style={{ marginBottom: '30px' }}>
           <h2>Hover Example</h2>
           <InnerImageZoom
             src="unsplash2.jpg"
+            width={750}
+            height={500}
+            hasSpacer={true}
             zoomSrc="unsplash2-large.jpg"
             zoomType="hover"
             zoomPreload={true}

@@ -3,5 +3,9 @@ module.exports = {
   npm: {
     esModules: true,
     umd: false
+  },
+  karma: {
+    browsers: ['ChromeHeadless'],
+    plugins: ['karma-firefox-launcher']
   }
 };

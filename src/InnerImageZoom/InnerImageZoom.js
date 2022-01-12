@@ -8,17 +8,14 @@ const InnerImageZoom = ({
   moveType = 'pan',
   zoomType = 'click',
   src,
-  srcSet,
-  sizes,
   sources,
   width,
   height,
   hasSpacer,
+  imgAttributes = {},
   zoomSrc,
   zoomScale = 1,
   zoomPreload,
-  alt,
-  title,
   fadeDuration = 150,
   fullscreenOnMobile,
   mobileBreakpoint = 640,
@@ -37,6 +34,7 @@ const InnerImageZoom = ({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isValidDrag, setIsValidDrag] = useState(false);
+  const [isFading, setIsFading] = useState(false);
   const [currentMoveType, setCurrentMoveType] = useState(moveType);
   const [left, setLeft] = useState(0);
   const [top, setTop] = useState(0);
@@ -120,6 +118,7 @@ const InnerImageZoom = ({
   };
 
   const handleDragMove = useCallback((e) => {
+    e.stopPropagation();
     let left = (e.pageX || e.changedTouches[0].pageX) - imgProps.current.offsets.x;
     let top = (e.pageY || e.changedTouches[0].pageY) - imgProps.current.offsets.y;
 
@@ -145,22 +144,28 @@ const InnerImageZoom = ({
   };
 
   const handleClose = () => {
-    zoomOut(() => {
-      setTimeout(
-        () => {
-          if ((zoomPreload && isTouch) || !zoomPreload) {
-            zoomImg.current = null;
-            imgProps.current = getDefaults();
-            setIsActive(false);
-          }
+    if (!isZoomed || isFullscreen || !fadeDuration) {
+      handleFadeOut({}, true);
+    } else {
+      setIsFading(true);
+    }
 
-          setIsTouch(false);
-          setIsFullscreen(false);
-          setCurrentMoveType(moveType);
-        },
-        isFullscreen ? 0 : fadeDuration
-      );
-    });
+    zoomOut();
+  };
+
+  const handleFadeOut = (e, noTransition) => {
+    if (noTransition || (e.propertyName === 'opacity' && img.current.contains(e.target))) {
+      if ((zoomPreload && isTouch) || !zoomPreload) {
+        zoomImg.current = null;
+        imgProps.current = getDefaults();
+        setIsActive(false);
+      }
+
+      setIsTouch(false);
+      setIsFullscreen(false);
+      setCurrentMoveType(moveType);
+      setIsFading(false);
+    }
   };
 
   const initialMove = (pageX, pageY) => {
@@ -200,10 +205,9 @@ const InnerImageZoom = ({
     afterZoomIn && afterZoomIn();
   };
 
-  const zoomOut = (callback) => {
+  const zoomOut = () => {
     setIsZoomed(false);
     afterZoomOut && afterZoomOut();
-    callback && callback();
   };
 
   const getDefaults = () => {
@@ -264,7 +268,8 @@ const InnerImageZoom = ({
     onLoad: handleLoad,
     onDragStart: currentMoveType === 'drag' ? handleDragStart : null,
     onDragEnd: currentMoveType === 'drag' ? handleDragEnd : null,
-    onClose: !hideCloseButton && isTouch ? handleClose : null
+    onClose: !hideCloseButton && currentMoveType === 'drag' ? handleClose : null,
+    onFadeOut: isFading ? handleFadeOut : null
   };
 
   useEffect(() => {
@@ -302,14 +307,11 @@ const InnerImageZoom = ({
     >
       <Image
         src={src}
-        srcSet={srcSet}
-        sizes={sizes}
         sources={sources}
         width={width}
         height={height}
         hasSpacer={hasSpacer}
-        alt={alt}
-        title={title}
+        imgAttributes={imgAttributes}
         fadeDuration={fadeDuration}
         isZoomed={isZoomed}
       />
@@ -335,17 +337,14 @@ InnerImageZoom.propTypes = {
   moveType: PropTypes.string,
   zoomType: PropTypes.string,
   src: PropTypes.string.isRequired,
-  srcSet: PropTypes.string,
-  sizes: PropTypes.string,
   sources: PropTypes.array,
   width: PropTypes.number,
   height: PropTypes.number,
   hasSpacer: PropTypes.bool,
+  imgAttributes: PropTypes.object,
   zoomSrc: PropTypes.string,
   zoomScale: PropTypes.number,
   zoomPreload: PropTypes.bool,
-  alt: PropTypes.string,
-  title: PropTypes.string,
   fadeDuration: PropTypes.number,
   fullscreenOnMobile: PropTypes.bool,
   mobileBreakpoint: PropTypes.number,

@@ -4,31 +4,45 @@ on:
   push:
     branches:
     - master
+    - main
+  pull_request:
 
 jobs:
   release:
     name: Release
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [12.x, 14.x, 16.x]
+        include:
+          - os: ubuntu-latest
+            node-version: 12.x
+            publish: true
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Setup Node.js
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
+          node-version: ${{ matrix.node-version }}
       - name: Cache modules
         uses: actions/cache@v2
         with:
           path: ~/.npm
           key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
           restore-keys: v1-npm-deps-
+      - name: Install modules
+        run: npm install
+      - name: Run tests
+        run: npm test
       - name: Publish
+        if: matrix.publish && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          npm install
-          npm build
+          npm run build
           npm run semantic-release

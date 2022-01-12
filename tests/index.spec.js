@@ -23,9 +23,11 @@ Wrapper.propTypes = {
   children: PropTypes.element
 };
 
-describe('InnerImageZoom', () => {
+describe('InnerImageZoom', function () {
   let node;
   let component;
+
+  this.timeout(5000);
 
   beforeEach(() => {
     node = document.createElement('div');
@@ -72,6 +74,24 @@ describe('InnerImageZoom', () => {
         expect(img).toExist();
       });
 
+      it('renders an image with custom attributes if imgAttributes is set', () => {
+        innerImageZoom({ imgAttributes: { 'data-key': 'value' } });
+        const img = findRenderedDOMComponentWithTag(component, 'img');
+        expect(img.getAttribute('data-key')).toEqual('value');
+      });
+
+      it('combines image classes if imgAttributes contains className', () => {
+        innerImageZoom({ imgAttributes: { className: 'class' } });
+        const img = findRenderedDOMComponentWithTag(component, 'img');
+        expect(img.classList.contains('iiz__img') && img.classList.contains('class')).toBe(true);
+      });
+
+      it('ignores style properties in imgAttributes prop', () => {
+        innerImageZoom({ imgAttributes: { style: { background: 'pink' } } });
+        const img = findRenderedDOMComponentWithTag(component, 'img');
+        expect(img.style.background).toBeFalsy();
+      });
+
       it('renders the original image with sources', () => {
         innerImageZoom({ sources: SRCS.sources });
         const sources = scryRenderedDOMComponentsWithTag(component, 'source');
@@ -87,7 +107,9 @@ describe('InnerImageZoom', () => {
       it('renders an image spacer if width, height, and hasSpacer are set', () => {
         innerImageZoom({ width: 750, height: 500, hasSpacer: true });
         const wrapper = findRenderedDOMComponentWithTag(component, 'div');
-        expect(wrapper.style['padding-top']).toEqual('66.66666666666666%');
+        const paddingTop = wrapper.style['padding-top'];
+        expect(paddingTop.substring(paddingTop.length - 1)).toBe('%');
+        expect(Math.abs(66.67 - parseFloat(paddingTop))).toBeLessThan(0.05); // i.e. 100 x 500/750 %
       });
 
       it('ignores hasSpacer if width or height are not set', () => {
@@ -135,6 +157,7 @@ describe('InnerImageZoom', () => {
         Simulate.mouseEnter(figure);
         Simulate.click(figure, { pageX: 100, pageY: 100 });
         const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
+
         zoomImg.onload = () => {
           expect(zoomImg.width).toBe(500 * scale);
           Simulate.click(figure, { pageX: 100, pageY: 100 });
@@ -172,7 +195,6 @@ describe('InnerImageZoom', () => {
       });
 
       it('renders the zoomed image in a fullscreen portal if fullscreenOnMobile is set', () => {
-        global.innerWidth = 500;
         global.window.matchMedia = () => {
           return { matches: true };
         };
@@ -206,7 +228,7 @@ describe('InnerImageZoom', () => {
 
   describe('move', () => {
     it('pans the zoomed image on mouse move', (done) => {
-      innerImageZoom({ zoomSrc: SRCS.zoomSrc });
+      innerImageZoom({ zoomSrc: SRCS.zoom });
       const figure = findRenderedDOMComponentWithTag(component, 'figure');
       Simulate.mouseEnter(figure);
       Simulate.click(figure, { pageX: 100, pageY: 100 });
@@ -282,6 +304,20 @@ describe('InnerImageZoom', () => {
       };
     });
 
+    it('renders the close button on desktop if moveType is drag', (done) => {
+      innerImageZoom({ moveType: 'drag' });
+      const figure = findRenderedDOMComponentWithTag(component, 'figure');
+      Simulate.mouseEnter(figure);
+      Simulate.click(figure, { pageX: 100, pageY: 100 });
+      const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
+
+      zoomImg.onload = () => {
+        const button = findRenderedDOMComponentWithTag(component, 'button');
+        expect(button).toExist();
+        done();
+      };
+    });
+
     it('removes the zoomed image after fade transition', (done) => {
       innerImageZoom();
       const figure = findRenderedDOMComponentWithTag(component, 'figure');
@@ -291,12 +327,10 @@ describe('InnerImageZoom', () => {
 
       zoomImg.onload = () => {
         Simulate.mouseLeave(figure);
-
-        setTimeout(() => {
-          const img = scryRenderedDOMComponentsWithTag(component, 'img');
-          expect(img.length).toBe(1);
-          done();
-        }, 150);
+        Simulate.transitionEnd(zoomImg, { propertyName: 'opacity' });
+        const img = scryRenderedDOMComponentsWithTag(component, 'img');
+        expect(img.length).toBe(1);
+        done();
       };
     });
 
@@ -311,12 +345,49 @@ describe('InnerImageZoom', () => {
       zoomImg.onload = () => {
         const button = findRenderedDOMComponentWithTag(component, 'button');
         Simulate.click(button, { pageX: 0, pageY: 0 });
+        Simulate.transitionEnd(zoomImg, { propertyName: 'opacity' });
+        const img = scryRenderedDOMComponentsWithTag(component, 'img');
+        expect(img.length).toBe(1);
+        done();
+      };
+    });
 
-        setTimeout(() => {
-          const img = scryRenderedDOMComponentsWithTag(component, 'img');
-          expect(img.length).toBe(1);
-          done();
-        }, 150);
+    it('removes the zoomed image immediately if fade duration is set to zero', (done) => {
+      innerImageZoom({ fadeDuration: 0 });
+      const figure = findRenderedDOMComponentWithTag(component, 'figure');
+      Simulate.mouseEnter(figure);
+      Simulate.click(figure, { pageX: 100, pageY: 100 });
+      const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
+
+      zoomImg.onload = () => {
+        Simulate.mouseLeave(figure);
+        const img = scryRenderedDOMComponentsWithTag(component, 'img');
+        expect(img.length).toBe(1);
+        done();
+      };
+    });
+
+    it('removes the fullscreen portal immediately on mobile if fullscreenOnMobile is set', (done) => {
+      global.window.matchMedia = () => {
+        return { matches: true };
+      };
+      innerImageZoom({ fullscreenOnMobile: true });
+      const figure = findRenderedDOMComponentWithTag(component, 'figure');
+      Simulate.touchStart(figure);
+      Simulate.mouseEnter(figure);
+      act(() => {
+        Simulate.click(figure, { pageX: 100, pageY: 100 });
+      });
+      const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
+
+      zoomImg.onload = () => {
+        const button = findRenderedDOMComponentWithTag(component, 'button');
+        act(() => {
+          Simulate.click(button, { pageX: 0, pageY: 0 });
+        });
+        const zoomPortal = document.querySelector('.iiz__zoom-portal');
+        expect(zoomPortal).toNotExist();
+        done();
       };
     });
 
@@ -329,12 +400,10 @@ describe('InnerImageZoom', () => {
 
       zoomImg.onload = () => {
         Simulate.mouseLeave(figure);
-
-        setTimeout(() => {
-          const img = scryRenderedDOMComponentsWithTag(component, 'img');
-          expect(img.length).toBe(2);
-          done();
-        }, 150);
+        Simulate.transitionEnd(zoomImg, { propertyName: 'opacity' });
+        const img = scryRenderedDOMComponentsWithTag(component, 'img');
+        expect(img.length).toBe(2);
+        done();
       };
     });
 
