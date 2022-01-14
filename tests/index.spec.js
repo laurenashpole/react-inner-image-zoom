@@ -143,12 +143,18 @@ describe('InnerImageZoom', function () {
         const paddingTop = wrapper.style['padding-top'];
         expect(paddingTop.substring(paddingTop.length - 1)).toBe('%');
         expect(Math.abs(66.67 - parseFloat(paddingTop))).toBeLessThan(0.05); // i.e. 100 x 500/750 %
+
+        const img = findRenderedDOMComponentWithTag(component, 'img');
+        expect(img.classList.contains('iiz__img--abs')).toBe(true);
       });
 
       it('ignores hasSpacer if width or height are not set', () => {
         innerImageZoom({ height: 500, hasSpacer: true });
         const wrapper = findRenderedDOMComponentWithTag(component, 'div');
         expect(wrapper.style['padding-top']).toNotExist();
+
+        const img = findRenderedDOMComponentWithTag(component, 'img');
+        expect(img.classList.contains('iiz__img--abs')).toBe(false);
       });
 
       it('hides the magnifying glass hint if hideHint is true', () => {

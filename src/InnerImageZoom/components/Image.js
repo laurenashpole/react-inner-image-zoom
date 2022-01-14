@@ -4,6 +4,23 @@ import PropTypes from 'prop-types';
 const Image = ({ src, sources, width, height, hasSpacer, imgAttributes, isZoomed, fadeDuration }) => {
   const createSpacer = width && height && hasSpacer;
 
+  const img = (
+    <img
+      {...imgAttributes}
+      className={`iiz__img${imgAttributes.className ? ' ' + imgAttributes.className : ''}${
+        isZoomed ? ' iiz__img--hidden' : ''
+      }${createSpacer ? ' iiz__img--abs' : ''}`}
+      style={{
+        transition: `linear 0ms opacity ${isZoomed ? fadeDuration : 0}ms, linear ${fadeDuration}ms visibility ${
+          isZoomed ? fadeDuration : 0
+        }ms`
+      }}
+      src={src}
+      width={width}
+      height={height}
+    />
+  );
+
   return (
     <div style={{ paddingTop: createSpacer ? `${(height / width) * 100}%` : null }}>
       {sources && sources.length > 0 ? (
@@ -11,37 +28,10 @@ const Image = ({ src, sources, width, height, hasSpacer, imgAttributes, isZoomed
           {sources.map((source, i) => {
             return <Fragment key={i}>{source.srcSet && <source {...source} />}</Fragment>;
           })}
-
-          <img
-            {...imgAttributes}
-            className={`iiz__img ${imgAttributes.className || ''} ${isZoomed ? 'iiz__img--hidden' : ''} ${
-              createSpacer ? 'iiz__img--abs' : ''
-            }`}
-            style={{
-              transition: `linear 0ms opacity ${isZoomed ? fadeDuration : 0}ms, linear ${fadeDuration}ms visibility ${
-                isZoomed ? fadeDuration : 0
-              }ms`
-            }}
-            src={src}
-            width={width}
-            height={height}
-          />
+          {img}
         </picture>
       ) : (
-        <img
-          {...imgAttributes}
-          className={`iiz__img ${imgAttributes.className || ''} ${isZoomed ? 'iiz__img--hidden' : ''} ${
-            createSpacer ? 'iiz__img--abs' : ''
-          }`}
-          style={{
-            transition: `linear 0ms opacity ${isZoomed ? fadeDuration : 0}ms, linear ${fadeDuration}ms visibility ${
-              isZoomed ? fadeDuration : 0
-            }ms`
-          }}
-          src={src}
-          width={width}
-          height={height}
-        />
+        img
       )}
     </div>
   );
