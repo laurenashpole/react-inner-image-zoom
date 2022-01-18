@@ -297,7 +297,7 @@ const InnerImageZoom = ({
   return (
     <figure
       className={`iiz ${currentMoveType === 'drag' ? 'iiz--drag' : ''} ${className ? className : ''}`}
-      style={{ width: width }}
+      style={{ width: width + 'px' }}
       ref={img}
       onTouchStart={isZoomed ? null : handleTouchStart}
       onClick={handleClick}
