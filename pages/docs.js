@@ -63,16 +63,14 @@ const Docs = () => {
 
             <ul className={styles.propsList}>
               <li><b>src (String): </b>Required. URL for the original image.</li>
-              <li><b>srcSet (String): </b>Default srcset attribute for a responsive original image.</li>
-              <li><b>sizes (String): </b>Default sizes attribute for use with srcset.</li>
               <li><b>sources (Array): </b>A list of image sources for using the picture tag to serve the appropriate original image (see below for more details).</li>
               <li><b>width (Number): </b>Width attribute for original image.</li>
               <li><b>height (Number): </b>Height attribute for original image.</li>
               <li><b>hasSpacer (Boolean): </b>Default false. If true, gets the original image's aspect ratio based on the width and height props and creates a spacer to prevent cumulative layout shift.</li>
+              <li><b>imgAttributes (Object): </b><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes" target="_blank" rel="noopener noreferrer">Img</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes" target="_blank" rel="noopener noreferrer">global</a> attributes for the original image (excluding <code className={styles.inlineCode}>src</code>, <code className={styles.inlineCode}>width</code>, <code className={styles.inlineCode}>height</code>, and <code className={styles.inlineCode}>style</code> which are set elsewhere). The imgAttributes keys should follow the <a href="https://reactjs.org/docs/dom-elements.html" target="_blank" rel="noopener noreferrer">React DOM element</a> naming conventions.</li>
               <li><b>zoomSrc (String): </b>URL for the larger zoom image. Falls back to original image src if not defined.</li>
               <li><b>zoomScale (Number): </b>Default 1. Multiplied against the natural width and height of the zoomed image. This will generally be a decimal (example, 0.9 for 90%).</li>
               <li><b>zoomPreload (Boolean): </b>Default false If set to true, preloads the zoom image instead of waiting for mouseenter and (unless on a touch device) persists the image on mouseleave.</li>
-              <li><b>alt (String): </b>Alternative text for the original image.</li>
               <li><b>moveType (String): </b>Default pan. Accepts pan or drag options. The user behavior for moving zoomed images on non-touch devices.</li>
               <li><b>zoomType (String): </b>Default click. Accepts click or hover options. The user behavior for triggering zoom. When using hover, combine with zoomPreload to avoid flickering on rapid mouse movements.</li>
               <li><b>fadeDuration (Number): </b>Default 150. Fade transition time in milliseconds. If zooming in on transparent images, set this to 0 for best results.</li>
