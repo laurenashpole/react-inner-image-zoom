@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -43,7 +43,7 @@ const Demo = ({ children, name, notes, code }) => {
               aria-expanded={showCode}
               aria-controls={`${name.replace(/ /g, '')}Code`}
             >
-              {showCode ? 'Hide Code -' : 'Show Code +'}
+              {showCode ? <Fragment>Hide<span className="sr-only"> {name}</span> Code -</Fragment> : <Fragment>Show<span className="sr-only"> {name}</span> Code +</Fragment>}
             </button>
           </div>
         </div>
@@ -52,7 +52,7 @@ const Demo = ({ children, name, notes, code }) => {
       {showCode &&
         <pre className="demo__code" id={`${name.replace(/ /g, '')}Code`}>
           <CopyToClipboard text={code} onCopy={handleCopy}>
-            <button className="demo__code-copy demo__code-btn">{`Cop${isCopied ? 'ied!' : 'y'}`}</button>
+            <button className="demo__code-copy demo__code-btn">{isCopied ? <Fragment>Copied<span className="sr-only"> {name} code</span>!</Fragment> : <Fragment>Copy<span className="sr-only"> {name} code</span></Fragment>}</button>
           </CopyToClipboard>
 
           <SyntaxHighlighter language="javascript|html" style={a11yLight}>

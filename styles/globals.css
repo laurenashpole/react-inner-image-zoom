@@ -52,6 +52,17 @@ a:focus {
   overflow-x: hidden;
 }
 
+.sr-only {
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  overflow: hidden;
+  position: absolute;
+}
+
 @media (min-width: 1024px) {
   h2 {
     font-size: 3rem;
