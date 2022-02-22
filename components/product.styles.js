@@ -14,19 +14,10 @@ export default css`
     font-size: 1.4rem;
   }
 
-  .product__price {
-    margin: -0.5rem 0 1.8rem 0;
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: 1.2rem;
-    font-style: italic;
-    font-weight: 900;
-    letter-spacing: 0.025em;
-  }
-
   .product__btn {
     background: #cb4e01;
     width: 100%;
-    margin-bottom: 0.8rem;
+    margin: 0.5rem 0 0.8rem 0;
     border-radius: 2px;
     color: #fff;
     font-size: 0.9rem;
@@ -42,6 +33,18 @@ export default css`
   .product__btn:focus {
     background: #b64600;
     color: #fff;
+  }
+
+  .product__links {
+    margin: 0 0 1.5rem 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+  }
+
+  .product__links li + li {
+    margin-left: 0.5rem;
   }
 
   .product__list {
@@ -88,8 +91,12 @@ export default css`
 
     .product__btn {
       width: auto;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       padding: 0 2.25rem;
+    }
+
+    .product__links {
+      justify-content: flex-start;
     }
 
     .product__list {
