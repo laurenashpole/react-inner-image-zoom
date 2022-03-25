@@ -5,7 +5,7 @@ const ZoomImage = ({ src, fadeDuration, top, left, isZoomed, onLoad, onDragStart
   return (
     <Fragment>
       <img
-        className={`iiz__zoom-img ${isZoomed ? 'iiz__zoom-img--visible' : ''}`}
+        className={`iiz__zoom-img${isZoomed ? ' iiz__zoom-img--visible' : ''}`}
         style={{
           top: top,
           left: left,
@@ -24,7 +24,7 @@ const ZoomImage = ({ src, fadeDuration, top, left, isZoomed, onLoad, onDragStart
 
       {onClose && (
         <button
-          className={`iiz__btn iiz__close ${isZoomed ? 'iiz__close--visible' : ''}`}
+          className={`iiz__btn iiz__close${isZoomed ? ' iiz__close--visible' : ''}`}
           style={{
             transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
           }}
