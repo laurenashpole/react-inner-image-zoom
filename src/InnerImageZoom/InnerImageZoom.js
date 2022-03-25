@@ -194,8 +194,12 @@ const InnerImageZoom = ({
           pageY: initialPageY
         }
       ],
-      preventDefault: () => {},
-      stopPropagation: () => {}
+      preventDefault: () => {
+        /* do nothing */
+      },
+      stopPropagation: () => {
+        /* do nothing */
+      }
     });
   };
 
