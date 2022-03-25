@@ -9,7 +9,7 @@ const ZoomImage = ({ src, fadeDuration, top, left, isZoomed, onLoad, onDragStart
         style={{
           top: top,
           left: left,
-          transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
+          transition: `opacity ${fadeDuration}ms linear, visibility ${fadeDuration}ms linear`
         }}
         src={src}
         onLoad={onLoad}
@@ -26,7 +26,7 @@ const ZoomImage = ({ src, fadeDuration, top, left, isZoomed, onLoad, onDragStart
         <button
           className={`iiz__btn iiz__close ${isZoomed ? 'iiz__close--visible' : ''}`}
           style={{
-            transition: `linear ${fadeDuration}ms opacity, linear ${fadeDuration}ms visibility`
+            transition: `opacity ${fadeDuration}ms linear, visibility ${fadeDuration}ms linear`
           }}
           onClick={onClose}
           aria-label="Zoom Out"
