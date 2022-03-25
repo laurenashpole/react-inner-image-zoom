@@ -41,6 +41,7 @@ const InnerImageZoom = ({
 
   const handleMouseEnter = (e) => {
     setIsActive(true);
+    setIsFading(false);
     zoomType === 'hover' && !isZoomed && handleClick(e);
   };
 
