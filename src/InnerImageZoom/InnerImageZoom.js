@@ -67,7 +67,7 @@ const InnerImageZoom = ({
       handleLoad({ target: zoomImg.current });
       zoomIn(e.pageX, e.pageY);
     } else {
-      imgProps.current.onLoadCallback = zoomIn.bind(this, e.pageX, e.pageY);
+      imgProps.current.onLoadCallback = zoomIn.bind(null, e.pageX, e.pageY);
     }
   };
 
