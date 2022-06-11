@@ -23,7 +23,8 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": ">=16.8.0"
+    "react": ">=16.8.0",
+    "prop-types": ">=15.6.2"
   },
   "devDependencies": {
     "eslint": "^7.18.0",
