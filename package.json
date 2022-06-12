@@ -1,6 +1,6 @@
 {
   "name": "react-inner-image-zoom",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A React component for magnifying an image within its original container.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -23,7 +23,8 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": ">=16.8.0"
+    "react": ">=16.8.0",
+    "prop-types": ">=15.6.2"
   },
   "devDependencies": {
     "eslint": "^7.18.0",
@@ -36,7 +37,7 @@
     "prettier": "^2.2.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "semantic-release": "^17.3.1"
+    "semantic-release": "^19.0.3"
   },
   "author": "Lauren Ashpole",
   "homepage": "https://github.com/laurenashpole/react-inner-image-zoom#readme",
