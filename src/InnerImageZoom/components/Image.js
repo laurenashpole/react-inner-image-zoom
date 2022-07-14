@@ -18,9 +18,9 @@ const Image = ({ src, sources, width, height, hasSpacer, imgAttributes, isZoomed
               createSpacer ? 'iiz__img--abs' : ''
             }`}
             style={{
-              transition:
-                `opacity 0ms linear ${isZoomed ? fadeDuration : 0}ms, ` +
-                `visibility ${isZoomed ? 0 : fadeDuration}ms linear ${isZoomed ? fadeDuration : 0}ms`
+              transition: `opacity 0ms linear ${isZoomed ? fadeDuration : 0}ms, visibility 0ms linear ${
+                isZoomed ? fadeDuration : 0
+              }ms`
             }}
             src={src}
             width={width}
@@ -34,9 +34,9 @@ const Image = ({ src, sources, width, height, hasSpacer, imgAttributes, isZoomed
             createSpacer ? 'iiz__img--abs' : ''
           }`}
           style={{
-            transition:
-              `opacity 0ms linear ${isZoomed ? fadeDuration : 0}ms, ` +
-              `visibility ${isZoomed ? 0 : fadeDuration}ms linear ${isZoomed ? fadeDuration : 0}ms`
+            transition: `opacity 0ms linear ${isZoomed ? fadeDuration : 0}ms, visibility 0ms linear ${
+              isZoomed ? fadeDuration : 0
+            }ms`
           }}
           src={src}
           width={width}
