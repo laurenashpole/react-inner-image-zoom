@@ -102,7 +102,6 @@ const InnerImageZoom = ({
   const handleDragStart = (e) => {
     const pageX = typeof e.pageX === 'number' ? e.pageX : e.changedTouches[0].pageX;
     const pageY = typeof e.pageY === 'number' ? e.pageY : e.changedTouches[0].pageY;
-    //console.log(`Start pageX: ${pageX} pageY: ${pageY}`);
     imgProps.current.offsets = getOffsets(pageX, pageY, zoomImg.current.offsetLeft, zoomImg.current.offsetTop);
 
     setIsDragging(true);
@@ -119,7 +118,6 @@ const InnerImageZoom = ({
     e.stopPropagation();
     const pageX = typeof e.pageX === 'number' ? e.pageX : e.changedTouches[0].pageX;
     const pageY = typeof e.pageY === 'number' ? e.pageY : e.changedTouches[0].pageY;
-    //console.log(`Move pageX: ${pageX} pageY: ${pageY}`);
     let left = pageX - imgProps.current.offsets.x;
     let top = pageY - imgProps.current.offsets.y;
 
