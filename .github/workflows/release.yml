@@ -17,7 +17,7 @@ jobs:
         node-version: [12.x, 14.x, 16.x]
         include:
           - os: ubuntu-latest
-            node-version: 12.x
+            node-version: 16.x
             publish: true
     steps:
       - name: Checkout repo
