@@ -407,6 +407,23 @@ describe('InnerImageZoom', function () {
       };
     });
 
+    it('persists the zoomed image after clicking the close button if moveType is drag', (done) => {
+      innerImageZoom({ moveType: 'drag' });
+      const figure = findRenderedDOMComponentWithTag(component, 'figure');
+      Simulate.mouseEnter(figure);
+      Simulate.click(figure, { pageX: 100, pageY: 100 });
+      const zoomImg = findRenderedDOMComponentWithClass(component, 'iiz__zoom-img');
+
+      zoomImg.onload = () => {
+        const button = findRenderedDOMComponentWithTag(component, 'button');
+        Simulate.click(button, { pageX: 0, pageY: 0 });
+        Simulate.transitionEnd(zoomImg, { propertyName: 'opacity' });
+        const img = scryRenderedDOMComponentsWithTag(component, 'img');
+        expect(img.length).toBe(2);
+        done();
+      };
+    });
+
     it('fires afterZoomOut callback on zoom out', (done) => {
       const afterZoomOut = createSpy();
       innerImageZoom({ afterZoomOut: afterZoomOut });
