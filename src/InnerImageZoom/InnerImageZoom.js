@@ -144,10 +144,12 @@ const InnerImageZoom = ({
   };
 
   const handleClose = () => {
-    if (!isZoomed || isFullscreen || !fadeDuration) {
-      handleFadeOut({}, true);
-    } else {
-      setIsFading(true);
+    if (isTouch) {
+      if (!isZoomed || isFullscreen || !fadeDuration) {
+        handleFadeOut({}, true);
+      } else {
+        setIsFading(true);
+      }
     }
 
     zoomOut();
