@@ -54,7 +54,7 @@ const InnerImageZoom = ({
   const handleClick = (e) => {
     if (isZoomed) {
       if (isTouch) {
-        hideCloseButton && handleClose();
+        hideCloseButton && handleClose(e);
       } else {
         !isValidDrag && zoomOut();
       }
@@ -140,11 +140,11 @@ const InnerImageZoom = ({
   };
 
   const handleMouseLeave = (e) => {
-    currentMoveType === 'drag' && isZoomed ? handleDragEnd(e) : handleClose();
+    currentMoveType === 'drag' && isZoomed ? handleDragEnd(e) : handleClose(e);
   };
 
-  const handleClose = () => {
-    if (isTouch) {
+  const handleClose = (e) => {
+    if (!(!isTouch && e.target.classList.contains('iiz__close'))) {
       if (!isZoomed || isFullscreen || !fadeDuration) {
         handleFadeOut({}, true);
       } else {
