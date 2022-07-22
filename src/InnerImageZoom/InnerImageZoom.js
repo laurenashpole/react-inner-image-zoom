@@ -41,6 +41,7 @@ const InnerImageZoom = ({
 
   const handleMouseEnter = (e) => {
     setIsActive(true);
+    setIsFading(false);
     zoomType === 'hover' && !isZoomed && handleClick(e);
   };
 
@@ -53,7 +54,7 @@ const InnerImageZoom = ({
   const handleClick = (e) => {
     if (isZoomed) {
       if (isTouch) {
-        hideCloseButton && handleClose();
+        hideCloseButton && handleClose(e);
       } else {
         !isValidDrag && zoomOut();
       }
@@ -100,12 +101,9 @@ const InnerImageZoom = ({
   };
 
   const handleDragStart = (e) => {
-    imgProps.current.offsets = getOffsets(
-      e.pageX || e.changedTouches[0].pageX,
-      e.pageY || e.changedTouches[0].pageY,
-      zoomImg.current.offsetLeft,
-      zoomImg.current.offsetTop
-    );
+    const pageX = typeof e.pageX === 'number' ? e.pageX : e.changedTouches[0].pageX;
+    const pageY = typeof e.pageY === 'number' ? e.pageY : e.changedTouches[0].pageY;
+    imgProps.current.offsets = getOffsets(pageX, pageY, zoomImg.current.offsetLeft, zoomImg.current.offsetTop);
 
     setIsDragging(true);
 
@@ -119,8 +117,10 @@ const InnerImageZoom = ({
 
   const handleDragMove = useCallback((e) => {
     e.stopPropagation();
-    let left = (e.pageX || e.changedTouches[0].pageX) - imgProps.current.offsets.x;
-    let top = (e.pageY || e.changedTouches[0].pageY) - imgProps.current.offsets.y;
+    const pageX = typeof e.pageX === 'number' ? e.pageX : e.changedTouches[0].pageX;
+    const pageY = typeof e.pageY === 'number' ? e.pageY : e.changedTouches[0].pageY;
+    let left = pageX - imgProps.current.offsets.x;
+    let top = pageY - imgProps.current.offsets.y;
 
     left = Math.max(Math.min(left, 0), (imgProps.current.scaledDimensions.width - imgProps.current.bounds.width) * -1);
     top = Math.max(Math.min(top, 0), (imgProps.current.scaledDimensions.height - imgProps.current.bounds.height) * -1);
@@ -140,14 +140,16 @@ const InnerImageZoom = ({
   };
 
   const handleMouseLeave = (e) => {
-    currentMoveType === 'drag' && isZoomed ? handleDragEnd(e) : handleClose();
+    currentMoveType === 'drag' && isZoomed ? handleDragEnd(e) : handleClose(e);
   };
 
-  const handleClose = () => {
-    if (!isZoomed || isFullscreen || !fadeDuration) {
-      handleFadeOut({}, true);
-    } else {
-      setIsFading(true);
+  const handleClose = (e) => {
+    if (!(!isTouch && e.target.classList.contains('iiz__close'))) {
+      if (!isZoomed || isFullscreen || !fadeDuration) {
+        handleFadeOut({}, true);
+      } else {
+        setIsFading(true);
+      }
     }
 
     zoomOut();
