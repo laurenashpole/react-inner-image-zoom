@@ -1,5 +1,24 @@
 # Changelog
 
+## [3.0.2](https://github.com/laurenashpole/react-inner-image-zoom/compare/v3.0.1...v3.0.2) (2022-07-22)
+
+
+### Fixed
+
+- A bug re-zooming after clicking the close button on non-touch devices when `zoomPreload` is false.
+
+🎉🎉🎉 Special thanks to [MaxDAyala](https://github.com/MaxdAyala) for tackling the following:
+
+- A Firefox error when the zoomed image is dragged to the far left of the container.
+- The timing of the fade out `visibility` and `opacity` transitions.
+- An intermittent issue where zooming became disabled by panning in and out at a fast speed.
+
+## [3.0.1](https://github.com/laurenashpole/react-inner-image-zoom/compare/v3.0.0...v3.0.1) (2022-06-12)
+
+### Fixed
+
+- Added `prop-types` to the `peerDependencies`.
+
 ## [3.0.0](https://github.com/laurenashpole/react-inner-image-zoom/compare/v2.1.0...v3.0.0) (2022-01-03)
 
 ### Changed
