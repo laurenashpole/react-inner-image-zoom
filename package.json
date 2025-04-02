@@ -9,10 +9,10 @@
     "export": "next build && next export -o docs/ && touch docs/.nojekyll"
   },
   "dependencies": {
-    "next": "10.0.3",
-    "react": "17.0.1",
+    "next": "11",
+    "react": "17",
     "react-copy-to-clipboard": "^5.0.2",
-    "react-dom": "17.0.1",
+    "react-dom": "17",
     "react-inner-image-zoom": "^3.0.1",
     "react-lazy-load": "^3.1.13",
     "react-slick": "^0.27.13",

@@ -13,15 +13,6 @@ const Product = () => {
         <p>Great for ecommerce product images! An open source React component for magnifying an image within its original container.</p>
         <a className="product__btn" href="https://github.com/laurenashpole/react-inner-image-zoom">View on Github</a>
 
-        <ul className="product__links">
-          <li>
-            <a className="github-button" href="https://github.com/laurenashpole/react-inner-image-zoom" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star laurenashpole/react-inner-image-zoom on GitHub">Star</a>
-          </li>
-          <li>
-            <a className="github-button" href="https://github.com/sponsors/laurenashpole" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-heart" data-size="large" aria-label="Sponsor @laurenashpole on GitHub">Sponsor</a>
-          </li>
-        </ul>
-
         <ul className="product__list">
           <li>Details</li>
           <li>Zoom on click or hover</li>

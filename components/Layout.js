@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import Head from 'next/head';
 import Meta from './Meta';
 import Nav from './Nav';
 import Footer from './Footer';
 import styles from './layout.styles.js';
+import Redirect from './Redirect.js';
 
 const Layout = ({ children, title, description }) => {
   return (
@@ -12,6 +12,7 @@ const Layout = ({ children, title, description }) => {
       <Nav />
       <main className="main">{children}</main>
       <Footer />
+      <Redirect />
 
       <style jsx>
         {styles}
