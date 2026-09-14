@@ -4,8 +4,10 @@ import Image from './components/Image';
 import ZoomImage from './components/ZoomImage';
 import FullscreenPortal from './components/FullscreenPortal';
 
+const defaultMoveType = 'pan'
+
 const InnerImageZoom = ({
-  moveType = 'pan',
+  moveType = defaultMoveType,
   zoomType = 'click',
   src,
   sources,
@@ -277,6 +279,10 @@ const InnerImageZoom = ({
   useEffect(() => {
     imgProps.current = getDefaults();
   }, []);
+
+  useEffect(() => {
+    setCurrentMoveType(moveType || defaultMoveType)
+  }, [moveType]);
 
   useEffect(() => {
     getFullscreenStatus(fullscreenOnMobile, mobileBreakpoint) && setIsActive(false);
