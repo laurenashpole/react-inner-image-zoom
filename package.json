@@ -6,17 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next build && next export -o docs/ && touch docs/.nojekyll"
+    "export": "next build && touch docs/.nojekyll"
   },
   "dependencies": {
     "install": "^0.13.0",
     "next": "^16.3.5",
     "react": "^19.3.0",
-    "react-copy-to-clipboard": "^5.0.2",
-    "react-dom": "^19.3.0",
-    "react-inner-image-zoom": "^3.0.1",
-    "react-lazy-load": "^3.1.13",
-    "react-slick": "^0.27.13",
-    "react-syntax-highlighter": "^15.4.3"
+    "react-dom": "^19.3.0"
   }
 }

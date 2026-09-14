@@ -17,7 +17,6 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <script async defer src="https://buttons.github.io/buttons.js" />
         </body>
       </Html>
     );

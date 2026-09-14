@@ -1,11 +1,7 @@
-import Layout from '../components/Layout';
+import Page from '../components/Page';
 
 const Home = () => {
-  return (
-    <Layout title="Moved to innerimagezoom.com">
-      test
-    </Layout>
-  )
+  return <Page />;
 }
 
 export default Home;
