@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 
-const Meta = ({ children, title, description }) => {
+const Meta = ({ title, description }) => {
   return (
     <Head>
       <title>{title ? title + ' - ' : ''}React Inner Image Zoom</title>

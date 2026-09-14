@@ -7,7 +7,7 @@ const Custom404 = () => {
     <Layout>
       <div className={styles.container}>
         <h2>404 - Page Not Found</h2>
-        <p>Oops, looks like that page doesn't exist. Maybe head back <Link href="/"><a>home</a></Link>?</p>
+        {/* <p>Oops, looks like that page doesn't exist. Maybe head back <Link href="/"><a>home</a></Link>?</p> */}
       </div>
     </Layout>
   );
